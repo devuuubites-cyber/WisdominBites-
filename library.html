@@ -31,7 +31,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 60px;display:fl
 .nav-right{display:flex;align-items:center;gap:24px;}
 .nav-search-wrap{position:relative;}
 .nav-search{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.15);color:var(--cream);font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;padding:9px 16px 9px 36px;outline:none;width:220px;transition:all .3s;}
-.nav-search:focus{border-color:var(--gold);background:rgba(201,168,76,0.04);width:280px;}
+.nav-search:focus{border-color:var(--gold);background:rgba(201,168,76,0.04);width:320px;}
 .nav-search::placeholder{color:var(--muted);}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.7rem;pointer-events:none;}
 .nav-count{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--gold);opacity:.7;}
@@ -176,8 +176,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 60px;display:fl
 .finish-btn:hover{color:var(--obsidian);border-color:var(--gold);}
 .finish-btn:hover::before{transform:scaleX(1);}
 .finish-btn span{position:relative;z-index:1;}
-.finish-btn.done{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold);pointer-events:none;}
+.finish-btn.done{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold);}
 .finish-btn.done::before{transform:scaleX(1);background:rgba(201,168,76,.08);}
+.finish-btn.done:hover{background:rgba(232,138,122,.08);border-color:rgba(232,138,122,.5);color:rgba(232,138,122,.8);}
+.finish-btn.done:hover::before{background:rgba(232,138,122,.05);}
 
 /* COMPLETION CELEBRATION */
 #celebCanvas{position:fixed;inset:0;z-index:9980;pointer-events:none;}
@@ -201,6 +203,48 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 60px;display:fl
 .lesson-card.read .read-badge{display:flex;}
 .lesson-card.read{border-color:rgba(201,168,76,.25)!important;}
 .lesson-card.read::after{content:'';position:absolute;inset:0;background:rgba(201,168,76,.025);pointer-events:none;}
+
+/* SEARCH SUGGESTIONS */
+.search-suggestions{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:rgba(8,13,26,0.98);
+  border:1px solid rgba(201,168,76,0.2);
+  backdrop-filter:blur(20px);
+  z-index:9999;
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s;
+  opacity:0;
+  pointer-events:none;
+}
+.search-suggestions.open{
+  max-height:420px;
+  opacity:1;
+  pointer-events:all;
+}
+.suggest-header{
+  font-family:'DM Mono',monospace;
+  font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--muted);padding:10px 16px 6px;
+  border-bottom:1px solid rgba(201,168,76,0.06);
+}
+.suggest-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 16px;cursor:none;
+  transition:background .2s;
+  border-bottom:1px solid rgba(201,168,76,0.04);
+  position:relative;
+}
+.suggest-item:last-child{border-bottom:none;}
+.suggest-item:hover,.suggest-item.active{background:rgba(201,168,76,0.07);}
+.suggest-item:hover .suggest-title,.suggest-item.active .suggest-title{color:var(--gold);}
+.suggest-icon{font-size:.55rem;font-family:'DM Mono',monospace;padding:3px 8px;border:1px solid;flex-shrink:0;}
+.suggest-icon.bias{color:var(--gold);border-color:var(--gold-dim);}
+.suggest-icon.model{color:var(--model-color);border-color:rgba(74,158,186,.4);}
+.suggest-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;color:var(--cream);flex:1;}
+.suggest-title mark{background:transparent;color:var(--gold);font-style:italic;}
+.suggest-tagline{font-family:'Cormorant Garamond',serif;font-size:.75rem;font-style:italic;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.suggest-empty{padding:14px 16px;font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:var(--muted);}
 
 /* VOICE LABEL */
 .audio-voice-label{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-top:2px;font-style:italic;}
@@ -253,11 +297,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 60px;display:fl
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo" onclick="closeOverlay()">Wisdom<span>InBites</span></a>
+  <a href="index.html" class="nav-logo">Wisdom<span>InBites</span></a>
   <div class="nav-right">
     <div class="nav-search-wrap">
       <span class="search-icon">⌕</span>
-      <input class="nav-search" type="text" placeholder="Search ideas..." id="searchInput" oninput="filterCards()">
+      <input class="nav-search" type="text" placeholder="Search ideas..." id="searchInput"
+        oninput="filterCards();updateSuggestions()"
+        onkeydown="handleSuggestKey(event)"
+        onfocus="updateSuggestions()"
+        autocomplete="off">
+      <div class="search-suggestions" id="searchSuggestions"></div>
     </div>
     <span class="nav-count" id="countDisplay">50 lessons</span>
   </div>
@@ -3328,6 +3377,111 @@ function setFilter(f,btn){
 }
 function filterCards(){currentSearch=document.getElementById('searchInput').value;renderGrid();}
 
+// ─── SEARCH SUGGESTIONS ──────────────────────────────────────
+let suggestIndex = -1; // keyboard nav tracker
+
+function updateSuggestions(){
+  const input = document.getElementById('searchInput');
+  const box = document.getElementById('searchSuggestions');
+  const q = input.value.trim().toLowerCase();
+  suggestIndex = -1;
+
+  if(!q){ closeSuggestions(); return; }
+
+  // Match against all lessons — title, tagline, category, thinker name
+  const matches = allLessons.filter(l=>{
+    const voiceLabel = (l.id && voiceScripts[l.id]) ? voiceScripts[l.id].voice.toLowerCase() : '';
+    return l.title.toLowerCase().includes(q)
+      || l.tagline.toLowerCase().includes(q)
+      || l.category.toLowerCase().includes(q)
+      || voiceLabel.includes(q);
+  }).slice(0, 7); // max 7 suggestions like YouTube
+
+  if(!matches.length){
+    box.innerHTML=`<div class="suggest-empty">No ideas found for "${input.value}"</div>`;
+    box.classList.add('open');
+    return;
+  }
+
+  // Highlight matched text
+  function highlight(str, q){
+    const i = str.toLowerCase().indexOf(q);
+    if(i<0) return str;
+    return str.slice(0,i)+'<mark>'+str.slice(i,i+q.length)+'</mark>'+str.slice(i+q.length);
+  }
+
+  const header = `<div class="suggest-header">Ideas</div>`;
+  const items = matches.map((l,i)=>`
+    <div class="suggest-item" id="sug-${i}"
+      onmousedown="pickSuggestion('${l.id}')"
+      onmouseover="setSuggestActive(${i})">
+      <span class="suggest-icon ${l.type}">${l.type==='bias'?'Bias':'Model'}</span>
+      <span class="suggest-title">${highlight(l.title, q)}</span>
+      <span class="suggest-tagline">${l.tagline}</span>
+    </div>`).join('');
+
+  box.innerHTML = header + items;
+  box.classList.add('open');
+}
+
+function setSuggestActive(i){
+  suggestIndex = i;
+  document.querySelectorAll('.suggest-item').forEach((el,j)=>{
+    el.classList.toggle('active', j===i);
+  });
+}
+
+function closeSuggestions(){
+  const box = document.getElementById('searchSuggestions');
+  if(box){ box.classList.remove('open'); box.innerHTML=''; }
+  suggestIndex = -1;
+}
+
+function pickSuggestion(id){
+  const l = allLessons.find(x=>x.id===id);
+  if(!l) return;
+  // Clear search, close suggestions, open lesson
+  document.getElementById('searchInput').value = '';
+  currentSearch = '';
+  closeSuggestions();
+  renderGrid();
+  // Small delay so overlay doesn't fight the grid render
+  setTimeout(()=>openLesson(id), 60);
+}
+
+function handleSuggestKey(e){
+  const box = document.getElementById('searchSuggestions');
+  const items = box ? box.querySelectorAll('.suggest-item') : [];
+  if(!items.length) return;
+
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    suggestIndex = Math.min(suggestIndex+1, items.length-1);
+    setSuggestActive(suggestIndex);
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    suggestIndex = Math.max(suggestIndex-1, 0);
+    setSuggestActive(suggestIndex);
+  } else if(e.key==='Enter'){
+    e.preventDefault();
+    if(suggestIndex>=0 && items[suggestIndex]){
+      // Get the id from the active item's onmousedown
+      const id = items[suggestIndex].getAttribute('onmousedown').match(/'([^']+)'/)[1];
+      pickSuggestion(id);
+    } else {
+      closeSuggestions();
+    }
+  } else if(e.key==='Escape'){
+    closeSuggestions();
+    document.getElementById('searchInput').blur();
+  }
+}
+
+// Close suggestions when clicking outside
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.nav-search-wrap')) closeSuggestions();
+});
+
 // ─── OVERLAY ──────────────────────────────────────────────────
 function openLesson(id){
   currentLessonIndex = visibleLessons.findIndex(l=>l.id===id);
@@ -3393,10 +3547,10 @@ function renderLesson(idx){
 
     <div class="finish-wrap">
       ${readLessons.has(l.id)
-        ? `<button class="finish-btn done" id="finish-btn-${l.id}"><span>✓ Lesson Complete</span></button>`
+        ? `<button class="finish-btn done" id="finish-btn-${l.id}" onclick="unmarkRead('${l.id}')"><span>✓ Lesson Complete</span></button>`
         : `<button class="finish-btn" id="finish-btn-${l.id}" onclick="markRead('${l.id}')"><span>✓ Mark as Complete</span></button>`
       }
-      <p style="margin-top:14px;font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);">${readLessons.has(l.id)?'You\'ve completed this lesson':'Finished reading? Acknowledge your progress.'}</p>
+      <p id="finish-sub-${l.id}" style="margin-top:14px;font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);">${readLessons.has(l.id)?'Tap again to remove completion mark':'Finished reading? Acknowledge your progress.'}</p>
     </div>
 
     <div class="lesson-nav-btns">${prev}${next}</div>
@@ -3419,15 +3573,34 @@ function markRead(id){
   if(readLessons.has(id)) return;
   readLessons.add(id);
   saveRead();
-  // Update button
   const btn = document.getElementById('finish-btn-'+id);
-  if(btn){btn.classList.add('done');btn.innerHTML='<span>✓ Lesson Complete</span>';}
-  // Update card
+  if(btn){
+    btn.classList.add('done');
+    btn.innerHTML='<span>✓ Lesson Complete</span>';
+    btn.setAttribute('onclick',`unmarkRead('${id}')`);
+  }
+  const sub = document.getElementById('finish-sub-'+id);
+  if(sub) sub.textContent='Tap again to remove completion mark';
   const card = document.getElementById('card-'+id);
-  if(card){card.classList.add('read');}
-  // Confetti burst
+  if(card) card.classList.add('read');
   spawnConfetti();
-  // Update section counts
+  renderGrid();
+}
+
+function unmarkRead(id){
+  if(!readLessons.has(id)) return;
+  readLessons.delete(id);
+  saveRead();
+  const btn = document.getElementById('finish-btn-'+id);
+  if(btn){
+    btn.classList.remove('done');
+    btn.innerHTML='<span>✓ Mark as Complete</span>';
+    btn.setAttribute('onclick',`markRead('${id}')`);
+  }
+  const sub = document.getElementById('finish-sub-'+id);
+  if(sub) sub.textContent='Finished reading? Acknowledge your progress.';
+  const card = document.getElementById('card-'+id);
+  if(card) card.classList.remove('read');
   renderGrid();
 }
 
