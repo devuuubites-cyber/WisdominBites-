@@ -1227,6 +1227,518 @@ const lessonData = {
   ]
 };
 
+// ── ALL LESSONS FLAT LIST ──
+const allLessons = [
+  ...lessonData.biases.map(l=>({...l,type:'bias'})),
+  ...lessonData.models.map(l=>({...l,type:'model'}))
+];
+
+// ── STATE ──
+let currentFilter = 'all';
+let currentSearch = '';
+let currentLessonIndex = -1;
+let visibleLessons = allLessons;
+let speechUtterance = null;
+let isSpeaking = false;
+let speechRate = 1;
+
+// ── DAILY DUO ──
+function renderDailyDuo(){
+  const today = new Date();
+  const seed = today.getFullYear()*10000+((today.getMonth()+1)*100)+today.getDate();
+  function seededRand(s){ let x=Math.sin(s)*10000; return x-Math.floor(x); }
+  const biasIdx = Math.floor(seededRand(seed*7)  * lessonData.biases.length);
+  const modelIdx = Math.floor(seededRand(seed*13) * lessonData.models.length);
+  const b = lessonData.biases[biasIdx];
+  const m = lessonData.models[modelIdx];
+  document.getElementById('duoCards').innerHTML = `
+    <div class="duo-card bias" onclick="openLesson('${b.id}')">
+      <div class="duo-card-type">Bias · Today</div>
+      <div class="duo-card-title">${b.icon} ${b.title}</div>
+      <div class="duo-card-tagline">${b.tagline}</div>
+    </div>
+    <div class="duo-card model" onclick="openLesson('${m.id}')">
+      <div class="duo-card-type">Model · Today</div>
+      <div class="duo-card-title">${m.icon} ${m.title}</div>
+      <div class="duo-card-tagline">${m.tagline}</div>
+    </div>`;
+}
+renderDailyDuo();
+
+// ── DIAGRAM GETTER ──
+function getDiagram(id, type){
+  const svg = svgDiagrams[id];
+  const bg = type==='bias'
+    ? 'background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.06),transparent 80%);'
+    : 'background:radial-gradient(ellipse at 50% 0%,rgba(74,158,186,0.06),transparent 80%);';
+  return `<div class="lesson-visual" style="${bg}">
+    <div style="width:100%;max-width:400px;">
+      ${svg || `<div style="text-align:center;color:var(--muted);font-family:monospace;font-size:.7rem;letter-spacing:.1em;opacity:.5;">${id}</div>`}
+    </div>
+  </div>`;
+}
+
+// ── READ TRACKING ──
+const readLessons = new Set(JSON.parse(localStorage.getItem('wib_read')||'[]'));
+function saveRead(){ localStorage.setItem('wib_read',JSON.stringify([...readLessons])); }
+function updateProgressStat(){ document.getElementById('progressNum').textContent = [...readLessons].length; }
+
+// ── RENDER GRID ──
+function renderGrid(){
+  visibleLessons = allLessons.filter(l=>{
+    const mf = currentFilter==='all' || l.type===currentFilter || l.difficulty===currentFilter;
+    const s  = currentSearch.toLowerCase();
+    const ms = !s || l.title.toLowerCase().includes(s) || l.tagline.toLowerCase().includes(s) || l.category.toLowerCase().includes(s);
+    return mf && ms;
+  });
+
+  const biasFiltered  = visibleLessons.filter(l=>l.type==='bias');
+  const modelFiltered = visibleLessons.filter(l=>l.type==='model');
+  const total = visibleLessons.length;
+
+  document.getElementById('countDisplay').textContent = `${total} lesson${total!==1?'s':''}`;
+  document.getElementById('biasCount').textContent   = `${biasFiltered.length} lesson${biasFiltered.length!==1?'s':''}`;
+  document.getElementById('modelCount').textContent  = `${modelFiltered.length} lesson${modelFiltered.length!==1?'s':''}`;
+  document.getElementById('biasSection').style.display  = biasFiltered.length  ? '' : 'none';
+  document.getElementById('modelSection').style.display = modelFiltered.length ? '' : 'none';
+  updateProgressStat();
+
+  const makeCard = (l,i,type) => `
+    <div class="lesson-card ${type}${readLessons.has(l.id)?' read':''}"
+         id="card-${l.id}"
+         onclick="openLesson('${l.id}')"
+         style="animation-delay:${i*0.025}s;">
+      <div class="card-inner-glow"></div>
+      <div class="read-badge">✓</div>
+      <div style="position:relative;z-index:1;">
+        <div class="card-header">
+          <div class="card-num">${l.number}</div>
+          <span class="card-tag">${type==='bias'?'Bias':'Model'}</span>
+        </div>
+        <div class="card-title">${l.title}</div>
+        <div class="card-tagline">${l.tagline}</div>
+        <div class="card-footer">
+          <span class="card-read">⏱ ${l.readTime}</span>
+          <span class="card-difficulty ${l.difficulty}">${l.difficulty}</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>`;
+
+  document.getElementById('biasGrid').innerHTML  = biasFiltered.map((l,i)=>makeCard(l,i,'bias')).join('');
+  document.getElementById('modelGrid').innerHTML = modelFiltered.map((l,i)=>makeCard(l,i,'model')).join('');
+
+  // Apply 3D tilt after render
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.lesson-card').forEach(card=>initCardTilt(card));
+  });
+}
+
+// ── FILTER & SEARCH ──
+function setFilter(f,btn){
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active','active-model'));
+  if(f==='model') btn.classList.add('active-model');
+  else btn.classList.add('active');
+  renderGrid();
+}
+function filterCards(){
+  currentSearch = document.getElementById('searchInput').value;
+  renderGrid();
+}
+
+// ── SEARCH SUGGESTIONS ──
+let suggestIndex = -1;
+
+function updateSuggestions(){
+  const input = document.getElementById('searchInput');
+  const box   = document.getElementById('searchSuggestions');
+  const q = input.value.trim().toLowerCase();
+  suggestIndex = -1;
+  if(!q){ closeSuggestions(); return; }
+
+  const matches = allLessons.filter(l=>
+    l.title.toLowerCase().includes(q) ||
+    l.tagline.toLowerCase().includes(q) ||
+    l.category.toLowerCase().includes(q)
+  ).slice(0,7);
+
+  if(!matches.length){
+    box.innerHTML = `<div class="suggest-empty">No ideas found for "${input.value}"</div>`;
+    box.classList.add('open');
+    return;
+  }
+
+  function highlight(str,q){
+    const i = str.toLowerCase().indexOf(q);
+    if(i<0) return str;
+    return str.slice(0,i)+'<mark>'+str.slice(i,i+q.length)+'</mark>'+str.slice(i+q.length);
+  }
+
+  box.innerHTML = `<div class="suggest-header">Ideas</div>` +
+    matches.map((l,i)=>`
+      <div class="suggest-item" id="sug-${i}"
+        onmousedown="pickSuggestion('${l.id}')"
+        onmouseover="setSuggestActive(${i})">
+        <span class="suggest-icon ${l.type}">${l.type==='bias'?'Bias':'Model'}</span>
+        <span class="suggest-title">${highlight(l.title,q)}</span>
+        <span class="suggest-tagline">${l.tagline}</span>
+      </div>`).join('');
+
+  box.classList.add('open');
+}
+
+function setSuggestActive(i){
+  suggestIndex = i;
+  document.querySelectorAll('.suggest-item').forEach((el,j)=>el.classList.toggle('active',j===i));
+}
+function closeSuggestions(){
+  const box = document.getElementById('searchSuggestions');
+  if(box){ box.classList.remove('open'); box.innerHTML=''; }
+  suggestIndex = -1;
+}
+function pickSuggestion(id){
+  document.getElementById('searchInput').value = '';
+  currentSearch = '';
+  closeSuggestions();
+  renderGrid();
+  setTimeout(()=>openLesson(id), 60);
+}
+function handleSuggestKey(e){
+  const box   = document.getElementById('searchSuggestions');
+  const items = box ? box.querySelectorAll('.suggest-item') : [];
+  if(!items.length) return;
+  if(e.key==='ArrowDown'){ e.preventDefault(); suggestIndex=Math.min(suggestIndex+1,items.length-1); setSuggestActive(suggestIndex); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); suggestIndex=Math.max(suggestIndex-1,0); setSuggestActive(suggestIndex); }
+  else if(e.key==='Enter'){
+    e.preventDefault();
+    if(suggestIndex>=0 && items[suggestIndex]){
+      const id = items[suggestIndex].getAttribute('onmousedown').match(/'([^']+)'/)[1];
+      pickSuggestion(id);
+    } else closeSuggestions();
+  }
+  else if(e.key==='Escape'){ closeSuggestions(); document.getElementById('searchInput').blur(); }
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.nav-search-wrap')) closeSuggestions();
+});
+
+// ── OVERLAY ──
+function openLesson(id){
+  let idx = visibleLessons.findIndex(l=>l.id===id);
+  if(idx===-1){
+    visibleLessons = allLessons;
+    idx = allLessons.findIndex(l=>l.id===id);
+  }
+  renderLesson(idx);
+  document.getElementById('lessonOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  stopAudio();
+}
+function closeOverlay(){
+  stopAudio();
+  document.getElementById('lessonOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('readingProgress').style.width = '0%';
+}
+function goLesson(idx){ renderLesson(idx); stopAudio(); }
+
+function renderLesson(idx){
+  currentLessonIndex = idx;
+  const l     = visibleLessons[idx];
+  const total = visibleLessons.length;
+  document.getElementById('overlayProgress').textContent = `${idx+1} / ${total}`;
+
+  const prev = idx>0
+    ? `<button class="lesson-nav-btn prev" onclick="goLesson(${idx-1})">← Previous</button>` : '';
+  const next = idx<total-1
+    ? `<button class="lesson-nav-btn next" onclick="goLesson(${idx+1})">Next Lesson →</button>` : '';
+
+  document.getElementById('lessonContent').innerHTML = `
+    <div class="lesson-header">
+      ${getDiagram(l.id, l.type)}
+      <span class="lesson-category-tag ${l.type}">${l.category}</span>
+      <div class="lesson-num-large">${l.number}</div>
+      <h1 class="lesson-title-large">${l.title}</h1>
+      <p class="lesson-tagline-large">${l.tagline}</p>
+    </div>
+
+    <div class="lesson-divider"></div>
+
+    <div class="lesson-section">
+      <div class="section-label-small">The Concept</div>
+      <p class="lesson-body">${l.concept}</p>
+    </div>
+    <div class="lesson-section">
+      <div class="section-label-small">The Insight</div>
+      <p class="lesson-body">${l.insight}</p>
+      <div class="citation-block">
+        <p class="citation-text">${l.citation.text}</p>
+        <div class="citation-source">— ${l.citation.source}</div>
+      </div>
+    </div>
+    <div class="lesson-section">
+      <div class="section-label-small">The Example</div>
+      <p class="lesson-body">${l.example}</p>
+    </div>
+    <div class="lesson-section">
+      <div class="section-label-small">The Application</div>
+      <p class="lesson-body application">${l.application}</p>
+    </div>
+
+    <div class="lesson-meta">
+      <span class="meta-chip ${l.difficulty}">${l.difficulty}</span>
+      <span class="meta-chip time">${l.readTime} read</span>
+      <span class="meta-chip time">${l.category}</span>
+    </div>
+
+    <div class="finish-wrap">
+      ${readLessons.has(l.id)
+        ? `<button class="finish-btn done" id="finish-btn-${l.id}" onclick="unmarkRead('${l.id}')"><span>✓ Lesson Complete</span></button>`
+        : `<button class="finish-btn" id="finish-btn-${l.id}" onclick="markRead('${l.id}')"><span>✓ Mark as Complete</span></button>`
+      }
+      <p id="finish-sub-${l.id}" style="margin-top:14px;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);">
+        ${readLessons.has(l.id) ? 'Tap again to remove completion mark' : 'Finished reading? Acknowledge your progress.'}
+      </p>
+    </div>
+
+    <div class="lesson-nav-btns">${prev}${next}</div>`;
+
+  document.getElementById('lessonOverlay').scrollTop = 0;
+  document.getElementById('readingProgress').style.width = '0%';
+  stopAudio();
+  updateAudioStatus(`Press play to hear: ${l.title}`);
+  const vl = document.getElementById('audioVoiceLabel');
+  if(vl) vl.textContent = '';
+}
+
+// ── READ TRACKING ──
+function markRead(id){
+  if(readLessons.has(id)) return;
+  readLessons.add(id); saveRead();
+  const btn = document.getElementById('finish-btn-'+id);
+  if(btn){ btn.classList.add('done'); btn.innerHTML='<span>✓ Lesson Complete</span>'; btn.setAttribute('onclick',`unmarkRead('${id}')`); }
+  const sub = document.getElementById('finish-sub-'+id);
+  if(sub) sub.textContent = 'Tap again to remove completion mark';
+  const card = document.getElementById('card-'+id);
+  if(card) card.classList.add('read');
+  updateProgressStat();
+  spawnConfetti();
+}
+function unmarkRead(id){
+  if(!readLessons.has(id)) return;
+  readLessons.delete(id); saveRead();
+  const btn = document.getElementById('finish-btn-'+id);
+  if(btn){ btn.classList.remove('done'); btn.innerHTML='<span>✓ Mark as Complete</span>'; btn.setAttribute('onclick',`markRead('${id}')`); }
+  const sub = document.getElementById('finish-sub-'+id);
+  if(sub) sub.textContent = 'Finished reading? Acknowledge your progress.';
+  const card = document.getElementById('card-'+id);
+  if(card) card.classList.remove('read');
+  updateProgressStat();
+}
+
+// ── CONFETTI CELEBRATION ──
+function spawnConfetti(){
+  const overlay = document.getElementById('celebOverlay');
+  overlay.classList.remove('flash'); void overlay.offsetWidth; overlay.classList.add('flash');
+  const ring = document.getElementById('celebRing');
+  ring.classList.remove('show'); void ring.offsetWidth; ring.classList.add('show');
+  const words = document.getElementById('celebWords');
+  words.classList.remove('show'); void words.offsetWidth; words.classList.add('show');
+
+  const cc = document.getElementById('celebCanvas');
+  cc.width = window.innerWidth; cc.height = window.innerHeight; cc.style.display = 'block';
+  const cx = cc.getContext('2d');
+  const ox = window.innerWidth/2, oy = window.innerHeight/2;
+  const GOLDS = ['#c9a84c','#e8c97a','#f5efe0','#fff8e1','#e8b030'];
+  const ALL   = [...GOLDS,...GOLDS,'#4a9eba','#7ecb8f','#e8a84c'];
+  const particles = [];
+
+  for(let i=0;i<120;i++){
+    const angle = (Math.PI*2/120)*i + (Math.random()-.5)*.15;
+    const speed = 4 + Math.random()*12;
+    const shapes = ['circle','rect','star','ring'];
+    particles.push({
+      x:ox,y:oy,
+      vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed - Math.random()*3,
+      alpha:1, color:ALL[Math.floor(Math.random()*ALL.length)],
+      size:2.5+Math.random()*5, shape:shapes[Math.floor(Math.random()*shapes.length)],
+      rot:Math.random()*Math.PI*2, rotV:(Math.random()-.5)*.25,
+      gravity:.10+Math.random()*.08, decay:.013+Math.random()*.01, trail:[]
+    });
+  }
+  for(let i=0;i<50;i++){
+    particles.push({
+      x:ox+(Math.random()-.5)*80, y:oy+80,
+      vx:(Math.random()-.5)*2.5, vy:-(6+Math.random()*10),
+      alpha:1, color:GOLDS[Math.floor(Math.random()*GOLDS.length)],
+      size:1.5+Math.random()*2.5, shape:'circle',
+      rot:0, rotV:0, gravity:.08, decay:.02+Math.random()*.012, trail:[], isSpark:true
+    });
+  }
+
+  const rings=[
+    {r:0,maxR:180,alpha:.6,speed:8,color:'#c9a84c',active:true},
+    {r:0,maxR:260,alpha:.4,speed:5,color:'#e8c97a',active:false,delayLeft:8},
+    {r:0,maxR:340,alpha:.25,speed:3,color:'#c9a84c',active:false,delayLeft:18}
+  ];
+
+  function drawStar(ctx,x,y,r,color,alpha){
+    ctx.save(); ctx.globalAlpha=alpha; ctx.fillStyle=color; ctx.beginPath();
+    for(let i=0;i<5;i++){
+      const a=(Math.PI*2/5)*i-Math.PI/2; const ai=a+Math.PI/5;
+      ctx.lineTo(x+Math.cos(a)*r, y+Math.sin(a)*r);
+      ctx.lineTo(x+Math.cos(ai)*r*.42, y+Math.sin(ai)*r*.42);
+    }
+    ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+
+  let frame = 0;
+  function animCeleb(){
+    cx.clearRect(0,0,cc.width,cc.height);
+    let alive = false;
+
+    rings.forEach(rr=>{
+      if(rr.delayLeft>0){ rr.delayLeft--; return; }
+      if(!rr.active) rr.active=true;
+      if(rr.r<rr.maxR){
+        rr.r+=rr.speed;
+        const a=rr.alpha*(1-rr.r/rr.maxR);
+        cx.beginPath(); cx.arc(ox,oy,rr.r,0,Math.PI*2);
+        cx.strokeStyle=rr.color; cx.globalAlpha=a; cx.lineWidth=3; cx.stroke(); cx.globalAlpha=1;
+        alive=true;
+      }
+    });
+
+    for(const p of particles){
+      if(p.alpha<=0) continue; alive=true;
+      if(p.isSpark){
+        p.trail.push({x:p.x,y:p.y,a:p.alpha});
+        if(p.trail.length>8) p.trail.shift();
+        p.trail.forEach((tp,ti)=>{
+          const ta=(ti/p.trail.length)*p.alpha*.4;
+          cx.beginPath(); cx.arc(tp.x,tp.y,p.size*.5,0,Math.PI*2);
+          cx.fillStyle=p.color; cx.globalAlpha=ta; cx.fill(); cx.globalAlpha=1;
+        });
+      }
+      p.x+=p.vx; p.y+=p.vy; p.vy+=p.gravity; p.vx*=.99;
+      p.rot+=p.rotV; p.alpha-=p.decay; if(p.alpha<0) p.alpha=0;
+      cx.save(); cx.globalAlpha=p.alpha; cx.translate(p.x,p.y); cx.rotate(p.rot);
+      if(p.shape==='circle'){
+        const g=cx.createRadialGradient(0,0,0,0,0,p.size*2);
+        g.addColorStop(0,p.color); g.addColorStop(.5,p.color+'99'); g.addColorStop(1,'transparent');
+        cx.beginPath(); cx.arc(0,0,p.size*2,0,Math.PI*2); cx.fillStyle=g; cx.fill();
+        cx.beginPath(); cx.arc(0,0,p.size*.5,0,Math.PI*2); cx.fillStyle='#ffffff'; cx.fill();
+      } else if(p.shape==='rect'){
+        cx.fillStyle=p.color; cx.fillRect(-p.size*.5,-p.size*1.8,p.size,p.size*3.6);
+      } else if(p.shape==='ring'){
+        cx.strokeStyle=p.color; cx.lineWidth=1.5;
+        cx.beginPath(); cx.arc(0,0,p.size,0,Math.PI*2); cx.stroke();
+      } else {
+        cx.restore(); drawStar(cx,p.x,p.y,p.size*1.8,p.color,p.alpha); continue;
+      }
+      cx.restore();
+    }
+
+    if(frame<30){
+      const ga=(.35-frame/30*.35)*(1+Math.sin(frame*.5)*.3);
+      const gg=cx.createRadialGradient(ox,oy,0,ox,oy,100);
+      gg.addColorStop(0,`rgba(201,168,76,${ga})`); gg.addColorStop(1,'rgba(201,168,76,0)');
+      cx.beginPath(); cx.arc(ox,oy,100,0,Math.PI*2); cx.fillStyle=gg; cx.fill();
+    }
+
+    frame++;
+    if(alive && frame<280) requestAnimationFrame(animCeleb);
+    else{ cc.style.display='none'; cx.clearRect(0,0,cc.width,cc.height); }
+  }
+  animCeleb();
+  setTimeout(()=>{ ring.classList.remove('show'); words.classList.remove('show'); }, 3200);
+}
+
+// ── AUDIO PLAYER ──
+function buildAudioText(l){
+  return `${l.title}. ${l.tagline}. The Concept. ${l.concept} The Insight. ${l.insight} The Example. ${l.example} The Application. ${l.application}`;
+}
+
+function toggleAudio(){
+  if(!('speechSynthesis' in window)){
+    alert('Text-to-speech is not supported in your browser. Try Chrome or Edge.');
+    return;
+  }
+  if(isSpeaking) stopAudio();
+  else startAudio();
+}
+
+function startAudio(){
+  const l = visibleLessons[currentLessonIndex];
+  if(!l) return;
+  stopAudio();
+  speechUtterance = new SpeechSynthesisUtterance(buildAudioText(l));
+  speechUtterance.rate  = parseFloat(speechRate);
+  speechUtterance.pitch = 1;
+  speechUtterance.lang  = 'en-US';
+  const voices   = speechSynthesis.getVoices();
+  const preferred = voices.find(v=>v.name.includes('Google')&&v.lang==='en-US')
+    || voices.find(v=>v.lang==='en-US'&&!v.name.includes('Microsoft'))
+    || voices[0];
+  if(preferred) speechUtterance.voice = preferred;
+  speechUtterance.onstart = ()=>{ isSpeaking=true; updateAudioUI(true,l.title); };
+  speechUtterance.onend   = ()=>{ isSpeaking=false; updateAudioUI(false,l.title); };
+  speechUtterance.onerror = ()=>{ isSpeaking=false; updateAudioUI(false,'Playback error'); };
+  speechSynthesis.speak(speechUtterance);
+}
+
+function stopAudio(){
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+  isSpeaking = false;
+  const l = visibleLessons[currentLessonIndex];
+  updateAudioUI(false, l ? l.title : '');
+}
+
+function updateAudioUI(playing, title){
+  const btn    = document.getElementById('audioBtn');
+  const bars   = document.getElementById('audioBars');
+  const player = document.getElementById('audioPlayer');
+  if(playing){
+    btn.textContent = '⏸';
+    btn.classList.add('playing');
+    bars.classList.add('audio-playing');
+    player.classList.add('audio-playing');
+    updateAudioStatus(`Now reading: ${title}`);
+  } else {
+    btn.textContent = '▶';
+    btn.classList.remove('playing');
+    bars.classList.remove('audio-playing');
+    player.classList.remove('audio-playing');
+    updateAudioStatus(title ? `Press play to hear: ${title}` : 'Press play to hear this lesson');
+  }
+}
+function updateAudioStatus(msg){ document.getElementById('audioStatus').textContent = msg; }
+function changeSpeed(v){
+  speechRate = parseFloat(v);
+  if(isSpeaking) startAudio();
+}
+
+// Voice load fix for Chrome
+if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged = ()=>{}; }
+
+// ── KEYBOARD SHORTCUTS ──
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeOverlay();
+  if(e.key==='ArrowRight' && document.getElementById('lessonOverlay').classList.contains('open')){
+    if(currentLessonIndex < visibleLessons.length-1) goLesson(currentLessonIndex+1);
+  }
+  if(e.key==='ArrowLeft' && document.getElementById('lessonOverlay').classList.contains('open')){
+    if(currentLessonIndex > 0) goLesson(currentLessonIndex-1);
+  }
+});
+
+// ── INIT ──
+renderGrid();
+</script>
+</body>
+</html>
+
 
 
 
