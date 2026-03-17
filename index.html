@@ -241,16 +241,20 @@
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
-  .btn-primary:hover {
-    box-shadow: 0 0 30px rgba(201,168,76,0.25);
-    transform: translateY(-2px);
+   .btn-primary:hover {
+      box-shadow: 
+      0 0 20px rgba(201,168,76,0.25),
+      0 0 40px rgba(201,168,76,0.15),
+      0 10px 30px rgba(0,0,0,0.4);
+      transform: translateY(-3px) scale(1.02);
 }
   .btn-primary::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--gold-light);
+    background: rgba(232,201,122,0.4);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s;
