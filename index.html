@@ -43,9 +43,9 @@
   color: var(--cream-dim);
   opacity: 0.7;
 }
-  body 
-  <div id="progress-bar"></div>
-  {
+  body {
+    <body><div id="progress-bar"></div>
+  
     background: var(--obsidian);
     color: var(--cream);
     font-family: 'Cormorant Garamond', serif;
@@ -1573,12 +1573,16 @@
       card.style.transform = '';
     });
   });
-</script>
+  <script>
+  // existing code...
+
   window.addEventListener("scroll", () => {
-  let scrollTop = document.documentElement.scrollTop;
-  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  let progress = (scrollTop / height) * 100;
-  document.getElementById("progress-bar").style.width = progress + "%";
-});
+    let scrollTop = document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let progress = (scrollTop / height) * 100;
+    document.getElementById("progress-bar").style.width = progress + "%";
+  });
+</script>
+</script>
 </body>
 </html>
