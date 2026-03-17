@@ -1480,7 +1480,16 @@
     ring.style.top = ry + 'px';
     requestAnimationFrame(animateCursor);
   })();
-  document.querySelectorAll('a,button').forEach(el => {
+  document.querySelectorAll('a,button,.model-item,.bias-card,.who-card')
+  // Cursor context awareness
+document.querySelectorAll('.model-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.background = '#1e6b7a';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.background = 'var(--gold)';
+  });
+});{
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '20px'; cursor.style.height = '20px';
       ring.style.width = '60px'; ring.style.height = '60px';
