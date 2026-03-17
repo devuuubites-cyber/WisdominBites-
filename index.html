@@ -1716,5 +1716,78 @@ document.querySelectorAll('button, a').forEach(el => {
     document.getElementById("progress-bar").style.width = scrolled + "%";
   });
 </script>
+  <script>
+    // 1. Scroll Reveal Logic (This makes the text appear as you scroll)
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach((el) => {
+        observer.observe(el);
+    });
+
+    // 2. Custom Cursor Logic (Since you have 'cursor: none' in CSS)
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        ring.style.left = e.clientX + 'px';
+        ring.style.top = e.clientY + 'px';
+    });
+
+    // 3. Starfield Background Logic (The moving stars)
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for(let i=0; i<150; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 1.5,
+            speed: Math.random() * 0.5
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#c9a84c';
+        stars.forEach(star => {
+            star.y -= star.speed;
+            if(star.y < 0) star.y = canvas.height;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
+            ctx.fill();
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // 4. Progress Bar Logic
+    window.addEventListener('scroll', () => {
+        const winScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progress-bar").style.width = scrolled + "%";
+    });
+</script>
 </body>
 </html>
