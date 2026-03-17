@@ -1618,6 +1618,18 @@
     let progress = (scrollTop / height) * 100;
     document.getElementById("progress-bar").style.width = progress + "%";
   });
+  // Global parallax depth
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+
+  document.querySelectorAll('.hero-orb').forEach(el => {
+    el.style.transform = `translate(-50%, -50%) scale(1) translateY(${scrolled * 0.05}px)`;
+  });
+
+  document.querySelectorAll('#starfield').forEach(el => {
+    el.style.transform = `translateY(${scrolled * 0.02}px)`;
+  });
+});
 </script>
 </body>
 </html>
