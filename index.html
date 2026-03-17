@@ -1481,6 +1481,12 @@
 </footer>
 
 <script>
+  const isTouch = window.matchMedia("(hover: none)").matches;
+
+if (isTouch) {
+  document.getElementById('cursor').style.display = 'none';
+  document.getElementById('cursorRing').style.display = 'none';
+}
 // Cursor interactions (FIXED)
 document.querySelectorAll('a,button,.model-item,.bias-card,.who-card').forEach(el => {
 
