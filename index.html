@@ -35,7 +35,14 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
-
+.pause {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin: 120px 0;
+  color: var(--cream-dim);
+  opacity: 0.7;
+}
   body 
   <div id="progress-bar"></div>{
     background: var(--obsidian);
@@ -137,7 +144,11 @@
     position: relative;
     z-index: 1;
   }
-
+<div class="pause">
+  Pause.
+  <br><br>
+  What did you just understand?
+</div>
   /* ==================== HERO ==================== */
   #hero {
     min-height: 100vh;
