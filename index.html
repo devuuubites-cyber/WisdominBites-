@@ -1593,30 +1593,6 @@ document.querySelectorAll('.model-item').forEach(el => {
       card.style.transform = '';
     });
   });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  reveals.forEach(el => io.observe(el));
-
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 80) {
-      nav.style.padding = '16px 60px';
-      nav.style.background = 'rgba(6,8,16,0.95)';
-    } else {
-      nav.style.padding = '24px 60px';
-      nav.style.background = 'rgba(6,8,16,0.7)';
-    }
-  });
-
   // Bias cards 3D tilt
   document.querySelectorAll('.bias-card').forEach(card => {
     card.addEventListener('mousemove', e => {
@@ -1628,32 +1604,34 @@ document.querySelectorAll('.model-item').forEach(el => {
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
     });
-  });
-  // Progress bar
-  window.addEventListener("scroll", () => {
-    let scrollTop = document.documentElement.scrollTop;
-    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    let progress = (scrollTop / height) * 100;
-    document.getElementById("progress-bar").style.width = progress + "%";
-  });
-// Global parallax depth
-window.addEventListener('scroll', () => {
+ window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
 
+  // NAV
+  const nav = document.querySelector('nav');
+  if (scrolled > 80) {
+    nav.style.padding = '16px 60px';
+    nav.style.background = 'rgba(6,8,16,0.95)';
+  } else {
+    nav.style.padding = '24px 60px';
+    nav.style.background = 'rgba(6,8,16,0.7)';
+  }
+
+  // PROGRESS BAR
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  let progress = (scrolled / height) * 100;
+  document.getElementById("progress-bar").style.width = progress + "%";
+
+  // PARALLAX
   document.querySelector('.hero-orb').style.transform =
     `translate(-50%, -50%) translateY(${scrolled * 0.05}px)`;
 
   document.getElementById('starfield').style.transform =
     `translateY(${scrolled * 0.02}px)`;
-});
 
-// Section fade layering
-const sections = document.querySelectorAll('section');
-
-window.addEventListener('scroll', () => {
+  // SECTION FADE
   const trigger = window.innerHeight * 0.85;
-
-  sections.forEach(sec => {
+  document.querySelectorAll('section').forEach(sec => {
     const rect = sec.getBoundingClientRect();
     if (rect.top < trigger) {
       sec.style.opacity = 1;
@@ -1663,6 +1641,17 @@ window.addEventListener('scroll', () => {
       sec.style.transform = 'translateY(40px)';
     }
   });
+
+});
+  // Global parallax depth
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+
+  document.querySelector('.hero-orb').style.transform =
+    `translate(-50%, -50%) translateY(${scrolled * 0.05}px)`;
+
+  document.getElementById('starfield').style.transform =
+    `translateY(${scrolled * 0.02}px)`;
 });
   // Subtle click feedback
 document.querySelectorAll('button').forEach(btn => {
