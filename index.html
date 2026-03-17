@@ -52,9 +52,17 @@
   font-size: 18px;
   line-height: 1.7;
   overflow-x: hidden;
-  cursor: none;
+  
 }
-
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+  .cursor,
+  .cursor-ring {
+    display: none;
+  }
+}
   
     
   /* Custom Cursor */
