@@ -261,8 +261,7 @@
     transform-origin: left;
     transition: transform 0.3s;
   }
-  .btn-primary:hover::after { transform: scaleX(1);
-                              position: relative;  }
+  .btn-primary:hover::after { transform: scaleX(1); }
   .btn-primary span { position: relative; z-index: 1; }
 
   .btn-primary::before {
@@ -1505,7 +1504,8 @@ document.querySelectorAll('.model-item').forEach(el => {
   el.addEventListener('mouseleave', () => {
     cursor.style.background = 'var(--gold)';
   });
-});{
+});
+  {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '20px'; cursor.style.height = '20px';
       ring.style.width = '60px'; ring.style.height = '60px';
@@ -1643,21 +1643,21 @@ document.querySelectorAll('.model-item').forEach(el => {
     let progress = (scrollTop / height) * 100;
     document.getElementById("progress-bar").style.width = progress + "%";
   });
-  // Global parallax depth
+// Global parallax depth
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
 
-  document.querySelectorAll('.hero-orb').forEach(el => {
-    el.style.transform = `translate(-50%, -50%) scale(1) translateY(${scrolled * 0.05}px)`;
-  });
+  document.querySelector('.hero-orb').style.transform =
+    `translate(-50%, -50%) translateY(${scrolled * 0.05}px)`;
 
-  document.querySelectorAll('#starfield').forEach(el => {
-    el.style.transform = `translateY(${scrolled * 0.02}px)`;
+  document.getElementById('starfield').style.transform =
+    `translateY(${scrolled * 0.02}px)`;
+});
 
-  // Section fade layering
-  const sections = document.querySelectorAll('section');
+// Section fade layering
+const sections = document.querySelectorAll('section');
 
-  window.addEventListener('scroll', () => {
+window.addEventListener('scroll', () => {
   const trigger = window.innerHeight * 0.85;
 
   sections.forEach(sec => {
@@ -1671,7 +1671,6 @@ window.addEventListener('scroll', () => {
     }
   });
 });
-  });
 });
   // Subtle click feedback
 document.querySelectorAll('button').forEach(btn => {
