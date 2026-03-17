@@ -6,7 +6,18 @@
 <title>WisdomInBites — Wisdom in Minutes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
+
+  <style>
+  #progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--gold);
+  z-index: 9999;
+  transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
   :root {
     --obsidian: #060810;
     --deep-navy: #080d1a;
@@ -25,17 +36,35 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
-
+.pause {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin: 120px 0;
+  color: var(--cream-dim);
+  opacity: 0.7;
+}
+  
   body {
-    background: var(--obsidian);
-    color: var(--cream);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    line-height: 1.7;
-    overflow-x: hidden;
-    cursor: none;
+  background: radial-gradient(circle at 50% 20%, rgba(201,168,76,0.05), transparent 60%), var(--obsidian);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor : none;
+}
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
   }
-
+  .cursor,
+  .cursor-ring {
+    display: none;
+  }
+}
+  
+    
   /* Custom Cursor */
   .cursor {
     position: fixed;
@@ -125,6 +154,7 @@
   section {
     position: relative;
     z-index: 1;
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   /* ==================== HERO ==================== */
@@ -158,7 +188,7 @@
     letter-spacing: -0.02em;
     margin-bottom: 36px;
     opacity: 0;
-    animation: fadeUp 1s 0.5s forwards;
+    animation: float 6s ease-in-out infinite;
   }
   .hero-title .line1 { display: block; color: var(--cream); }
   .hero-title .line2 {
@@ -167,6 +197,7 @@
     color: transparent;
     -webkit-text-stroke: 1px var(--gold);
     paint-order: stroke fill;
+    text-shadow: 0 0 20px rgba(201,168,76,0.2);
   }
 
   .hero-sub {
@@ -186,7 +217,6 @@
     color: var(--cream-dim);
     max-width: 480px;
     margin: 0 auto 56px;
-    opacity: 0.7;
     opacity: 0;
     animation: fadeUp 1s 0.9s forwards;
   }
@@ -213,18 +243,39 @@
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
+   .btn-primary:hover {
+      box-shadow: 
+      0 0 20px rgba(201,168,76,0.25),
+      0 0 40px rgba(201,168,76,0.15),
+      0 10px 30px rgba(0,0,0,0.4);
+      transform: translateY(-3px) scale(1.02);
+}
   .btn-primary::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--gold-light);
+    background: rgba(232,201,122,0.4);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s;
   }
   .btn-primary:hover::after { transform: scaleX(1); }
   .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(201,168,76,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+  .btn-primary:hover::before {
+  opacity: 1;
+}
 
   .btn-secondary {
     font-family: 'DM Mono', monospace;
@@ -300,6 +351,7 @@
     background: linear-gradient(to bottom, var(--gold-dim), transparent);
     animation: scrollDrop 2s ease-in-out infinite;
   }
+
 
   /* ==================== DIVIDER ==================== */
   .section-divider {
@@ -915,6 +967,7 @@
   }
 
   /* ==================== CTA ==================== */
+
   #cta {
     padding: 180px 60px;
     text-align: center;
@@ -1063,6 +1116,7 @@
 </style>
 </head>
 <body>
+<div id="progress-bar"></div>
 
 <!-- Custom Cursor -->
 <div class="cursor" id="cursor"></div>
@@ -1094,14 +1148,20 @@
   <p class="hero-desc">Most people spend years collecting information. Very few learn the ideas that actually improve how they think.</p>
   <div class="hero-buttons">
     <button class="btn-primary" onclick="window.location.href='library.html'"><span>Explore Ideas</span></button>
-    <button class="btn-secondary" onclick="window.location.href='library.html'">Start Learning</button>
+    <button class="btn-secondary" onclick="document.getElementById('learn').scrollIntoView({behavior: 'smooth'})">
+  Learn More
+</button>
   </div>
-  <p class="hero-support">A growing library of timeless ideas for the modern mind</p>
+  <p class="hero-support">Built on psychology, decision science, and timeless intellectual frameworks</p>
   <div class="scroll-hint">
     <span>Scroll</span>
     <div class="scroll-line"></div>
   </div>
 </section>
+<div class="pause reveal">
+  Pause.<br><br>
+  What did you just understand?
+</div>
 
 <div class="section-divider"></div>
 
@@ -1132,7 +1192,10 @@
     </div>
   </div>
 </section>
-
+<div class="pause reveal">
+  Information is everywhere.<br>
+  Understanding is rare.
+</div>
 <div class="section-divider"></div>
 
 <!-- ==================== WHY THINKING FAILS ==================== -->
@@ -1303,6 +1366,10 @@
     </div>
   </div>
 </section>
+<div class="pause reveal">
+  Passive learning feels productive.<br><br>
+  Active thinking creates real understanding.
+</div>
 
 <div class="section-divider"></div>
 
@@ -1383,6 +1450,10 @@
 <div class="section-divider"></div>
 
 <!-- ==================== CTA ==================== -->
+<div class="pause reveal">
+  Most people consume ideas.<br>
+  Very few change how they think.
+</div>
 <section id="cta">
   <div class="cta-inner reveal">
     <div class="cta-eyebrow">Begin Your Journey</div>
@@ -1390,7 +1461,8 @@
     <p class="cta-body">Powerful ideas do not always require hours of study. Sometimes a single insight can transform how you approach a problem or interpret a situation.</p>
     <div class="hero-buttons">
       <button class="btn-primary" onclick="window.location.href='library.html'"><span>Explore the Library</span></button>
-      <button class="btn-secondary" onclick="window.location.href='library.html'">Start Learning</button>
+      <button class="btn-secondary" onclick="document.getElementById('learn').scrollIntoView({behavior: 'smooth'})">See What You’ll Learn
+      </button>
     </div>
     <div class="cta-line"></div>
   </div>
@@ -1409,151 +1481,203 @@
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  (function animateCursor() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  })();
-  document.querySelectorAll('a,button').forEach(el => {
+  // ===============================
+// DEVICE DETECTION
+// ===============================
+const isTouch = window.matchMedia("(hover: none)").matches;
+
+// ===============================
+// CURSOR SETUP
+// ===============================
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+
+if (isTouch) {
+  if (cursor) cursor.style.display = 'none';
+  if (ring) ring.style.display = 'none';
+}
+
+// Cursor movement (desktop only)
+if (!isTouch && cursor && ring) {
+  document.addEventListener('mousemove', e => {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    ring.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+  });
+}
+
+// ===============================
+// CURSOR INTERACTIONS
+// ===============================
+if (!isTouch && cursor && ring) {
+
+  document.querySelectorAll('a, button, .model-item, .bias-card, .who-card').forEach(el => {
+
     el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px'; cursor.style.height = '20px';
-      ring.style.width = '60px'; ring.style.height = '60px';
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+    });
+
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '40px';
+      ring.style.height = '40px';
+      cursor.style.background = 'var(--gold)';
+    });
+
+  });
+
+  // Special context for model items
+  document.querySelectorAll('.model-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.background = '#1e6b7a';
     });
     el.addEventListener('mouseleave', () => {
-      cursor.style.width = '12px'; cursor.style.height = '12px';
-      ring.style.width = '40px'; ring.style.height = '40px';
+      cursor.style.background = 'var(--gold)';
     });
   });
 
-  // Starfield
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  let W, H, stars = [], mouse = {x: 0, y: 0};
+}
 
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+// ===============================
+// STARFIELD GENERATION
+// ===============================
+const starfield = document.getElementById('starfield');
+
+if (starfield) {
+  for (let i = 0; i < 120; i++) {
+    let star = document.createElement('span');
+    star.style.position = 'absolute';
+    star.style.width = Math.random() * 2 + 'px';
+    star.style.height = star.style.width;
+    star.style.background = 'white';
+    star.style.opacity = Math.random();
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.borderRadius = '50%';
+    starfield.appendChild(star);
   }
+}
 
-  function initStars() {
-    stars = [];
-    for (let i = 0; i < 180; i++) {
-      stars.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: Math.random() * 1.2 + 0.2,
-        alpha: Math.random() * 0.6 + 0.1,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.15,
-        pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.01 + 0.005,
-      });
-    }
-  }
+// ===============================
+// SMOOTH SCROLL SYSTEM (OPTIMIZED)
+// ===============================
+let ticking = false;
 
-  function drawStars() {
-    ctx.clearRect(0, 0, W, H);
-    const time = Date.now() * 0.001;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
 
-    // Connection lines
-    for (let i = 0; i < stars.length; i++) {
-      for (let j = i + 1; j < stars.length; j++) {
-        const dx = stars[i].x - stars[j].x;
-        const dy = stars[i].y - stars[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(stars[i].x, stars[i].y);
-          ctx.lineTo(stars[j].x, stars[j].y);
-          ctx.strokeStyle = `rgba(201,168,76,${0.03 * (1 - dist/100)})`;
-          ctx.stroke();
+      const scrolled = window.scrollY;
+
+      // NAVBAR EFFECT
+      const nav = document.querySelector('nav');
+      if (nav) {
+        if (scrolled > 80) {
+          nav.style.padding = '16px 60px';
+          nav.style.background = 'rgba(6,8,16,0.95)';
+        } else {
+          nav.style.padding = '24px 60px';
+          nav.style.background = 'rgba(6,8,16,0.7)';
         }
       }
-    }
 
-    // Stars
-    stars.forEach(s => {
-      s.pulse += s.pulseSpeed;
-      const alpha = s.alpha * (0.7 + 0.3 * Math.sin(s.pulse));
-      s.x += s.vx + (mouse.x/W - 0.5) * 0.03;
-      s.y += s.vy + (mouse.y/H - 0.5) * 0.03;
-      if (s.x < 0) s.x = W;
-      if (s.x > W) s.x = 0;
-      if (s.y < 0) s.y = H;
-      if (s.y > H) s.y = 0;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,168,76,${alpha})`;
-      ctx.fill();
-    });
-
-    requestAnimationFrame(drawStars);
-  }
-
-  document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener('resize', () => { resize(); initStars(); });
-  resize(); initStars(); drawStars();
-
-  // 3D card mouse tilt
-  document.querySelectorAll('.card-3d').forEach(card => {
-    const wrapper = card.closest('.card-3d-wrapper');
-    wrapper.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const rx2 = (e.clientY - cy) / (r.height / 2) * -8;
-      const ry2 = (e.clientX - cx) / (r.width / 2) * 8;
-      card.style.transform = `rotateX(${rx2}deg) rotateY(${ry2}deg) translateZ(20px)`;
-    });
-    wrapper.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
+      // PROGRESS BAR
+      const progressBar = document.getElementById("progress-bar");
+      if (progressBar) {
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let progress = (scrolled / height) * 100;
+        progressBar.style.width = progress + "%";
       }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-  reveals.forEach(el => io.observe(el));
 
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 80) {
-      nav.style.padding = '16px 60px';
-      nav.style.background = 'rgba(6,8,16,0.95)';
-    } else {
-      nav.style.padding = '24px 60px';
-      nav.style.background = 'rgba(6,8,16,0.7)';
-    }
+      // PARALLAX EFFECTS
+      const orb = document.querySelector('.hero-orb');
+      const stars = document.getElementById('starfield');
+
+      if (orb) {
+        orb.style.transform = `translate(-50%, -50%) translateY(${scrolled * 0.05}px)`;
+      }
+
+      if (stars) {
+        stars.style.transform = `translateY(${scrolled * 0.02}px)`;
+      }
+
+      // SECTION FADE-IN
+      const trigger = window.innerHeight * 0.85;
+
+      document.querySelectorAll('section').forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+
+        if (rect.top < trigger) {
+          sec.style.opacity = 1;
+          sec.style.transform = 'translateY(0)';
+        } else {
+          sec.style.opacity = 0.6;
+          sec.style.transform = 'translateY(40px)';
+        }
+      });
+
+      ticking = false;
+
+    });
+
+    ticking = true;
+  }
+});
+
+// ===============================
+// BIAS CARD 3D TILT EFFECT
+// ===============================
+document.querySelectorAll('.bias-card').forEach(card => {
+
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+
+    card.style.transform =
+      `translateY(-8px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
   });
 
-  // Bias cards 3D tilt
-  document.querySelectorAll('.bias-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = `translateY(-8px) rotateX(${-y*10}deg) rotateY(${x*10}deg)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
   });
+
+});
+
+// ===============================
+// MAGNETIC BUTTON EFFECT
+// ===============================
+document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+
+  btn.addEventListener('mousemove', e => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.2}px)`;
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+
+});
+
+// ===============================
+// BUTTON CLICK FEEDBACK
+// ===============================
+document.querySelectorAll('button, a').forEach(el => {
+  el.addEventListener('click', () => {
+    el.style.transform = 'scale(0.96)';
+
+    setTimeout(() => {
+      el.style.transform = '';
+    }, 150);
+  });
+});
 </script>
 </body>
 </html>
