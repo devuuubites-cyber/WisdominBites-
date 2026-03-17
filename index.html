@@ -154,6 +154,7 @@
   section {
     position: relative;
     z-index: 1;
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   /* ==================== HERO ==================== */
@@ -1637,6 +1638,24 @@ window.addEventListener('scroll', () => {
 
   document.querySelectorAll('#starfield').forEach(el => {
     el.style.transform = `translateY(${scrolled * 0.02}px)`;
+
+  // Section fade layering
+  const sections = document.querySelectorAll('section');
+
+  window.addEventListener('scroll', () => {
+  const trigger = window.innerHeight * 0.85;
+
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < trigger) {
+      sec.style.opacity = 1;
+      sec.style.transform = 'translateY(0)';
+    } else {
+      sec.style.opacity = 0.6;
+      sec.style.transform = 'translateY(40px)';
+    }
+  });
+});
   });
 });
 </script>
