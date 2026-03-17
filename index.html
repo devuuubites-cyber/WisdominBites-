@@ -1481,22 +1481,26 @@
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  (function animateCursor() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  })();
-  document.querySelectorAll('a,button,.model-item,.bias-card,.who-card')
-  // Cursor context awareness
+// Cursor interactions (FIXED)
+document.querySelectorAll('a,button,.model-item,.bias-card,.who-card').forEach(el => {
+
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+    ring.style.width = '60px';
+    ring.style.height = '60px';
+  });
+
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px';
+    cursor.style.height = '12px';
+    ring.style.width = '40px';
+    ring.style.height = '40px';
+  });
+
+});
+
+// Cursor context awareness (keep separate)
 document.querySelectorAll('.model-item').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor.style.background = '#1e6b7a';
@@ -1505,17 +1509,6 @@ document.querySelectorAll('.model-item').forEach(el => {
     cursor.style.background = 'var(--gold)';
   });
 });
-  {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px'; cursor.style.height = '20px';
-      ring.style.width = '60px'; ring.style.height = '60px';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '12px'; cursor.style.height = '12px';
-      ring.style.width = '40px'; ring.style.height = '40px';
-    });
-  });
-
   // Starfield
   const canvas = document.getElementById('starfield');
   const ctx = canvas.getContext('2d');
