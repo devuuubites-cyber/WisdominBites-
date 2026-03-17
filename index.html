@@ -1481,191 +1481,201 @@
 </footer>
 
 <script>
-  const isTouch = window.matchMedia("(hover: none)").matches;
+  // ===============================
+// DEVICE DETECTION
+// ===============================
+const isTouch = window.matchMedia("(hover: none)").matches;
+
+// ===============================
+// CURSOR SETUP
+// ===============================
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
 
 if (isTouch) {
-  document.getElementById('cursor').style.display = 'none';
-  document.getElementById('cursorRing').style.display = 'none';
+  if (cursor) cursor.style.display = 'none';
+  if (ring) ring.style.display = 'none';
 }
-// Cursor interactions (FIXED)
-document.querySelectorAll('a,button,.model-item,.bias-card,.who-card').forEach(el => {
 
-  el.addEventListener('mouseenter', () => {
-    cursor.style.width = '20px';
-    cursor.style.height = '20px';
-    ring.style.width = '60px';
-    ring.style.height = '60px';
+// Cursor movement (desktop only)
+if (!isTouch && cursor && ring) {
+  document.addEventListener('mousemove', e => {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    ring.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+  });
+}
+
+// ===============================
+// CURSOR INTERACTIONS
+// ===============================
+if (!isTouch && cursor && ring) {
+
+  document.querySelectorAll('a, button, .model-item, .bias-card, .who-card').forEach(el => {
+
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+    });
+
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '40px';
+      ring.style.height = '40px';
+      cursor.style.background = 'var(--gold)';
+    });
+
   });
 
-  el.addEventListener('mouseleave', () => {
-    cursor.style.width = '12px';
-    cursor.style.height = '12px';
-    ring.style.width = '40px';
-    ring.style.height = '40px';
+  // Special context for model items
+  document.querySelectorAll('.model-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.background = '#1e6b7a';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.background = 'var(--gold)';
+    });
   });
 
-});
+}
 
-// Cursor context awareness (keep separate)
-document.querySelectorAll('.model-item').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.background = '#1e6b7a';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.background = 'var(--gold)';
-  });
-});
-  // Starfield
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  let W, H, stars = [], mouse = {x: 0, y: 0};
+// ===============================
+// STARFIELD GENERATION
+// ===============================
+const starfield = document.getElementById('starfield');
 
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+if (starfield) {
+  for (let i = 0; i < 120; i++) {
+    let star = document.createElement('span');
+    star.style.position = 'absolute';
+    star.style.width = Math.random() * 2 + 'px';
+    star.style.height = star.style.width;
+    star.style.background = 'white';
+    star.style.opacity = Math.random();
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.borderRadius = '50%';
+    starfield.appendChild(star);
   }
+}
 
-  function initStars() {
-    stars = [];
-    for (let i = 0; i < 180; i++) {
-      stars.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: Math.random() * 1.2 + 0.2,
-        alpha: Math.random() * 0.6 + 0.1,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.15,
-        pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.01 + 0.005,
-      });
-    }
-  }
+// ===============================
+// SMOOTH SCROLL SYSTEM (OPTIMIZED)
+// ===============================
+let ticking = false;
 
-  function drawStars() {
-    ctx.clearRect(0, 0, W, H);
-    const time = Date.now() * 0.001;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
 
-    // Connection lines
-    for (let i = 0; i < stars.length; i++) {
-      for (let j = i + 1; j < stars.length; j++) {
-        const dx = stars[i].x - stars[j].x;
-        const dy = stars[i].y - stars[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(stars[i].x, stars[i].y);
-          ctx.lineTo(stars[j].x, stars[j].y);
-          ctx.strokeStyle = `rgba(201,168,76,${0.03 * (1 - dist/100)})`;
-          ctx.stroke();
+      const scrolled = window.scrollY;
+
+      // NAVBAR EFFECT
+      const nav = document.querySelector('nav');
+      if (nav) {
+        if (scrolled > 80) {
+          nav.style.padding = '16px 60px';
+          nav.style.background = 'rgba(6,8,16,0.95)';
+        } else {
+          nav.style.padding = '24px 60px';
+          nav.style.background = 'rgba(6,8,16,0.7)';
         }
       }
-    }
 
-    // Stars
-    stars.forEach(s => {
-      s.pulse += s.pulseSpeed;
-      const alpha = s.alpha * (0.7 + 0.3 * Math.sin(s.pulse));
-      s.x += s.vx + (mouse.x/W - 0.5) * 0.03;
-      s.y += s.vy + (mouse.y/H - 0.5) * 0.03;
-      if (s.x < 0) s.x = W;
-      if (s.x > W) s.x = 0;
-      if (s.y < 0) s.y = H;
-      if (s.y > H) s.y = 0;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,168,76,${alpha})`;
-      ctx.fill();
+      // PROGRESS BAR
+      const progressBar = document.getElementById("progress-bar");
+      if (progressBar) {
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let progress = (scrolled / height) * 100;
+        progressBar.style.width = progress + "%";
+      }
+
+      // PARALLAX EFFECTS
+      const orb = document.querySelector('.hero-orb');
+      const stars = document.getElementById('starfield');
+
+      if (orb) {
+        orb.style.transform = `translate(-50%, -50%) translateY(${scrolled * 0.05}px)`;
+      }
+
+      if (stars) {
+        stars.style.transform = `translateY(${scrolled * 0.02}px)`;
+      }
+
+      // SECTION FADE-IN
+      const trigger = window.innerHeight * 0.85;
+
+      document.querySelectorAll('section').forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+
+        if (rect.top < trigger) {
+          sec.style.opacity = 1;
+          sec.style.transform = 'translateY(0)';
+        } else {
+          sec.style.opacity = 0.6;
+          sec.style.transform = 'translateY(40px)';
+        }
+      });
+
+      ticking = false;
+
     });
 
-    requestAnimationFrame(drawStars);
+    ticking = true;
   }
+});
 
-  document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener('resize', () => { resize(); initStars(); });
-  resize(); initStars(); drawStars();
+// ===============================
+// BIAS CARD 3D TILT EFFECT
+// ===============================
+document.querySelectorAll('.bias-card').forEach(card => {
 
-  // 3D card mouse tilt
-  document.querySelectorAll('.card-3d').forEach(card => {
-    const wrapper = card.closest('.card-3d-wrapper');
-    wrapper.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const rx2 = (e.clientY - cy) / (r.height / 2) * -8;
-      const ry2 = (e.clientX - cx) / (r.width / 2) * 8;
-      card.style.transform = `rotateX(${rx2}deg) rotateY(${ry2}deg) translateZ(20px)`;
-    });
-    wrapper.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+
+    card.style.transform =
+      `translateY(-8px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
   });
-  // Bias cards 3D tilt
-  document.querySelectorAll('.bias-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = `translateY(-8px) rotateX(${-y*10}deg) rotateY(${x*10}deg)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
- window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
 
-  // NAV
-  const nav = document.querySelector('nav');
-  if (scrolled > 80) {
-    nav.style.padding = '16px 60px';
-    nav.style.background = 'rgba(6,8,16,0.95)';
-  } else {
-    nav.style.padding = '24px 60px';
-    nav.style.background = 'rgba(6,8,16,0.7)';
-  }
-
-  // PROGRESS BAR
-  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  let progress = (scrolled / height) * 100;
-  document.getElementById("progress-bar").style.width = progress + "%";
-
-  // PARALLAX
-  document.querySelector('.hero-orb').style.transform =
-    `translate(-50%, -50%) translateY(${scrolled * 0.05}px)`;
-
-  document.getElementById('starfield').style.transform =
-    `translateY(${scrolled * 0.02}px)`;
-
-  // SECTION FADE
-  const trigger = window.innerHeight * 0.85;
-  document.querySelectorAll('section').forEach(sec => {
-    const rect = sec.getBoundingClientRect();
-    if (rect.top < trigger) {
-      sec.style.opacity = 1;
-      sec.style.transform = 'translateY(0)';
-    } else {
-      sec.style.opacity = 0.6;
-      sec.style.transform = 'translateY(40px)';
-    }
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
   });
 
 });
-  // Global parallax depth
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
 
-  document.querySelector('.hero-orb').style.transform =
-    `translate(-50%, -50%) translateY(${scrolled * 0.05}px)`;
+// ===============================
+// MAGNETIC BUTTON EFFECT
+// ===============================
+document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
 
-  document.getElementById('starfield').style.transform =
-    `translateY(${scrolled * 0.02}px)`;
-});
-  // Subtle click feedback
-document.querySelectorAll('button').forEach(btn => {
-  btn.addEventListener('mousedown', () => {
-    btn.style.transform += ' scale(0.96)';
+  btn.addEventListener('mousemove', e => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.2}px)`;
   });
-  btn.addEventListener('mouseup', () => {
-    btn.style.transform = btn.style.transform.replace(' scale(0.96)', '');
+
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+
+});
+
+// ===============================
+// BUTTON CLICK FEEDBACK
+// ===============================
+document.querySelectorAll('button, a').forEach(el => {
+  el.addEventListener('click', () => {
+    el.style.transform = 'scale(0.96)';
+
+    setTimeout(() => {
+      el.style.transform = '';
+    }, 150);
   });
 });
 </script>
