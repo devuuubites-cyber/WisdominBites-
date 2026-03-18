@@ -304,4 +304,164 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 60px;display:fl
 }
 </style>
 </head>
+<body>
+
+<canvas id="starfield"></canvas>
+<canvas id="celebCanvas"></canvas>
+<div class="celeb-overlay" id="celebOverlay"></div>
+<div class="celeb-ring" id="celebRing">
+  <svg viewBox="0 0 180 180">
+    <circle class="track" cx="90" cy="90" r="80"/>
+    <circle class="prog" cx="90" cy="90" r="80"/>
+  </svg>
+  <div class="celeb-check">✦</div>
+</div>
+<div class="celeb-words" id="celebWords">
+  <span class="w1">Lesson Complete</span>
+  <span class="w2">Knowledge Compounding</span>
+</div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="page-content">
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Wisdom<span>InBites</span></a>
+  <div class="nav-right">
+    <div class="nav-search-wrap">
+      <span class="search-icon">⌕</span>
+      <input class="nav-search" type="text" placeholder="Search ideas..." id="searchInput"
+        oninput="filterCards();updateSuggestions()"
+        onkeydown="handleSuggestKey(event)"
+        onfocus="updateSuggestions()"
+        autocomplete="off">
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <span class="nav-done" id="navDoneDisplay"></span>
+    <span class="nav-count" id="countDisplay">137 lessons</span>
+    <span class="streak-badge" id="streakDisplay" title=""></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="library-hero">
+  <div>
+    <div class="library-eyebrow">The Complete Library</div>
+    <h1 class="library-title">Ideas That<br>Change <em>How</em><br>You Think</h1>
+    <p class="library-subtitle">137 lessons drawn from psychology, philosophy, and decision science — distilled for the modern mind.</p>
+  </div>
+  <div>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-n">72</div>
+        <div class="stat-l">Cognitive<br>Biases</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-n">65</div>
+        <div class="stat-l">Mental<br>Models</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-n">3</div>
+        <div class="stat-l">Min avg<br>read time</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-n" id="completedCount">0</div>
+        <div class="stat-l">Lessons<br>Complete</div>
+      </div>
+    </div>
+
+    <!-- TODAY'S STUDY -->
+    <div class="today-section">
+      <div class="today-label">✦ Today's Study</div>
+      <div class="today-cards" id="todayCards">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-wrap">
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progressBar"></div>
+  </div>
+  <span class="progress-label" id="progressLabel">0 / 137 complete</span>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all',this)">All 137</button>
+  <button class="filter-btn" onclick="setFilter('bias',this)">Cognitive Biases</button>
+  <button class="filter-btn" onclick="setFilter('model',this)">Mental Models</button>
+  <div class="filter-sep"></div>
+  <button class="filter-btn" onclick="setFilter('Foundational',this)">Foundational</button>
+  <button class="filter-btn" onclick="setFilter('Intermediate',this)">Intermediate</button>
+  <button class="filter-btn" onclick="setFilter('Advanced',this)">Advanced</button>
+</div>
+
+<!-- BIASES SECTION -->
+<div class="lib-section" id="biasSection">
+  <div class="lib-section-header biases">
+    <h2 class="lib-section-title">⚡ Cognitive Biases</h2>
+    <span class="lib-section-count" id="biasCount">72 lessons</span>
+    <div class="lib-section-line"></div>
+  </div>
+  <div class="library-grid" id="biasGrid"></div>
+</div>
+
+<!-- MODELS SECTION -->
+<div class="lib-section" id="modelSection" style="padding-bottom:120px;">
+  <div class="lib-section-header models">
+    <h2 class="lib-section-title">🔭 Mental Models</h2>
+    <span class="lib-section-count" id="modelCount">65 lessons</span>
+    <div class="lib-section-line"></div>
+  </div>
+  <div class="library-grid" id="modelGrid"></div>
+</div>
+
+</div><!-- /page-content -->
+
+<!-- LESSON OVERLAY -->
+<div class="lesson-overlay" id="lessonOverlay">
+  <div class="overlay-inner">
+    <div class="overlay-nav">
+      <button class="back-btn" onclick="closeOverlay()">← Back to Library</button>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="overlay-keys-hint">← → navigate</span>
+        <span class="overlay-progress" id="overlayProgress"></span>
+      </div>
+    </div>
+
+    <!-- AUDIO PLAYER -->
+    <div class="audio-player" id="audioPlayer">
+      <button class="audio-play-btn" id="audioBtn" onclick="toggleAudio()">▶</button>
+      <div class="audio-info">
+        <div class="audio-label">🎧 Listen to this lesson</div>
+        <div class="audio-status" id="audioStatus">Press play to hear this lesson read aloud</div>
+        <div class="audio-voice-label" id="audioVoiceLabel"></div>
+      </div>
+      <div class="audio-bars" id="audioBars">
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+      </div>
+      <select class="audio-speed" id="audioSpeed" onchange="changeSpeed(this.value)">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+    </div>
+
+    <div id="lessonContent"></div>
+  </div>
+</div>
+
+
 
