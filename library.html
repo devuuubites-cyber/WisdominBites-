@@ -1235,5 +1235,629 @@ starCanvas.addEventListener('click',e=>{
 document.addEventListener('mousemove',e=>{mousePos.x=e.clientX;mousePos.y=e.clientY;});
 window.addEventListener('resize',()=>{resizeCanvas();initScene();});
 resizeCanvas();initScene();drawBg();
+// ═══════════════════════════════════════════════════════════════
+// DIAGRAM ENGINE — Apple Vision Pro Liquid Glass
+// Full 3D parallax, frosted glass layers, cinematic build-in
+// ═══════════════════════════════════════════════════════════════
+
+const DiagramEngine = (() => {
+
+  // ── Constants ────────────────────────────────────────────────
+  const DW = 560, DH = 280; // diagram canvas dimensions
+  const GLASS_COLORS = {
+    frost:     'rgba(255,255,255,',
+    frostEdge: 'rgba(255,255,255,',
+    gold:      'rgba(201,168,76,',
+    goldSoft:  'rgba(232,201,122,',
+    blue:      'rgba(74,158,186,',
+    warm:      'rgba(255,240,220,',
+    shadow:    'rgba(0,0,0,',
+    deep:      'rgba(8,12,24,'
+  };
+
+  // ── Active diagram state ──────────────────────────────────────
+  let activeCanvas  = null;
+  let activeCtx     = null;
+  let activeScene   = null;
+  let animFrameId   = null;
+  let buildProgress = 0;      // 0→1 build-in progress
+  let buildStartT   = 0;
+  let isBuilding    = false;
+  let breathT       = 0;
+  let mouseX        = 0.5;    // normalised 0→1
+  let mouseY        = 0.5;
+  let targetMX      = 0.5;
+  let targetMY      = 0.5;
+  let lightX        = 0.35;
+  let lightY        = 0.28;
+
+  // ── Mouse tracking for parallax ───────────────────────────────
+  function trackMouse(e) {
+    const el = activeCanvas;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    targetMX = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    targetMY = Math.max(0, Math.min(1, (e.clientY - rect.top)  / rect.height));
+  }
+
+  // ── Glass primitive renderers ─────────────────────────────────
+
+  function glassPlane(c, x, y, w, h, opts={}) {
+    const { alpha=1, blur=0, layer=0 } = opts;
+    const depth = 1 - layer * 0.18;
+    const baseA = alpha * depth;
+
+    // Outer shadow / depth
+    c.save();
+    c.shadowColor = 'rgba(0,0,0,0.45)';
+    c.shadowBlur  = 28 + layer * 8;
+    c.shadowOffsetY = 6 + layer * 3;
+
+    // Main frosted body
+    const grad = c.createLinearGradient(x, y, x, y+h);
+    grad.addColorStop(0,   `rgba(255,255,255,${0.11 * baseA})`);
+    grad.addColorStop(0.4, `rgba(255,255,255,${0.07 * baseA})`);
+    grad.addColorStop(1,   `rgba(255,255,255,${0.04 * baseA})`);
+    roundRect(c, x, y, w, h, 14);
+    c.fillStyle = grad;
+    c.fill();
+
+    // Top specular edge — thin bright line
+    c.shadowBlur = 0; c.shadowOffsetY = 0;
+    const spec = c.createLinearGradient(x, y, x+w, y);
+    spec.addColorStop(0,   `rgba(255,255,255,0)`);
+    spec.addColorStop(0.3, `rgba(255,255,255,${0.55 * baseA})`);
+    spec.addColorStop(0.7, `rgba(255,255,255,${0.38 * baseA})`);
+    spec.addColorStop(1,   `rgba(255,255,255,0)`);
+    roundRect(c, x, y, w, 1.5, 0);
+    c.fillStyle = spec;
+    c.fill();
+
+    // Left specular edge
+    const lspec = c.createLinearGradient(x, y, x, y+h);
+    lspec.addColorStop(0,   `rgba(255,255,255,${0.3 * baseA})`);
+    lspec.addColorStop(1,   `rgba(255,255,255,0)`);
+    roundRect(c, x, y, 1.5, h, 0);
+    c.fillStyle = lspec;
+    c.fill();
+
+    // Border
+    roundRect(c, x, y, w, h, 14);
+    c.strokeStyle = `rgba(255,255,255,${0.18 * baseA})`;
+    c.lineWidth = 1;
+    c.stroke();
+
+    c.restore();
+  }
+
+  function glassNode(c, x, y, r, label, opts={}, progress=1) {
+    const { gold=false, dim=false, layer=0, pulse=0 } = opts;
+    const depth = 1 - layer * 0.15;
+    const a = progress * depth * (dim ? 0.45 : 1);
+    const pr = r * (0.6 + progress * 0.4) + Math.sin(pulse) * 1.5;
+
+    c.save();
+
+    // Outer glow
+    const glowR = pr * 1.9;
+    const glow = c.createRadialGradient(x, y, 0, x, y, glowR);
+    if (gold) {
+      glow.addColorStop(0,   `rgba(201,168,76,${0.22 * a})`);
+      glow.addColorStop(0.5, `rgba(201,168,76,${0.08 * a})`);
+      glow.addColorStop(1,   `rgba(201,168,76,0)`);
+    } else {
+      glow.addColorStop(0,   `rgba(255,255,255,${0.12 * a})`);
+      glow.addColorStop(0.5, `rgba(255,255,255,${0.05 * a})`);
+      glow.addColorStop(1,   `rgba(255,255,255,0)`);
+    }
+    c.beginPath(); c.arc(x, y, glowR, 0, Math.PI*2);
+    c.fillStyle = glow; c.fill();
+
+    // Shadow
+    c.shadowColor = 'rgba(0,0,0,0.5)';
+    c.shadowBlur  = 18;
+    c.shadowOffsetY = 5;
+
+    // Glass body
+    const body = c.createRadialGradient(x - pr*0.25, y - pr*0.3, 0, x, y, pr);
+    if (gold) {
+      body.addColorStop(0,   `rgba(255,240,180,${0.45 * a})`);
+      body.addColorStop(0.5, `rgba(201,168,76,${0.25 * a})`);
+      body.addColorStop(1,   `rgba(120,90,30,${0.18 * a})`);
+    } else {
+      body.addColorStop(0,   `rgba(255,255,255,${0.28 * a})`);
+      body.addColorStop(0.5, `rgba(200,220,255,${0.14 * a})`);
+      body.addColorStop(1,   `rgba(100,130,180,${0.10 * a})`);
+    }
+    c.beginPath(); c.arc(x, y, pr, 0, Math.PI*2);
+    c.fillStyle = body; c.fill();
+
+    // Specular highlight (top-left)
+    c.shadowBlur = 0; c.shadowOffsetY = 0;
+    const shine = c.createRadialGradient(
+      x - pr*0.32, y - pr*0.35, 0,
+      x - pr*0.1,  y - pr*0.1,  pr*0.6
+    );
+    shine.addColorStop(0, `rgba(255,255,255,${0.7 * a})`);
+    shine.addColorStop(1, `rgba(255,255,255,0)`);
+    c.beginPath(); c.arc(x, y, pr, 0, Math.PI*2);
+    c.fillStyle = shine; c.fill();
+
+    // Border
+    c.beginPath(); c.arc(x, y, pr, 0, Math.PI*2);
+    c.strokeStyle = gold
+      ? `rgba(232,201,122,${0.55 * a})`
+      : `rgba(255,255,255,${0.35 * a})`;
+    c.lineWidth = 1.2;
+    c.stroke();
+
+    // Label
+    if (label && progress > 0.6) {
+      const labelA = Math.max(0, (progress - 0.6) / 0.4) * a;
+      c.fillStyle = gold
+        ? `rgba(255,240,180,${labelA})`
+        : `rgba(255,255,255,${labelA * 0.9})`;
+      c.font = `${Math.round(pr * 0.38)}px 'DM Mono', monospace`;
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      const lines = label.split('\n');
+      const lineH = pr * 0.42;
+      lines.forEach((ln, i) => {
+        c.fillText(ln, x, y + (i - (lines.length-1)/2) * lineH);
+      });
+    }
+
+    c.restore();
+  }
+
+  function glassBar(c, x, y, w, h, opts={}, progress=1) {
+    const { label='', dim=false, gold=false, layer=0, pulse=0 } = opts;
+    const depth = 1 - layer * 0.15;
+    const a = progress * depth * (dim ? 0.35 : 1);
+    const ph = h * progress;
+    const py = y + h - ph;
+
+    c.save();
+    c.shadowColor = 'rgba(0,0,0,0.4)';
+    c.shadowBlur  = 14;
+    c.shadowOffsetY = 4;
+
+    // Body
+    const bg = c.createLinearGradient(x, py, x, py+ph);
+    if (gold) {
+      bg.addColorStop(0,   `rgba(232,201,122,${0.45 * a})`);
+      bg.addColorStop(0.5, `rgba(201,168,76,${0.30 * a})`);
+      bg.addColorStop(1,   `rgba(120,90,30,${0.20 * a})`);
+    } else if (dim) {
+      bg.addColorStop(0,   `rgba(180,180,200,${0.22 * a})`);
+      bg.addColorStop(1,   `rgba(100,110,140,${0.12 * a})`);
+    } else {
+      bg.addColorStop(0,   `rgba(255,255,255,${0.22 * a})`);
+      bg.addColorStop(0.5, `rgba(200,220,255,${0.14 * a})`);
+      bg.addColorStop(1,   `rgba(100,130,180,${0.10 * a})`);
+    }
+    roundRect(c, x, py, w, ph, 6);
+    c.fillStyle = bg; c.fill();
+
+    // Top specular
+    c.shadowBlur = 0; c.shadowOffsetY = 0;
+    const top = c.createLinearGradient(x, py, x+w, py);
+    top.addColorStop(0,   'rgba(255,255,255,0)');
+    top.addColorStop(0.4, `rgba(255,255,255,${0.5 * a})`);
+    top.addColorStop(1,   'rgba(255,255,255,0)');
+    roundRect(c, x, py, w, 2, 0);
+    c.fillStyle = top; c.fill();
+
+    // Border
+    roundRect(c, x, py, w, ph, 6);
+    c.strokeStyle = gold
+      ? `rgba(232,201,122,${0.45 * a})`
+      : `rgba(255,255,255,${0.25 * a})`;
+    c.lineWidth = 1;
+    c.stroke();
+
+    // Label
+    if (label && progress > 0.5) {
+      const labelA = Math.max(0, (progress - 0.5) / 0.5) * a;
+      c.fillStyle = `rgba(255,255,255,${labelA * 0.85})`;
+      c.font = `9px 'DM Mono', monospace`;
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      c.fillText(label, x + w/2, py + ph/2);
+    }
+
+    c.restore();
+  }
+
+  function glassArrow(c, x1, y1, x2, y2, opts={}, progress=1) {
+    const { gold=false, dim=false, dashed=false, layer=0 } = opts;
+    const depth = 1 - layer * 0.15;
+    const a = progress * depth * (dim ? 0.3 : 0.8);
+
+    // Interpolate endpoint by progress
+    const ex = x1 + (x2 - x1) * progress;
+    const ey = y1 + (y2 - y1) * progress;
+
+    c.save();
+    c.strokeStyle = gold
+      ? `rgba(232,201,122,${a})`
+      : `rgba(255,255,255,${a * 0.7})`;
+    c.lineWidth = 1.5;
+    if (dashed) c.setLineDash([5,3]);
+
+    // Draw line
+    c.beginPath(); c.moveTo(x1, y1); c.lineTo(ex, ey); c.stroke();
+    c.setLineDash([]);
+
+    // Arrowhead only when nearly complete
+    if (progress > 0.85) {
+      const headA = Math.max(0, (progress - 0.85) / 0.15);
+      const angle = Math.atan2(y2-y1, x2-x1);
+      const hs = 9;
+      c.fillStyle = gold
+        ? `rgba(232,201,122,${a * headA})`
+        : `rgba(255,255,255,${a * 0.7 * headA})`;
+      c.beginPath();
+      c.moveTo(ex, ey);
+      c.lineTo(ex - hs*Math.cos(angle-0.42), ey - hs*Math.sin(angle-0.42));
+      c.lineTo(ex - hs*Math.cos(angle+0.42), ey - hs*Math.sin(angle+0.42));
+      c.closePath();
+      c.fill();
+    }
+
+    c.restore();
+  }
+
+  function glassCurve(c, points, opts={}, progress=1) {
+    const { gold=false, dim=false, layer=0 } = opts;
+    const depth = 1 - layer * 0.15;
+    const a = progress * depth * (dim ? 0.3 : 0.75);
+    if (points.length < 2) return;
+
+    // Build partial path based on progress
+    const totalPts = points.length;
+    const drawPts  = Math.max(2, Math.floor(totalPts * progress));
+
+    c.save();
+    c.strokeStyle = gold
+      ? `rgba(232,201,122,${a})`
+      : `rgba(255,255,255,${a * 0.65})`;
+    c.lineWidth = 2;
+    c.lineJoin  = 'round';
+    c.lineCap   = 'round';
+
+    c.beginPath();
+    c.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < drawPts; i++) {
+      const prev = points[i-1];
+      const curr = points[i];
+      const cpx  = (prev.x + curr.x) / 2;
+      const cpy  = (prev.y + curr.y) / 2;
+      c.quadraticCurveTo(prev.x, prev.y, cpx, cpy);
+    }
+    c.stroke();
+    c.restore();
+  }
+
+  function glassRing(c, x, y, r, opts={}, progress=1) {
+    const { gold=false, dim=false, layer=0, pulse=0, spin=0 } = opts;
+    const depth = 1 - layer * 0.15;
+    const a = progress * depth * (dim ? 0.3 : 0.9);
+    const pr = r * (0.5 + progress * 0.5);
+    const endAngle = -Math.PI/2 + Math.PI*2 * progress + spin;
+
+    c.save();
+
+    // Outer glow
+    const glowG = c.createRadialGradient(x, y, pr*0.7, x, y, pr*1.4);
+    glowG.addColorStop(0, gold
+      ? `rgba(201,168,76,${0.15 * a})`
+      : `rgba(255,255,255,${0.08 * a})`);
+    glowG.addColorStop(1, 'rgba(0,0,0,0)');
+    c.beginPath(); c.arc(x, y, pr*1.4, 0, Math.PI*2);
+    c.fillStyle = glowG; c.fill();
+
+    // Ring stroke
+    c.beginPath();
+    c.arc(x, y, pr, -Math.PI/2 + spin, endAngle);
+    c.strokeStyle = gold
+      ? `rgba(232,201,122,${a})`
+      : `rgba(255,255,255,${a * 0.6})`;
+    c.lineWidth = 2.5 + Math.sin(pulse) * 0.5;
+    c.stroke();
+
+    // Inner fill (subtle)
+    c.beginPath(); c.arc(x, y, pr * 0.85, 0, Math.PI*2);
+    c.fillStyle = gold
+      ? `rgba(201,168,76,${0.06 * a})`
+      : `rgba(255,255,255,${0.04 * a})`;
+    c.fill();
+
+    // Specular dot at ring top
+    if (progress > 0.7) {
+      const dotA = Math.max(0, (progress - 0.7) / 0.3) * a;
+      const sx = x + Math.cos(-Math.PI/2 + spin) * pr;
+      const sy = y + Math.sin(-Math.PI/2 + spin) * pr;
+      c.beginPath(); c.arc(sx, sy, 4, 0, Math.PI*2);
+      c.fillStyle = gold
+        ? `rgba(255,240,180,${dotA})`
+        : `rgba(255,255,255,${dotA * 0.9})`;
+      c.fill();
+    }
+
+    c.restore();
+  }
+
+  function glassLabel(c, x, y, text, opts={}, progress=1) {
+    const { gold=false, dim=false, size=10, layer=0, align='center' } = opts;
+    const depth = 1 - layer * 0.15;
+    const a = progress * depth * (dim ? 0.4 : 0.85);
+
+    c.save();
+    c.globalAlpha = a;
+    c.font = `${size}px 'DM Mono', monospace`;
+    c.textAlign = align;
+    c.textBaseline = 'middle';
+    c.fillStyle = gold
+      ? `rgba(232,201,122,1)`
+      : `rgba(255,255,255,0.82)`;
+
+    // Subtle text shadow for depth
+    c.shadowColor = 'rgba(0,0,0,0.6)';
+    c.shadowBlur  = 8;
+    c.fillText(text, x, y);
+    c.restore();
+  }
+
+  function lightCaustic(c, lx, ly, opts={}) {
+    const { r=200, intensity=0.5 } = opts;
+
+    // Primary light blob
+    const lg = c.createRadialGradient(lx, ly, 0, lx, ly, r);
+    lg.addColorStop(0,   `rgba(255,248,220,${0.18 * intensity})`);
+    lg.addColorStop(0.3, `rgba(255,235,180,${0.10 * intensity})`);
+    lg.addColorStop(0.7, `rgba(201,168,76,${0.04 * intensity})`);
+    lg.addColorStop(1,   'rgba(0,0,0,0)');
+    c.save();
+    c.globalCompositeOperation = 'screen';
+    c.beginPath(); c.arc(lx, ly, r, 0, Math.PI*2);
+    c.fillStyle = lg; c.fill();
+
+    // Caustic ring — refractive edge highlight
+    c.globalCompositeOperation = 'source-over';
+    const ring = c.createRadialGradient(lx, ly, r*0.55, lx, ly, r*0.75);
+    ring.addColorStop(0,   'rgba(255,255,255,0)');
+    ring.addColorStop(0.5, `rgba(255,255,255,${0.07 * intensity})`);
+    ring.addColorStop(1,   'rgba(255,255,255,0)');
+    c.beginPath(); c.arc(lx, ly, r*0.75, 0, Math.PI*2);
+    c.fillStyle = ring; c.fill();
+
+    c.restore();
+  }
+
+  // ── Rounded rect helper ───────────────────────────────────────
+  function roundRect(c, x, y, w, h, r) {
+    r = Math.min(r, w/2, h/2);
+    c.beginPath();
+    c.moveTo(x+r, y);
+    c.lineTo(x+w-r, y); c.arcTo(x+w, y,   x+w, y+r,   r);
+    c.lineTo(x+w, y+h-r); c.arcTo(x+w, y+h, x+w-r, y+h, r);
+    c.lineTo(x+r, y+h);   c.arcTo(x,   y+h, x,   y+h-r, r);
+    c.lineTo(x, y+r);     c.arcTo(x,   y,   x+r, y,     r);
+    c.closePath();
+  }
+
+  // ── Scene renderer ────────────────────────────────────────────
+  function renderScene(c, scene, now) {
+    c.clearRect(0, 0, DW, DH);
+
+    // Global parallax transform
+    const tiltX = (mouseY - 0.5) * 16;  // degrees
+    const tiltY = (mouseX - 0.5) * -22;
+    const px = (mouseX - 0.5) * 18;
+    const py = (mouseY - 0.5) * 10;
+
+    // Apply light position (follows mouse with lag)
+    lightX += (targetMX * DW - lightX) * 0.04;
+    lightY += (targetMY * DH * 0.6 - lightY) * 0.04;
+
+    // Background gradient — deep dark glass
+    const bg = c.createRadialGradient(DW*0.5, DH*0.4, 0, DW*0.5, DH*0.5, DH);
+    bg.addColorStop(0,   'rgba(14,20,38,0.97)');
+    bg.addColorStop(0.6, 'rgba(8,12,24,0.98)');
+    bg.addColorStop(1,   'rgba(4,6,14,1)');
+    roundRect(c, 0, 0, DW, DH, 20);
+    c.fillStyle = bg; c.fill();
+
+    // Subtle grain texture
+    c.save();
+    c.globalAlpha = 0.025;
+    for (let i = 0; i < 400; i++) {
+      const gx = Math.random() * DW;
+      const gy = Math.random() * DH;
+      const gs = Math.random() * 1.2;
+      c.fillStyle = `rgba(255,255,255,${Math.random()})`;
+      c.fillRect(gx, gy, gs, gs);
+    }
+    c.restore();
+
+    // Sort elements by layer (back to front)
+    const sorted = [...scene.elements].sort((a,b) => a.layer - b.layer);
+
+    // Calculate per-element progress
+    const totalDuration = scene.totalDuration || 1200;
+    const elapsed = isBuilding ? (now - buildStartT) : totalDuration;
+    breathT = isBuilding ? 0 : breathT + 0.012;
+
+    sorted.forEach(el => {
+      const elStart    = el.delay || 0;
+      const elDuration = el.duration || 400;
+      const elEnd      = elStart + elDuration;
+      let progress = Math.max(0, Math.min(1, (elapsed - elStart) / elDuration));
+      // Ease out cubic
+      progress = 1 - Math.pow(1 - progress, 3);
+
+      // Parallax offset per layer (deeper = less movement)
+      const layerDepth = 1 - (el.layer || 0) * 0.25;
+      const ox = px * layerDepth;
+      const oy = py * layerDepth;
+
+      // Breathing after build-in
+      const breathAmp  = 0.008;
+      const breathSeed = (el.delay || 0) * 0.001;
+      const breath = 1 + Math.sin(breathT + breathSeed) * breathAmp;
+
+      c.save();
+      c.translate(DW/2 + ox, DH/2 + oy);
+      c.scale(breath, breath);
+      c.translate(-(DW/2), -(DH/2));
+
+      switch (el.type) {
+        case 'plane':
+          glassPlane(c, el.x, el.y, el.w, el.h, el, progress);
+          break;
+        case 'node':
+          glassNode(c, el.x, el.y, el.r, el.label, el, progress);
+          break;
+        case 'bar':
+          glassBar(c, el.x, el.y, el.w, el.h, el, progress);
+          break;
+        case 'arrow':
+          glassArrow(c, el.x, el.y, el.ex, el.ey, el, progress);
+          break;
+        case 'curve':
+          glassCurve(c, el.points, el, progress);
+          break;
+        case 'ring':
+          glassRing(c, el.x, el.y, el.r,
+            {...el, spin: breathT * (el.spinSpeed||0)},
+            progress);
+          break;
+        case 'label':
+          glassLabel(c, el.x, el.y, el.text, el, progress);
+          break;
+      }
+      c.restore();
+    });
+
+    // Light caustic (always on top, mouse-driven)
+    lightCaustic(c, lightX, lightY, { r: 180, intensity: 0.7 });
+
+    // Secondary ambient caustic opposite side
+    lightCaustic(c, DW - lightX * 0.6, DH - lightY * 0.5, { r: 120, intensity: 0.25 });
+
+    // Outer vignette
+    const vig = c.createRadialGradient(DW/2, DH/2, DH*0.3, DW/2, DH/2, DH*0.85);
+    vig.addColorStop(0, 'rgba(0,0,0,0)');
+    vig.addColorStop(1, 'rgba(0,0,0,0.55)');
+    roundRect(c, 0, 0, DW, DH, 20);
+    c.fillStyle = vig; c.fill();
+
+    // Glass border — final layer
+    roundRect(c, 0, 0, DW, DH, 20);
+    c.strokeStyle = 'rgba(255,255,255,0.1)';
+    c.lineWidth   = 1.5;
+    c.stroke();
+
+    // Top edge specular
+    c.beginPath();
+    c.moveTo(20, 0);
+    c.lineTo(DW-20, 0);
+    c.strokeStyle = 'rgba(255,255,255,0.25)';
+    c.lineWidth = 1;
+    c.stroke();
+
+    // Check if build-in complete
+    if (isBuilding && elapsed >= totalDuration) {
+      isBuilding = false;
+    }
+  }
+
+  // ── Animation loop ────────────────────────────────────────────
+  function loop(now) {
+    if (!activeCtx || !activeScene) return;
+    // Smooth mouse lerp
+    mouseX += (targetMX - mouseX) * 0.06;
+    mouseY += (targetMY - mouseY) * 0.06;
+    renderScene(activeCtx, activeScene, now);
+    animFrameId = requestAnimationFrame(loop);
+  }
+
+  // ── Public API ────────────────────────────────────────────────
+  function mount(canvas, sceneId) {
+    // Cleanup previous
+    if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+    if (activeCanvas) {
+      activeCanvas.removeEventListener('mousemove', trackMouse);
+      activeCanvas.removeEventListener('mouseleave', resetMouse);
+    }
+
+    const sceneDef = DiagramScenes[sceneId];
+    if (!canvas || !sceneDef) return;
+
+    // Setup canvas
+    canvas.width  = DW;
+    canvas.height = DH;
+    canvas.style.width  = '100%';
+    canvas.style.height = 'auto';
+    canvas.style.borderRadius = '20px';
+    canvas.style.display = 'block';
+
+    activeCanvas = canvas;
+    activeCtx    = canvas.getContext('2d');
+    activeScene  = sceneDef;
+
+    // Start build-in
+    isBuilding   = true;
+    buildStartT  = performance.now();
+    breathT      = 0;
+    mouseX       = 0.5; mouseY = 0.5;
+    targetMX     = 0.5; targetMY = 0.5;
+    lightX       = DW * 0.35; lightY = DH * 0.28;
+
+    // Mouse parallax listeners
+    activeCanvas.addEventListener('mousemove', trackMouse);
+    activeCanvas.addEventListener('mouseleave', resetMouse);
+
+    // Start loop
+    animFrameId = requestAnimationFrame(loop);
+  }
+
+  function resetMouse() {
+    targetMX = 0.5;
+    targetMY = 0.5;
+  }
+
+  function unmount() {
+    if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+    if (activeCanvas) {
+      activeCanvas.removeEventListener('mousemove', trackMouse);
+      activeCanvas.removeEventListener('mouseleave', resetMouse);
+    }
+    activeCanvas = null;
+    activeCtx    = null;
+    activeScene  = null;
+  }
+
+  return { mount, unmount, DW, DH };
+
+})();
+
+// ─── DIAGRAM RENDER HELPER (called by overlay) ─────────────────
+function mountDiagram(lessonId) {
+  // Remove any existing canvas
+  const wrap = document.getElementById('diagramWrap');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  const cvs = document.createElement('canvas');
+  wrap.appendChild(cvs);
+  DiagramEngine.mount(cvs, lessonId);
+}
+
+function unmountDiagram() {
+  DiagramEngine.unmount();
+  const wrap = document.getElementById('diagramWrap');
+  if (wrap) wrap.innerHTML = '';
+}
 
 
