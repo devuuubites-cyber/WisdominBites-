@@ -831,3 +831,295 @@ footer {
 }
 </style>
 </head>
+<body>
+
+<div id="progress-bar"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="starfield"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Wisdom<span>InBites</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#learn">What You Learn</a></li>
+    <li><a href="#who">Who It's For</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.location.href='library.html'">Start Learning</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-eyebrow reveal">A New Way to Think</div>
+  <h1 class="hero-title reveal reveal-delay-1">
+    <span class="line1">Wisdom</span>
+    <span class="line2">in Minutes</span>
+  </h1>
+  <p class="hero-sub reveal reveal-delay-2">Discover the powerful ideas that shape intelligent thinking — from cognitive biases to mental models — explained clearly in just a few minutes.</p>
+  <p class="hero-desc reveal reveal-delay-2">Most people spend years collecting information. Very few learn the ideas that actually improve how they think.</p>
+  <div class="hero-buttons reveal reveal-delay-2">
+    <button class="btn-primary" onclick="window.location.href='library.html'">Explore Ideas</button>
+    <button class="btn-secondary" onclick="document.getElementById('learn').scrollIntoView({behavior:'smooth'})">Learn More</button>
+  </div>
+  <p class="hero-support reveal reveal-delay-2">Built on psychology, decision science, and timeless intellectual frameworks</p>
+</section>
+
+<div class="pause reveal">
+  Pause.<br><br>What did you just understand?
+</div>
+<div class="section-divider"></div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-grid">
+    <div class="problem-text reveal">
+      <div class="section-label">The Modern Problem</div>
+      <h2 class="section-title">We Live in an Age of Information. <em>But Not Understanding.</em></h2>
+      <p>Never before in history have people had access to so much information. Every day we encounter endless streams of news, social media feeds, and quick opinions.</p>
+      <p>But information alone does not create wisdom.</p>
+      <p>In fact, the abundance of information often makes it harder to think clearly. Most people are overwhelmed by facts but lack the frameworks needed to interpret them.</p>
+      <ul class="problem-bullets">
+        <li>Endless streams of news</li>
+        <li>Social media feeds</li>
+        <li>Quick opinions and commentary</li>
+        <li>Information without context</li>
+      </ul>
+    </div>
+    <div class="card-3d-wrapper reveal reveal-delay-2">
+      <div class="card-3d">
+        <div class="card-3d-inner">
+          <div class="big-quote">"</div>
+          <p class="quote-text">Without the right mental tools, even intelligent people can reach poor conclusions. Information is not wisdom. Understanding is.</p>
+          <div class="quote-attr">— The WisdomInBites Philosophy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pause reveal">
+  Information is everywhere.<br>Understanding is rare.
+</div>
+<div class="section-divider"></div>
+
+<!-- WHY THINKING FAILS -->
+<section id="why">
+  <div class="section-label reveal">Why Thinking Fails</div>
+  <h2 class="section-title reveal">The Mind Is Powerful — <em>But Imperfect</em></h2>
+  <div class="bias-cards">
+    <div class="bias-card reveal">
+      <div class="bias-num">01</div>
+      <div class="bias-title">Cognitive Shortcuts</div>
+      <p class="bias-body">The human brain evolved to make quick judgments. These shortcuts allow rapid processing but introduce systematic errors known as cognitive biases.</p>
+      <span class="bias-tag">Psychology</span>
+    </div>
+    <div class="bias-card reveal reveal-delay-1">
+      <div class="bias-num">02</div>
+      <div class="bias-title">Kahneman's Discovery</div>
+      <p class="bias-body">Research by psychologist Daniel Kahneman revealed that these biases influence decisions in subtle but powerful ways, affecting how we interpret information and evaluate risks.</p>
+      <span class="bias-tag">Decision Science</span>
+    </div>
+    <div class="bias-card reveal reveal-delay-2">
+      <div class="bias-num">03</div>
+      <div class="bias-title">The Illusion of Truth</div>
+      <p class="bias-body">We are biologically wired to believe things that are repeated often, regardless of their factual accuracy. Without conscious frameworks, we fall prey to narratives over facts.</p>
+      <span class="bias-tag">Behavioral Econ</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="section-label reveal">The Antidote</div>
+  <h2 class="section-title reveal">Upgrade Your <em>Mental Hardware</em></h2>
+  <div class="solution-layout">
+    <div class="solution-text reveal">
+      <p>To navigate a complex world, you don't need to read every book or article. You need <strong style="color:var(--gold);font-weight:600;">Mental Models</strong>.</p>
+      <p>Mental models are the foundational frameworks used by the world's greatest thinkers — from philosophers to billionaire investors. They are the "apps" you install in your brain to process reality more accurately.</p>
+      <p>WisdomInBites distills these massive concepts into clear, digestible, 2-minute readings that you can apply immediately to your life and career.</p>
+    </div>
+    <div class="model-showcase reveal reveal-delay-1">
+      <div class="model-item">
+        <div class="model-accent"></div>
+        <div class="model-content">
+          <div class="model-name">First Principles Thinking</div>
+          <div class="model-desc">Boil things down to their fundamental truths and reason up from there, avoiding analogy.</div>
+        </div>
+      </div>
+      <div class="model-item">
+        <div class="model-accent"></div>
+        <div class="model-content">
+          <div class="model-name">Inversion</div>
+          <div class="model-desc">Approach a problem backward. Instead of asking how to succeed, ask how you could guarantee failure.</div>
+        </div>
+      </div>
+      <div class="model-item">
+        <div class="model-accent"></div>
+        <div class="model-content">
+          <div class="model-name">Second-Order Effects</div>
+          <div class="model-desc">Don't just look at the immediate result of an action. Look at the consequences of the consequences.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU LEARN -->
+<section id="learn">
+  <div class="section-label reveal">Curriculum</div>
+  <h2 class="section-title reveal">What You Will <em>Master</em></h2>
+  <div class="learn-split">
+    <div class="learn-panel reveal">
+      <div class="panel-title">Spot Cognitive Biases</div>
+      <p class="panel-body">Learn to identify and disarm the psychological traps that lead to bad decisions, poor investments, and flawed reasoning.</p>
+      <ul class="concept-list">
+        <li class="concept-item">
+          <div class="concept-item-title">Survivorship Bias</div>
+          <div class="concept-item-desc">Focusing on the winners and ignoring the losers.</div>
+        </li>
+        <li class="concept-item">
+          <div class="concept-item-title">Confirmation Bias</div>
+          <div class="concept-item-desc">Only seeking information that confirms your existing beliefs.</div>
+        </li>
+        <li class="concept-item">
+          <div class="concept-item-title">Loss Aversion</div>
+          <div class="concept-item-desc">Losses loom twice as large as equivalent gains.</div>
+        </li>
+      </ul>
+    </div>
+    <div class="learn-panel reveal reveal-delay-1">
+      <div class="panel-title">Apply Mental Models</div>
+      <p class="panel-body">Build an arsenal of strategic frameworks to solve complex problems faster and see the world with absolute clarity.</p>
+      <ul class="concept-list">
+        <li class="concept-item">
+          <div class="concept-item-title">Occam's Razor</div>
+          <div class="concept-item-desc">The simplest explanation is usually the correct one.</div>
+        </li>
+        <li class="concept-item">
+          <div class="concept-item-title">Pareto Principle</div>
+          <div class="concept-item-desc">80% of consequences come from 20% of causes.</div>
+        </li>
+        <li class="concept-item">
+          <div class="concept-item-title">Compounding</div>
+          <div class="concept-item-desc">Small gains, extended over time, become enormous.</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / HOW IT WORKS -->
+<section id="experience">
+  <div class="section-label reveal">The Method</div>
+  <h2 class="section-title reveal">How it <em>Works</em></h2>
+  <div class="steps-container reveal">
+    <div class="steps-line"></div>
+    <div class="step-item">
+      <div class="step-num-wrap"><div class="step-num">01</div></div>
+      <div class="step-content">
+        <div class="step-title">Select a Concept</div>
+        <div class="step-desc">Browse our beautifully curated library of mental models, cognitive biases, and logical fallacies — each tagged by discipline and difficulty.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-wrap"><div class="step-num">02</div></div>
+      <div class="step-content">
+        <div class="step-title">Read in 3 Minutes</div>
+        <div class="step-desc">No fluff. No 300-page academic papers. Just the core essence of the idea, explained elegantly with the original thinker's voice.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num-wrap"><div class="step-num">03</div></div>
+      <div class="step-content">
+        <div class="step-title">Apply to Reality</div>
+        <div class="step-desc">Use our actionable examples to apply the model to your daily decisions, business strategies, and relationships. Mark complete as you go.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPOUNDING -->
+<section id="compound">
+  <div class="orbit-rings">
+    <div class="ring"><div class="ring-dot"></div></div>
+    <div class="ring"><div class="ring-dot"></div></div>
+    <div class="ring"><div class="ring-dot"></div></div>
+  </div>
+  <h2 class="compound-title reveal">Knowledge That <span>Compounds</span></h2>
+  <div class="compound-body reveal reveal-delay-1">
+    <p>Unlike reading the daily news, which is obsolete tomorrow, understanding a mental model pays dividends for the rest of your life.</p>
+    <p>When you learn First Principles, you don't just solve one problem. You upgrade your ability to solve every problem you will ever face.</p>
+  </div>
+  <div class="compound-closing reveal reveal-delay-2">Think better. Live better.</div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section id="who">
+  <div class="section-label reveal">Target Audience</div>
+  <h2 class="section-title reveal">Who is this <em>For?</em></h2>
+  <div class="who-grid">
+    <div class="who-card reveal">
+      <div class="who-title">Entrepreneurs</div>
+      <div class="who-desc">Make sharper strategic decisions, assess risks accurately, and navigate market complexities with proven frameworks.</div>
+    </div>
+    <div class="who-card reveal reveal-delay-1">
+      <div class="who-title">Creatives</div>
+      <div class="who-desc">Break through creative blocks by utilizing alternative thinking frameworks like Inversion and First Principles.</div>
+    </div>
+    <div class="who-card reveal reveal-delay-2">
+      <div class="who-title">Leaders</div>
+      <div class="who-desc">Understand human behavior, incentives, and the psychological drivers of your team with clarity and precision.</div>
+    </div>
+    <div class="who-card reveal reveal-delay-2">
+      <div class="who-title">Lifelong Learners</div>
+      <div class="who-desc">Anyone who believes that refining their own mind is the highest ROI investment possible.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGE -->
+<section id="advantage">
+  <div class="advantage-layout">
+    <div class="advantage-stat reveal">
+      <div class="stat-ring">
+        <div class="stat-number">100x</div>
+        <div class="stat-label">ROI on Time</div>
+      </div>
+    </div>
+    <div class="advantage-text reveal reveal-delay-1">
+      <div class="section-label">The Unfair Advantage</div>
+      <h2 class="section-title" style="margin-bottom:20px;">Clarity is <em>Power</em></h2>
+      <p>While others react emotionally to the noise of the modern world, you will respond rationally using proven intellectual frameworks.</p>
+      <p>This isn't just about sounding smart. It's about seeing reality as it actually is, rather than how your biologically flawed brain wants to see it.</p>
+      <div class="advantage-closing">
+        <p>"The quality of your life is determined by the quality of your decisions."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-eyebrow reveal">Take Action</div>
+  <h2 class="cta-title reveal reveal-delay-1">Ready to Upgrade <em>Your Mind?</em></h2>
+  <p class="cta-body reveal reveal-delay-2">Enter the archive. Discover the frameworks that will change how you perceive everything around you.</p>
+  <button class="btn-primary reveal reveal-delay-2"
+    onclick="window.location.href='library.html'"
+    style="font-size:.9rem;padding:20px 60px;">
+    Enter The Archive
+  </button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Wisdom<span>InBites</span></div>
+  <ul class="footer-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#learn">Curriculum</a></li>
+    <li><a href="library.html">Library</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 WISDOMINBITES. ALL RIGHTS RESERVED.</div>
+</footer>
+
