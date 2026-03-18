@@ -1122,4 +1122,382 @@ footer {
   </ul>
   <div class="footer-copy">© 2026 WISDOMINBITES. ALL RIGHTS RESERVED.</div>
 </footer>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// LIQUID GLASS JS ENGINE — WisdomInBites Index
+// ═══════════════════════════════════════════════════════════════
+
+// ── LIQUID GLASS CURSOR ──
+const cursor    = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mx=0, my=0, rx=0, ry=0;
+
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+
+(function animCursor(){
+  rx += (mx-rx) * .10;
+  ry += (my-ry) * .10;
+  cursor.style.left     = mx + 'px';
+  cursor.style.top      = my + 'px';
+  cursorRing.style.left = rx + 'px';
+  cursorRing.style.top  = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+
+// Cursor scale on hover over interactive elements
+document.querySelectorAll('button, a, .bias-card, .who-card, .model-item, .step-item, .learn-panel, .card-3d').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width  = '16px';
+    cursor.style.height = '16px';
+    cursor.style.boxShadow = '0 0 20px rgba(201,168,76,1), 0 0 40px rgba(201,168,76,0.6)';
+    cursorRing.style.width  = '56px';
+    cursorRing.style.height = '56px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width  = '10px';
+    cursor.style.height = '10px';
+    cursor.style.boxShadow = '0 0 12px rgba(201,168,76,0.8), 0 0 24px rgba(201,168,76,0.4)';
+    cursorRing.style.width  = '40px';
+    cursorRing.style.height = '40px';
+  });
+});
+
+// ── PARALLAX STARFIELD ENGINE (Full Nebula Version) ──
+const canvas = document.getElementById('starfield');
+const ctx    = canvas.getContext('2d');
+let W, H, t = 0;
+let mousePos = { x: 0, y: 0 };
+let deepStars=[], midStars=[], fgStars=[], nebulae=[], shooters=[], ripples=[];
+
+function resizeCanvas(){
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function initScene(){
+  deepStars=[]; midStars=[]; fgStars=[]; nebulae=[]; shooters=[];
+
+  // Deep background — tiny, slow, dense
+  for(let i=0;i<300;i++) deepStars.push({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*.5+.1,
+    alpha:Math.random()*.3+.05,
+    vx:(Math.random()-.5)*.015, vy:(Math.random()-.5)*.015,
+    pulse:Math.random()*Math.PI*2, ps:Math.random()*.003+.001
+  });
+
+  // Mid layer — medium, moderate speed, connected
+  for(let i=0;i<150;i++) midStars.push({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*.9+.2,
+    alpha:Math.random()*.5+.1,
+    vx:(Math.random()-.5)*.04, vy:(Math.random()-.5)*.04,
+    pulse:Math.random()*Math.PI*2, ps:Math.random()*.006+.003
+  });
+
+  // Foreground — bright, fast, glowing
+  for(let i=0;i<50;i++) fgStars.push({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*1.4+.6,
+    alpha:Math.random()*.7+.2,
+    vx:(Math.random()-.5)*.08, vy:(Math.random()-.5)*.08,
+    pulse:Math.random()*Math.PI*2, ps:Math.random()*.01+.005,
+    glowing:Math.random()>.6
+  });
+
+  // Nebula clouds — 5 drifting coloured blobs
+  for(let i=0;i<5;i++) nebulae.push({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*200+120,
+    alpha:Math.random()*.04+.015,
+    vx:(Math.random()-.5)*.06, vy:(Math.random()-.5)*.04,
+    hue:Math.random()>.5?'201,168,76':'74,158,186',
+    pulse:Math.random()*Math.PI*2, ps:.002
+  });
+}
+
+function spawnShooter(){
+  const side  = Math.random();
+  let sx, sy, angle;
+  if(side<.5){ sx=Math.random()*W; sy=0; angle=Math.PI/4+Math.random()*.4; }
+  else        { sx=0; sy=Math.random()*H*.5; angle=Math.random()*.3-.1; }
+  shooters.push({ x:sx, y:sy, vx:Math.cos(angle)*12, vy:Math.sin(angle)*10, alpha:1, trail:[] });
+}
+
+function drawLayer(stars, mouseParallax){
+  // Draw connections for mid layer
+  if(mouseParallax===.4){
+    for(let i=0;i<stars.length;i++){
+      for(let j=i+1;j<stars.length;j++){
+        const dx=stars[i].x-stars[j].x, dy=stars[i].y-stars[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<90){
+          ctx.beginPath();
+          ctx.moveTo(stars[i].x, stars[i].y);
+          ctx.lineTo(stars[j].x, stars[j].y);
+          ctx.strokeStyle=`rgba(201,168,76,${0.018*(1-d/90)})`;
+          ctx.lineWidth=.4; ctx.stroke();
+        }
+      }
+    }
+  }
+  stars.forEach(s=>{
+    s.pulse += s.ps;
+    const a = s.alpha * (.65 + .35*Math.sin(s.pulse));
+    s.x += s.vx + (mousePos.x/W-.5)*mouseParallax;
+    s.y += s.vy + (mousePos.y/H-.5)*mouseParallax*.6;
+    if(s.x<-2) s.x=W+2; if(s.x>W+2) s.x=-2;
+    if(s.y<-2) s.y=H+2; if(s.y>H+2) s.y=-2;
+    if(s.glowing){
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r*2.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(201,168,76,${a*.12})`; ctx.fill();
+    }
+    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(201,168,76,${a})`; ctx.fill();
+  });
+}
+
+function drawNebulae(){
+  nebulae.forEach(n=>{
+    n.pulse += n.ps;
+    const a = n.alpha * (.8 + .2*Math.sin(n.pulse));
+    n.x += n.vx + (mousePos.x/W-.5)*.15;
+    n.y += n.vy + (mousePos.y/H-.5)*.1;
+    if(n.x<-n.r) n.x=W+n.r; if(n.x>W+n.r) n.x=-n.r;
+    if(n.y<-n.r) n.y=H+n.r; if(n.y>H+n.r) n.y=-n.r;
+    const g = ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);
+    g.addColorStop(0, `rgba(${n.hue},${a})`);
+    g.addColorStop(.5,`rgba(${n.hue},${a*.3})`);
+    g.addColorStop(1, `rgba(${n.hue},0)`);
+    ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle=g; ctx.fill();
+  });
+}
+
+function drawShooters(){
+  shooters = shooters.filter(s=>s.alpha>.01);
+  shooters.forEach(s=>{
+    s.trail.push({x:s.x,y:s.y});
+    if(s.trail.length>20) s.trail.shift();
+    s.x+=s.vx; s.y+=s.vy; s.alpha-=.025;
+    for(let i=1;i<s.trail.length;i++){
+      const p=i/s.trail.length;
+      ctx.beginPath();
+      ctx.moveTo(s.trail[i-1].x,s.trail[i-1].y);
+      ctx.lineTo(s.trail[i].x,s.trail[i].y);
+      ctx.strokeStyle=`rgba(232,201,122,${p*s.alpha*.8})`;
+      ctx.lineWidth=p*1.5; ctx.stroke();
+    }
+    const hg=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,4);
+    hg.addColorStop(0,`rgba(255,240,180,${s.alpha})`);
+    hg.addColorStop(1,'rgba(255,240,180,0)');
+    ctx.beginPath(); ctx.arc(s.x,s.y,4,0,Math.PI*2);
+    ctx.fillStyle=hg; ctx.fill();
+  });
+  if(Math.random()<.004) spawnShooter();
+}
+
+function drawRipples(){
+  ripples = ripples.filter(r=>r.alpha>.005);
+  ripples.forEach(r=>{
+    r.radius+=2.5; r.alpha*=.93;
+    ctx.beginPath(); ctx.arc(r.x,r.y,r.radius,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(201,168,76,${r.alpha})`;
+    ctx.lineWidth=1; ctx.stroke();
+  });
+}
+
+function drawBg(){
+  ctx.fillStyle='rgba(5,7,10,0.18)';
+  ctx.fillRect(0,0,W,H);
+  drawNebulae();
+  drawLayer(deepStars, .08);
+  drawLayer(midStars,  .4);
+  drawLayer(fgStars,   .9);
+  drawShooters();
+  drawRipples();
+  t++;
+  requestAnimationFrame(drawBg);
+}
+
+// Click ripples
+canvas.addEventListener('click', e=>{
+  for(let i=0;i<3;i++) ripples.push({x:e.clientX,y:e.clientY,radius:0,alpha:.5});
+});
+document.addEventListener('mousemove', e=>{ mousePos.x=e.clientX; mousePos.y=e.clientY; });
+window.addEventListener('resize', ()=>{ resizeCanvas(); initScene(); });
+resizeCanvas(); initScene(); drawBg();
+
+// ── READING PROGRESS BAR ──
+window.addEventListener('scroll', ()=>{
+  const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progress-bar').style.width = scrolled + '%';
+});
+
+// ── 3D CARD TILT ──
+function initCardTilt(card){
+  card.addEventListener('mousemove', e=>{
+    const rect = card.getBoundingClientRect();
+    const dx = (e.clientX - rect.left - rect.width/2)  / (rect.width/2);
+    const dy = (e.clientY - rect.top  - rect.height/2) / (rect.height/2);
+    card.style.transition = 'transform .1s linear, box-shadow .1s linear, border-color .3s';
+    card.style.transform  = `perspective(1000px) rotateX(${-dy*6}deg) rotateY(${dx*6}deg) translateZ(12px) translateY(-6px)`;
+  });
+  card.addEventListener('mouseleave', ()=>{
+    card.style.transition = 'transform .5s cubic-bezier(.23,1,.32,1), box-shadow .4s, border-color .3s';
+    card.style.transform  = '';
+  });
+}
+
+document.querySelectorAll('.bias-card, .who-card, .learn-panel').forEach(card => initCardTilt(card));
+
+// ── NAV SCROLL EFFECT ──
+window.addEventListener('scroll', ()=>{
+  const nav = document.querySelector('nav');
+  if(window.scrollY > 60){
+    nav.style.padding         = '12px 60px';
+    nav.style.background      = 'rgba(5,7,10,0.85)';
+    nav.style.borderBottomColor = 'rgba(201,168,76,0.12)';
+  } else {
+    nav.style.padding         = '16px 60px';
+    nav.style.background      = 'rgba(5,7,10,0.55)';
+    nav.style.borderBottomColor = 'rgba(255,255,255,0.07)';
+  }
+});
+
+// ── INTERSECTION OBSERVER REVEAL ──
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── HERO PARALLAX ──
+window.addEventListener('scroll', ()=>{
+  const scrollY = window.scrollY;
+  const hero    = document.getElementById('hero');
+  const orb     = document.querySelector('.hero-orb');
+  const title   = document.querySelector('.hero-title');
+  if(scrollY < window.innerHeight){
+    if(orb)   orb.style.transform   = `translate(-50%, calc(-50% + ${scrollY*.15}px))`;
+    if(title) title.style.transform = `translateY(${scrollY*.08}px)`;
+  }
+});
+
+// ── STAT RING COUNTER ANIMATION ──
+function animateCounter(el, target, suffix, duration){
+  let start = 0;
+  const step = timestamp => {
+    if(!start) start = timestamp;
+    const progress = Math.min((timestamp-start)/duration, 1);
+    const eased    = 1 - Math.pow(1-progress, 3);
+    el.textContent = Math.floor(eased*target) + suffix;
+    if(progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const numEl = entry.target.querySelector('.stat-number');
+      if(numEl && !numEl.dataset.animated){
+        numEl.dataset.animated = 'true';
+        animateCounter(numEl, 100, 'x', 1800);
+      }
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-ring').forEach(el => statObserver.observe(el));
+
+// ── SMOOTH SECTION LINK NAV ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener('click', e=>{
+    e.preventDefault();
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if(target) target.scrollIntoView({ behavior:'smooth' });
+  });
+});
+
+// ── STEP ITEM STAGGER ON SCROLL ──
+const stepObserver = new IntersectionObserver((entries)=>{
+  entries.forEach((entry, i)=>{
+    if(entry.isIntersecting){
+      const items = document.querySelectorAll('.step-item');
+      items.forEach((item, idx)=>{
+        setTimeout(()=>{
+          item.style.opacity    = '1';
+          item.style.transform  = 'translateX(0)';
+        }, idx * 120);
+      });
+      stepObserver.disconnect();
+    }
+  });
+}, { threshold: 0.2 });
+
+// Init step items hidden
+document.querySelectorAll('.step-item').forEach(item=>{
+  item.style.opacity   = '0';
+  item.style.transform = 'translateX(-20px)';
+  item.style.transition= 'opacity .6s ease, transform .6s cubic-bezier(.23,1,.32,1)';
+});
+const stepsContainer = document.querySelector('.steps-container');
+if(stepsContainer) stepObserver.observe(stepsContainer);
+
+// ── BIAS CARD STAGGER ──
+const biasObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const cards = document.querySelectorAll('.bias-card');
+      cards.forEach((card, idx)=>{
+        setTimeout(()=>{
+          card.style.opacity   = '1';
+          card.style.transform = 'translateY(0) scale(1)';
+        }, idx * 100);
+      });
+      biasObserver.disconnect();
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.bias-card').forEach(card=>{
+  card.style.opacity   = '0';
+  card.style.transform = 'translateY(30px) scale(.98)';
+  card.style.transition= 'opacity .6s ease, transform .6s cubic-bezier(.23,1,.32,1)';
+});
+const biasSection = document.querySelector('#why');
+if(biasSection) biasObserver.observe(biasSection);
+
+// ── WHO CARD STAGGER ──
+const whoObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const cards = document.querySelectorAll('.who-card');
+      cards.forEach((card, idx)=>{
+        setTimeout(()=>{
+          card.style.opacity   = '1';
+          card.style.transform = 'translateY(0)';
+        }, idx * 80);
+      });
+      whoObserver.disconnect();
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.who-card').forEach(card=>{
+  card.style.opacity   = '0';
+  card.style.transform = 'translateY(24px)';
+  card.style.transition= 'opacity .5s ease, transform .5s cubic-bezier(.23,1,.32,1)';
+});
+const whoSection = document.querySelector('#who');
+if(whoSection) whoObserver.observe(whoSection);
+
+</script>
+</body>
+</html>
 
