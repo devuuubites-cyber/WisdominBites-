@@ -2246,6 +2246,2065 @@ const DiagramScenes = {
       { type:'label',  layer:3, x:280, y:250, text:'our social circle distorts the sample', dim:true, size:9, delay:1100, duration:300 }
     ]
   },
+    'spotlight-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:160, r:100, gold:true, dim:true, delay:200, duration:500 },
+      { type:'node',   layer:2, x:280, y:120, r:40,  label:'Me', gold:true, delay:300, duration:400 },
+      { type:'arrow',  layer:2, x:280, y:80,  ex:280, ey:48, gold:true, delay:550, duration:300 },
+      { type:'label',  layer:2, x:280, y:38,  text:'feels enormous', gold:true, size:9, delay:700, duration:200 },
+      { type:'node',   layer:1, x:120, y:175, r:16, label:'', dim:true, delay:700, duration:250 },
+      { type:'node',   layer:1, x:180, y:195, r:14, label:'', dim:true, delay:730, duration:250 },
+      { type:'node',   layer:1, x:380, y:195, r:16, label:'', dim:true, delay:760, duration:250 },
+      { type:'node',   layer:1, x:440, y:175, r:14, label:'', dim:true, delay:790, duration:250 },
+      { type:'label',  layer:1, x:180, y:218, text:'not watching', dim:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:1, x:400, y:218, text:'not watching', dim:true, size:9, delay:920, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'the audience in your mind is far larger than reality', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'mere-exposure-effect': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:90,  y:130, r:30, label:'1st\nsee', dim:true, delay:200, duration:300 },
+      { type:'arrow',  layer:1, x:122, y:130, ex:168, ey:130, delay:400, duration:200 },
+      { type:'node',   layer:1, x:200, y:130, r:32, label:'2nd\nsee', delay:450, duration:300 },
+      { type:'arrow',  layer:1, x:234, y:130, ex:278, ey:130, delay:620, duration:200 },
+      { type:'node',   layer:2, x:315, y:130, r:36, label:'3rd\nsee', delay:680, duration:350 },
+      { type:'arrow',  layer:2, x:353, y:130, ex:398, ey:130, gold:true, delay:870, duration:200 },
+      { type:'node',   layer:3, x:440, y:130, r:44, label:'Like!', gold:true, delay:920, duration:400 },
+      { type:'bar',    layer:1, x:65,  y:195, w:50, h:20, dim:true, delay:600, duration:300 },
+      { type:'bar',    layer:1, x:180, y:185, w:50, h:30, dim:true, delay:650, duration:300 },
+      { type:'bar',    layer:2, x:293, y:170, w:50, h:45, delay:700, duration:300 },
+      { type:'bar',    layer:3, x:415, y:145, w:50, h:70, gold:true, delay:800, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'familiarity silently builds preference', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'fundamental-attribution-error': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:160, y:120, r:45, label:'Their\nAction', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:208, y:108, ex:300, ey:78, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:340, y:70,  r:38, label:'Bad\nCharacter', gold:true, delay:650, duration:400 },
+      { type:'arrow',  layer:1, x:208, y:132, ex:300, ey:180, dim:true, dashed:true, delay:700, duration:300 },
+      { type:'node',   layer:1, x:340, y:195, r:38, label:'Situation\n(ignored)', dim:true, delay:830, duration:400 },
+      { type:'ring',   layer:1, x:340, y:195, r:48, dim:true, delay:880, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'we explain behaviour by character, not context', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'actor-observer-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:40, label:'Actor\n(Me)', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:172, y:118, ex:265, ey:80, gold:true, dashed:true, delay:500, duration:300 },
+      { type:'label',  layer:2, x:240, y:65,  text:'Situation →', gold:true, size:9, delay:650, duration:200 },
+      { type:'node',   layer:1, x:130, y:130, r:40, label:'Observer\n(You)', dim:true, delay:750, duration:400 },
+      { type:'arrow',  layer:1, x:172, y:142, ex:265, ey:182, dim:true, delay:900, duration:300 },
+      { type:'label',  layer:1, x:245, y:195, text:'Character →', dim:true, size:9, delay:1000, duration:200 },
+      { type:'node',   layer:3, x:390, y:130, r:40, label:'Same\nAction', delay:600, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'same act, opposite explanations', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'just-world-hypothesis': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:100, gold:true, dim:true, delay:200, duration:500 },
+      { type:'label',  layer:2, x:280, y:42,  text:'JUST WORLD BELIEF', gold:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:1, x:130, y:90,  r:28, label:'Bad\nThing', dim:true, delay:500, duration:350 },
+      { type:'arrow',  layer:2, x:158, y:100, ex:230, ey:118, gold:true, delay:700, duration:300 },
+      { type:'label',  layer:2, x:210, y:100, text:'they\ndeserved it', gold:true, size:9, delay:850, duration:200 },
+      { type:'node',   layer:1, x:430, y:90,  r:28, label:'Victim', dim:true, delay:550, duration:350 },
+      { type:'arrow',  layer:2, x:402, y:100, ex:330, ey:118, gold:true, dashed:true, delay:750, duration:300 },
+      { type:'node',   layer:3, x:280, y:180, r:35, label:'False\nSafety', delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'blaming victims preserves the illusion of safety', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'defensive-attribution': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:42, label:'Me\n(similar)', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:420, y:130, r:42, label:'Them\n(different)', dim:true, delay:250, duration:400 },
+      { type:'node',   layer:1, x:280, y:130, r:30, label:'Victim', dim:true, delay:400, duration:350 },
+      { type:'arrow',  layer:2, x:174, y:118, ex:250, ey:118, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:2, x:212, y:100, text:'not their\nfault', gold:true, size:9, delay:750, duration:200 },
+      { type:'arrow',  layer:1, x:376, y:118, ex:312, ey:118, dim:true, delay:650, duration:300 },
+      { type:'label',  layer:1, x:352, y:100, text:'their\nfault', dim:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'similarity to victim shapes blame assignment', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'group-attribution-error': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:150, y:130, r:80,  dim:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:115, y:110, r:14, label:'', dim:true, delay:400, duration:200 },
+      { type:'node',   layer:1, x:150, y:98,  r:14, label:'', dim:true, delay:420, duration:200 },
+      { type:'node',   layer:1, x:185, y:110, r:14, label:'', dim:true, delay:440, duration:200 },
+      { type:'node',   layer:1, x:195, y:148, r:14, label:'', dim:true, delay:460, duration:200 },
+      { type:'node',   layer:1, x:150, y:162, r:14, label:'', dim:true, delay:480, duration:200 },
+      { type:'node',   layer:1, x:108, y:148, r:14, label:'', dim:true, delay:500, duration:200 },
+      { type:'arrow',  layer:2, x:235, y:130, ex:295, ey:130, gold:true, delay:650, duration:300 },
+      { type:'label',  layer:2, x:265, y:112, text:'assumes\nrepresents', size:9, delay:800, duration:200 },
+      { type:'node',   layer:3, x:380, y:130, r:44, label:'Group\nDecision', gold:true, delay:750, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'group output ≠ individual preferences', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'ultimate-attribution-error': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:100, r:38, label:'In-\nGroup', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:420, y:100, r:38, label:'Out-\nGroup', dim:true, delay:250, duration:400 },
+      { type:'label',  layer:2, x:130, y:158, text:'Good act:\n"Skill"', gold:true, size:9, delay:600, duration:200 },
+      { type:'label',  layer:2, x:130, y:190, text:'Bad act:\n"Situation"', gold:true, size:9, delay:650, duration:200 },
+      { type:'label',  layer:1, x:420, y:158, text:'Good act:\n"Luck"', dim:true, size:9, delay:700, duration:200 },
+      { type:'label',  layer:1, x:420, y:190, text:'Bad act:\n"Character"', dim:true, size:9, delay:750, duration:200 },
+      { type:'arrow',  layer:3, x:172, y:100, ex:382, ey:100, gold:true, dashed:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:86,  text:'same behaviour', size:9, delay:1050, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'opposite explanations depending on who acts', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'self-fulfilling-prophecy': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:100, y:130, r:38, label:'False\nBelief', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:140, y:118, ex:225, ey:90, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:2, x:270, y:80,  r:34, label:'Changed\nBehavior', gold:true, delay:650, duration:400 },
+      { type:'arrow',  layer:2, x:304, y:92,  ex:380, ey:115, gold:true, delay:850, duration:300 },
+      { type:'node',   layer:3, x:420, y:130, r:38, label:'Belief\nConfirmed', gold:true, delay:1000, duration:400 },
+      { type:'arrow',  layer:1, x:408, y:168, ex:115, ey:168, dim:true, dashed:true, delay:1100, duration:400 },
+      { type:'label',  layer:1, x:265, y:182, text:'feedback loop', dim:true, size:9, delay:1200, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'false beliefs generate real outcomes', dim:true, size:9, delay:1300, duration:300 }
+    ]
+  },
+
+  'hostile-attribution-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:40, label:'Ambiguous\nAct', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:172, y:110, ex:270, ey:75, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:315, y:62,  r:38, label:'Hostile\nIntent', gold:true, delay:650, duration:400 },
+      { type:'arrow',  layer:1, x:172, y:148, ex:270, ey:190, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:315, y:198, r:38, label:'Benign\nIntent', dim:true, delay:750, duration:400 },
+      { type:'ring',   layer:1, x:315, y:198, r:48, dim:true, delay:800, duration:400 },
+      { type:'arrow',  layer:3, x:355, y:70,  ex:430, ey:110, gold:true, delay:900, duration:300 },
+      { type:'node',   layer:3, x:460, y:130, r:32, label:'Retaliate', gold:true, delay:1000, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'ambiguity resolved as threat — conflict follows', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'misinformation-effect': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:100, y:110, r:36, label:'Event', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:138, y:110, ex:210, ey:110, gold:true, delay:450, duration:250 },
+      { type:'node',   layer:1, x:255, y:110, r:36, label:'Memory\nEncoded', dim:true, delay:550, duration:400 },
+      { type:'arrow',  layer:1, x:293, y:110, ex:360, ey:80, dim:true, dashed:true, delay:750, duration:300 },
+      { type:'node',   layer:1, x:400, y:65,  r:28, label:'Post-event\nInfo', dim:true, delay:850, duration:350 },
+      { type:'arrow',  layer:3, x:400, y:95,  ex:295, ey:145, gold:true, delay:1000, duration:300 },
+      { type:'node',   layer:3, x:255, y:175, r:36, label:'Altered\nMemory', gold:true, delay:1100, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'memory is a reconstruction, not a recording', dim:true, size:9, delay:1250, duration:300 }
+    ]
+  },
+
+  'consistency-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:110, y:130, r:40, label:'Past\nBelief', dim:true, delay:200, duration:400 },
+      { type:'label',  layer:1, x:110, y:182, text:'(actual)', dim:true, size:8, delay:400, duration:200 },
+      { type:'arrow',  layer:1, x:152, y:130, ex:238, ey:130, dim:true, dashed:true, delay:500, duration:300 },
+      { type:'label',  layer:1, x:195, y:115, text:'misremembered\nas', dim:true, size:8, delay:620, duration:200 },
+      { type:'node',   layer:3, x:290, y:130, r:40, label:'Past\nBelief', gold:true, delay:700, duration:400 },
+      { type:'label',  layer:3, x:290, y:182, text:'(revised)', gold:true, size:8, delay:880, duration:200 },
+      { type:'arrow',  layer:2, x:332, y:130, ex:400, ey:130, gold:true, delay:900, duration:250 },
+      { type:'node',   layer:2, x:445, y:130, r:40, label:'Current\nBelief', gold:true, delay:1000, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'we rewrite the past to match who we are now', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'egocentric-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:100, dim:true, delay:200, duration:400 },
+      { type:'bar',    layer:3, x:160, y:100, w:55, h:100, label:'My\n60%', gold:true, delay:400, duration:500 },
+      { type:'bar',    layer:2, x:335, y:130, w:55, h:70,  label:'Their\n60%', delay:500, duration:500 },
+      { type:'label',  layer:3, x:187, y:88,  text:'claimed', gold:true, size:9, delay:700, duration:200 },
+      { type:'label',  layer:2, x:362, y:118, text:'claimed', size:9, delay:750, duration:200 },
+      { type:'node',   layer:1, x:280, y:228, r:16, label:'', dim:true, delay:800, duration:200 },
+      { type:'label',  layer:1, x:280, y:248, text:'total > 100%', dim:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:260, text:'each person has richer access to their own effort', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'leveling-sharpening': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:90,  y:130, r:38, label:'Original\nEvent', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:130, y:130, ex:200, ey:130, delay:450, duration:200 },
+      { type:'node',   layer:1, x:245, y:130, r:32, label:'Retold', dim:true, delay:500, duration:350 },
+      { type:'arrow',  layer:1, x:279, y:130, ex:340, ey:130, delay:700, duration:200 },
+      { type:'node',   layer:2, x:388, y:130, r:42, label:'Retold\nAgain', gold:true, delay:750, duration:400 },
+      { type:'label',  layer:1, x:245, y:175, text:'details lost', dim:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:3, x:388, y:88,  text:'drama\namplified', gold:true, size:9, delay:950, duration:200 },
+      { type:'arrow',  layer:3, x:388, y:100, ex:388, ey:108, gold:true, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'stories become cleaner and more dramatic over time', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'telescoping-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:60,  y:130, ex:480, ey:130, dim:true, delay:200, duration:400 },
+      { type:'label',  layer:1, x:270, y:148, text:'actual timeline →', dim:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:1, x:120, y:130, r:14, label:'', dim:true, delay:500, duration:250 },
+      { type:'label',  layer:1, x:120, y:155, text:'5 yrs ago', dim:true, size:8, delay:600, duration:200 },
+      { type:'node',   layer:1, x:280, y:130, r:14, label:'', dim:true, delay:520, duration:250 },
+      { type:'label',  layer:1, x:280, y:155, text:'2 yrs ago', dim:true, size:8, delay:630, duration:200 },
+      { type:'node',   layer:2, x:440, y:130, r:14, label:'', gold:true, delay:540, duration:250 },
+      { type:'label',  layer:2, x:440, y:155, text:'6 mo ago', gold:true, size:8, delay:660, duration:200 },
+      { type:'arrow',  layer:3, x:120, y:110, ex:310, ey:82, gold:true, dashed:true, delay:750, duration:400 },
+      { type:'label',  layer:3, x:235, y:68,  text:'feels recent', gold:true, size:9, delay:900, duration:200 },
+      { type:'arrow',  layer:3, x:440, y:110, ex:370, ey:82, dim:true, dashed:true, delay:800, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'distant events feel closer than they are', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'peak-end-rule': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:50,  ey:38, dim:true,  delay:200, duration:300 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:300 },
+      { type:'curve',  layer:2, points:[
+          {x:55,y:185},{x:100,y:170},{x:150,y:145},{x:200,y:100},
+          {x:250,y:75},{x:300,y:95},{x:370,y:140},{x:430,y:165},{x:480,y:155}
+        ], delay:400, duration:700 },
+      { type:'node',   layer:3, x:250, y:72,  r:22, label:'Peak', gold:true, delay:850, duration:400 },
+      { type:'arrow',  layer:3, x:250, y:50,  ex:250, ey:56, gold:true, delay:900, duration:200 },
+      { type:'node',   layer:3, x:480, y:152, r:22, label:'End',  gold:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:365, y:218, text:'avg(peak + end) = memory', gold:true, size:9, delay:1100, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'duration is almost irrelevant to recall', dim:true, size:9, delay:1250, duration:300 }
+    ]
+  },
+
+  'duration-neglect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:2, x:80,  y:80,  w:80, h:130, label:'60 min\nexperience', dim:true, delay:300, duration:400 },
+      { type:'bar',    layer:2, x:240, y:80,  w:80, h:130, label:'30 min\nexperience', dim:true, delay:350, duration:400 },
+      { type:'bar',    layer:3, x:80,  y:220, w:80, h:30,  label:'Memory\nA', gold:true, delay:700, duration:400 },
+      { type:'bar',    layer:3, x:240, y:220, w:80, h:30,  label:'Memory\nB', gold:true, delay:750, duration:400 },
+      { type:'label',  layer:3, x:120, y:262, text:'≈ same', gold:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:262, text:'≈ same', gold:true, size:9, delay:970, duration:200 },
+      { type:'arrow',  layer:3, x:400, y:130, ex:490, ey:80, gold:true, dashed:true, delay:900, duration:300 },
+      { type:'label',  layer:3, x:450, y:68,  text:'peak\n& end\nmatter', gold:true, size:9, delay:1050, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'the experiencing self and remembering self diverge', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'next-in-line-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:90,  y:140, r:28, label:'Speaks', dim:true, delay:300, duration:300 },
+      { type:'node',   layer:2, x:200, y:140, r:32, label:'Next\nUp!', gold:true, delay:400, duration:400 },
+      { type:'ring',   layer:2, x:200, y:140, r:48, gold:true, dim:true, delay:500, duration:400 },
+      { type:'node',   layer:1, x:320, y:140, r:28, label:'Listens', dim:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:430, y:140, r:28, label:'Listens', dim:true, delay:530, duration:300 },
+      { type:'label',  layer:2, x:200, y:88,  text:'rehearsing\nresponse', gold:true, size:9, delay:700, duration:200 },
+      { type:'arrow',  layer:2, x:200, y:108, ex:200, ey:112, gold:true, delay:750, duration:200 },
+      { type:'label',  layer:1, x:90,  y:182, text:'not heard', dim:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'preparing to speak prevents listening', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'escalation-of-commitment': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:1, x:65,  y:155, w:50, h:55,  label:'Initial', dim:true, delay:300, duration:350 },
+      { type:'bar',    layer:1, x:145, y:130, w:50, h:80,  label:'+More',   dim:true, delay:400, duration:350 },
+      { type:'bar',    layer:2, x:225, y:100, w:50, h:110, label:'+More',   delay:500, duration:400 },
+      { type:'bar',    layer:3, x:305, y:60,  w:50, h:150, label:'+More',   gold:true, delay:600, duration:500 },
+      { type:'arrow',  layer:3, x:365, y:90,  ex:430, ey:90, gold:true, delay:850, duration:300 },
+      { type:'node',   layer:1, x:460, y:130, r:35, label:'Still\nFailing', dim:true, delay:950, duration:400 },
+      { type:'arrow',  layer:3, x:460, y:165, ex:460, ey:210, dim:true, dashed:true, delay:1050, duration:300 },
+      { type:'label',  layer:1, x:460, y:225, text:'sunk cost', dim:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'prior investment fuels future over-investment', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'outcome-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:120, y:110, r:42, label:'Good\nProcess', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:2, x:120, y:190, r:42, label:'Bad\nProcess', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:2, x:164, y:100, ex:260, ey:80, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:300, y:72,  r:28, label:'Bad\nOutcome', dim:true, delay:650, duration:350 },
+      { type:'arrow',  layer:2, x:164, y:200, ex:260, ey:215, delay:600, duration:300 },
+      { type:'node',   layer:3, x:300, y:218, r:28, label:'Good\nOutcome', gold:true, delay:750, duration:350 },
+      { type:'arrow',  layer:1, x:330, y:72,  ex:410, ey:108, dim:true, delay:850, duration:300 },
+      { type:'label',  layer:1, x:430, y:108, text:'judged\nbadly', dim:true, size:9, delay:950, duration:200 },
+      { type:'arrow',  layer:3, x:330, y:218, ex:410, ey:182, gold:true, delay:900, duration:300 },
+      { type:'label',  layer:3, x:430, y:172, text:'judged\nwell', gold:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'outcomes judge decisions — but luck is not skill', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'information-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:120, y:130, r:40, label:'Decision\nClear', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:162, y:118, ex:240, ey:92, gold:true, dashed:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:290, y:80,  r:32, label:'More\nData?', dim:true, delay:650, duration:350 },
+      { type:'arrow',  layer:1, x:324, y:80,  ex:390, ey:80, dim:true, dashed:true, delay:800, duration:250 },
+      { type:'node',   layer:1, x:425, y:80,  r:32, label:'More\nData?', dim:true, delay:860, duration:350 },
+      { type:'label',  layer:1, x:280, y:128, text:'no change to decision', dim:true, size:9, delay:950, duration:200 },
+      { type:'ring',   layer:1, x:290, y:80,  r:46, dim:true, delay:900, duration:400 },
+      { type:'ring',   layer:1, x:425, y:80,  r:46, dim:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'more data is not always more value', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'base-rate-neglect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:1, x:60,  y:60,  w:60, h:160, label:'Base\nRate', dim:true, delay:300, duration:400 },
+      { type:'label',  layer:1, x:90,  y:48,  text:'ignored', dim:true, size:8, delay:500, duration:200 },
+      { type:'ring',   layer:1, x:90,  y:140, r:40, dim:true, delay:400, duration:400 },
+      { type:'node',   layer:3, x:340, y:130, r:55, label:'Vivid\nStory', gold:true, delay:500, duration:500 },
+      { type:'ring',   layer:2, x:340, y:130, r:72, gold:true, dim:true, delay:600, duration:500 },
+      { type:'arrow',  layer:3, x:350, y:75,  ex:350, ey:45, gold:true, delay:800, duration:300 },
+      { type:'label',  layer:3, x:350, y:35,  text:'dominates\njudgment', gold:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'prior probability must anchor every estimate', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'belief-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:100, r:36, label:'Valid\nLogic', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:100, y:190, r:36, label:'Invalid\nLogic', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:1, x:138, y:95,  ex:240, ey:75, delay:500, duration:300 },
+      { type:'arrow',  layer:1, x:138, y:195, ex:240, ey:215, delay:550, duration:300 },
+      { type:'node',   layer:2, x:290, y:72,  r:34, label:'Believable\nConclusion', gold:true, delay:650, duration:400 },
+      { type:'node',   layer:2, x:290, y:212, r:34, label:'Believable\nConclusion', gold:true, delay:700, duration:400 },
+      { type:'label',  layer:3, x:430, y:72,  text:'accepted ✓', gold:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:430, y:212, text:'accepted ✓', gold:true, size:9, delay:870, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'believable conclusions bypass logical scrutiny', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'omission-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:100, r:42, label:'Harm by\nAction', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:130, y:195, r:42, label:'Harm by\nInaction', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:2, x:174, y:95,  ex:280, ey:78, gold:true, delay:500, duration:300 },
+      { type:'label',  layer:2, x:300, y:65,  text:'judged\nharshly', gold:true, size:9, delay:650, duration:200 },
+      { type:'arrow',  layer:1, x:174, y:200, ex:280, ey:200, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'label',  layer:1, x:300, y:200, text:'judged\nless so', dim:true, size:9, delay:750, duration:200 },
+      { type:'node',   layer:3, x:420, y:130, r:38, label:'Same\nHarm', delay:800, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'doing nothing feels safer — but may not be', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'commission-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:42, label:'Wait\n(Optimal)', dim:true, delay:200, duration:400 },
+      { type:'ring',   layer:1, x:130, y:130, r:55, dim:true, delay:350, duration:400 },
+      { type:'node',   layer:3, x:390, y:130, r:42, label:'Act\n(Chosen)', gold:true, delay:300, duration:400 },
+      { type:'ring',   layer:2, x:390, y:130, r:55, gold:true, dim:true, delay:450, duration:400 },
+      { type:'arrow',  layer:3, x:186, y:118, ex:346, ey:118, gold:true, delay:600, duration:400 },
+      { type:'label',  layer:3, x:265, y:103, text:'discomfort\nwith passivity', gold:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:1, x:130, y:185, text:'evidence favors this', dim:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'the urge to do something overrides doing nothing', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'ambiguity-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:160, y:100, r:50, label:'Known\nOdds\n60%', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:380, y:170, r:50, label:'Unknown\nOdds\n??%', dim:true, delay:250, duration:400 },
+      { type:'ring',   layer:1, x:380, y:170, r:65, dim:true, delay:400, duration:500 },
+      { type:'arrow',  layer:3, x:210, y:115, ex:335, ey:155, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:3, x:278, y:125, text:'preferred', gold:true, size:9, delay:750, duration:200 },
+      { type:'label',  layer:1, x:380, y:235, text:'possibly better EV', dim:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'discomfort with uncertainty overrides expected value', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'risk-compensation': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:42, label:'Safety\nAdded', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:174, y:118, ex:270, ey:88, gold:true, delay:500, duration:300 },
+      { type:'label',  layer:2, x:240, y:72,  text:'feels safer', gold:true, size:9, delay:650, duration:200 },
+      { type:'arrow',  layer:3, x:270, y:88,  ex:370, ey:100, gold:true, delay:750, duration:300 },
+      { type:'node',   layer:3, x:415, y:112, r:38, label:'Riskier\nBehavior', gold:true, delay:900, duration:400 },
+      { type:'arrow',  layer:1, x:415, y:150, ex:415, ey:192, dim:true, dashed:true, delay:1000, duration:300 },
+      { type:'label',  layer:1, x:415, y:208, text:'benefit offset', dim:true, size:9, delay:1050, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'safety measures change behaviour — sometimes fatally', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'ingroup-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:2, x:190, y:130, r:80,  gold:true, dim:true, delay:200, duration:500 },
+      { type:'label',  layer:2, x:190, y:42,  text:'IN-GROUP', gold:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:2, x:155, y:115, r:18, label:'', gold:true, delay:500, duration:250 },
+      { type:'node',   layer:2, x:190, y:100, r:18, label:'', gold:true, delay:520, duration:250 },
+      { type:'node',   layer:2, x:225, y:115, r:18, label:'', gold:true, delay:540, duration:250 },
+      { type:'node',   layer:2, x:225, y:148, r:18, label:'', gold:true, delay:560, duration:250 },
+      { type:'node',   layer:2, x:155, y:148, r:18, label:'', gold:true, delay:580, duration:250 },
+      { type:'ring',   layer:1, x:370, y:130, r:60,  dim:true, delay:700, duration:400 },
+      { type:'label',  layer:1, x:370, y:60,  text:'OUT-GROUP', dim:true, size:9, delay:800, duration:200 },
+      { type:'node',   layer:1, x:348, y:118, r:14, label:'', dim:true, delay:800, duration:200 },
+      { type:'node',   layer:1, x:390, y:118, r:14, label:'', dim:true, delay:820, duration:200 },
+      { type:'node',   layer:1, x:370, y:145, r:14, label:'', dim:true, delay:840, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'arbitrary categories produce real discrimination', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'outgroup-homogeneity-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:2, x:160, y:130, r:90, gold:true, dim:true, delay:200, duration:400 },
+      { type:'label',  layer:2, x:160, y:42,  text:'MY GROUP — complex', gold:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:2, x:100, y:105, r:14, label:'A', delay:500, duration:200 },
+      { type:'node',   layer:2, x:155, y:88,  r:14, label:'B', delay:520, duration:200 },
+      { type:'node',   layer:2, x:215, y:105, r:14, label:'C', gold:true, delay:540, duration:200 },
+      { type:'node',   layer:2, x:220, y:158, r:14, label:'D', delay:560, duration:200 },
+      { type:'node',   layer:2, x:155, y:175, r:14, label:'E', delay:580, duration:200 },
+      { type:'node',   layer:2, x:96,  y:158, r:14, label:'F', gold:true, delay:600, duration:200 },
+      { type:'ring',   layer:1, x:390, y:130, r:60, dim:true, delay:700, duration:400 },
+      { type:'label',  layer:1, x:390, y:58,  text:'THEM — all the same', dim:true, size:9, delay:800, duration:200 },
+      { type:'node',   layer:1, x:365, y:118, r:14, label:'=', dim:true, delay:820, duration:200 },
+      { type:'node',   layer:1, x:415, y:118, r:14, label:'=', dim:true, delay:840, duration:200 },
+      { type:'node',   layer:1, x:390, y:148, r:14, label:'=', dim:true, delay:860, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'limited exposure creates false uniformity', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'illusory-correlation': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:140, y:100, r:30, label:'A', gold:true, delay:200, duration:300 },
+      { type:'node',   layer:2, x:140, y:180, r:30, label:'B', gold:true, delay:250, duration:300 },
+      { type:'arrow',  layer:3, x:172, y:107, ex:340, ey:107, gold:true, delay:500, duration:300 },
+      { type:'label',  layer:3, x:256, y:90,  text:'noticed!', gold:true, size:9, delay:650, duration:200 },
+      { type:'node',   layer:1, x:380, y:100, r:30, label:'A', dim:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:380, y:180, r:30, label:'not B', dim:true, delay:650, duration:300 },
+      { type:'node',   layer:1, x:460, y:100, r:30, label:'not A', dim:true, delay:700, duration:300 },
+      { type:'node',   layer:1, x:460, y:180, r:30, label:'not B', dim:true, delay:750, duration:300 },
+      { type:'label',  layer:1, x:430, y:245, text:'untracked', dim:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'memorable co-occurrences feel like patterns', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'groupthink': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:105, gold:true, dim:true, delay:200, duration:500 },
+      { type:'node',   layer:2, x:280, y:130, r:42,  label:'Group\nConsensus', gold:true, delay:350, duration:500 },
+      { type:'node',   layer:1, x:180, y:68,  r:20, label:'✓', delay:600, duration:250 },
+      { type:'node',   layer:1, x:280, y:48,  r:20, label:'✓', delay:630, duration:250 },
+      { type:'node',   layer:1, x:380, y:68,  r:20, label:'✓', delay:660, duration:250 },
+      { type:'node',   layer:1, x:420, y:155, r:20, label:'✓', delay:690, duration:250 },
+      { type:'node',   layer:1, x:140, y:155, r:20, label:'✓', delay:720, duration:250 },
+      { type:'node',   layer:3, x:470, y:65,  r:22, label:'✗', dim:true, delay:800, duration:300 },
+      { type:'ring',   layer:3, x:470, y:65,  r:30, dim:true, delay:850, duration:300 },
+      { type:'label',  layer:3, x:470, y:45,  text:'dissent\nsuppressed', dim:true, size:8, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'cohesion becomes the enemy of honest thinking', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'false-uniqueness-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:105, dim:true, delay:200, duration:400 },
+      { type:'label',  layer:1, x:280, y:38,  text:'actual population', dim:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:1, x:200, y:88,  r:14, label:'', dim:true, delay:500, duration:200 },
+      { type:'node',   layer:1, x:310, y:68,  r:14, label:'', dim:true, delay:520, duration:200 },
+      { type:'node',   layer:1, x:380, y:95,  r:14, label:'', dim:true, delay:540, duration:200 },
+      { type:'node',   layer:1, x:360, y:175, r:14, label:'', dim:true, delay:560, duration:200 },
+      { type:'node',   layer:1, x:200, y:175, r:14, label:'', dim:true, delay:580, duration:200 },
+      { type:'node',   layer:3, x:280, y:130, r:42, label:'Me\n(rare!)', gold:true, delay:650, duration:400 },
+      { type:'ring',   layer:3, x:280, y:130, r:55, gold:true, dim:true, delay:750, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'our best qualities feel rarer than they are', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'social-comparison-bias': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:80,  y:80,  w:70, h:130, label:'Me\n$50K', gold:true, delay:300, duration:500 },
+      { type:'bar',    layer:2, x:200, y:170, w:70, h:40,  label:'You\n$25K', dim:true, delay:400, duration:400 },
+      { type:'label',  layer:3, x:155, y:48,  text:'preferred ✓', gold:true, size:9, delay:700, duration:200 },
+      { type:'bar',    layer:1, x:340, y:48,  w:70, h:162, label:'Me\n$100K', dim:true, delay:500, duration:500 },
+      { type:'bar',    layer:1, x:440, y:28,  w:70, h:182, label:'You\n$200K', dim:true, delay:550, duration:500 },
+      { type:'label',  layer:1, x:395, y:248, text:'rejected ✗', dim:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'relative position distorts absolute judgment', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'naive-realism': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:48, label:'My\nView', gold:true, delay:200, duration:400 },
+      { type:'label',  layer:2, x:130, y:88,  text:'"objective\nreality"', gold:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:1, x:400, y:130, r:48, label:'Their\nView', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:3, x:180, y:118, ex:352, ey:118, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:3, x:266, y:103, text:'disagrees?', gold:true, size:9, delay:750, duration:200 },
+      { type:'label',  layer:1, x:400, y:192, text:'biased / misinformed', dim:true, size:9, delay:850, duration:200 },
+      { type:'ring',   layer:1, x:400, y:130, r:62, dim:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'our perception of objectivity is itself a bias', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'money-illusion': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:80,  y:105, w:80, h:105, label:'$110K\nSalary', gold:true, delay:300, duration:500 },
+      { type:'bar',    layer:1, x:220, y:65,  w:80, h:145, label:'Real\nValue', dim:true, delay:400, duration:500 },
+      { type:'label',  layer:3, x:120, y:92,  text:'nominal ↑', gold:true, size:9, delay:650, duration:200 },
+      { type:'label',  layer:1, x:260, y:52,  text:'real ↓', dim:true, size:9, delay:700, duration:200 },
+      { type:'arrow',  layer:3, x:200, y:140, ex:218, ey:140, gold:true, dashed:true, delay:800, duration:200 },
+      { type:'bar',    layer:1, x:370, y:88,  w:80, h:122, label:'$100K\n(last yr)', dim:true, delay:500, duration:500 },
+      { type:'label',  layer:1, x:410, y:75,  text:'nominal ↓', dim:true, size:9, delay:750, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'nominal gains can hide real losses', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'hyperbolic-discounting': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:50,  ey:38, dim:true, delay:200, duration:300 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:300 },
+      { type:'curve',  layer:2, points:[{x:60,y:55},{x:120,y:75},{x:200,y:130},{x:300,y:170},{x:400,y:185},{x:480,y:188}], delay:400, duration:600 },
+      { type:'node',   layer:3, x:130, y:68,  r:30, label:'$100\nnow', gold:true, delay:700, duration:400 },
+      { type:'node',   layer:1, x:400, y:180, r:30, label:'$110\n+2wk', dim:true, delay:750, duration:400 },
+      { type:'label',  layer:3, x:130, y:112, text:'chosen', gold:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:1, x:400, y:215, text:'rejected', dim:true, size:9, delay:920, duration:200 },
+      { type:'label',  layer:1, x:270, y:38,  text:'time →', dim:true, size:9, delay:300, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'we steeply discount even small delays', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'time-inconsistency': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:100, r:42, label:'Sunday\nPlan', gold:true, delay:200, duration:400 },
+      { type:'label',  layer:2, x:130, y:155, text:'"6am every day"', gold:true, size:9, delay:400, duration:200 },
+      { type:'arrow',  layer:2, x:174, y:100, ex:280, ey:100, gold:true, delay:550, duration:300 },
+      { type:'label',  layer:2, x:227, y:82,  text:'Monday\narrives', size:9, delay:700, duration:200 },
+      { type:'node',   layer:1, x:340, y:100, r:42, label:'Monday\nAction', dim:true, delay:800, duration:400 },
+      { type:'label',  layer:1, x:340, y:155, text:'"just 5 more min"', dim:true, size:9, delay:950, duration:200 },
+      { type:'arrow',  layer:3, x:130, y:140, ex:340, ey:140, gold:true, dashed:true, delay:1000, duration:400 },
+      { type:'label',  layer:3, x:235, y:170, text:'different selves', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'plans and actions are made by different selves', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'disposition-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:80,  y:95,  w:70, h:115, label:'Stock A\n+30%', gold:true, delay:300, duration:500 },
+      { type:'bar',    layer:1, x:240, y:155, w:70, h:55,  label:'Stock B\n-30%', dim:true, delay:400, duration:500 },
+      { type:'arrow',  layer:3, x:150, y:130, ex:210, ey:130, gold:true, delay:700, duration:300 },
+      { type:'label',  layer:3, x:200, y:115, text:'SELL ✓', gold:true, size:9, delay:850, duration:200 },
+      { type:'arrow',  layer:1, x:310, y:185, ex:380, ey:185, dim:true, dashed:true, delay:750, duration:300 },
+      { type:'label',  layer:1, x:390, y:178, text:'HOLD ✗', dim:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:1, x:290, y:228, text:'rational: do the opposite', dim:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'we sell winners and hold losers — backwards', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'house-money-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:105, y:130, r:42, label:'Earned\nCapital', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:3, x:300, y:130, r:42, label:'Recent\nWin', gold:true, delay:250, duration:400 },
+      { type:'ring',   layer:2, x:300, y:130, r:58, gold:true, dim:true, delay:400, duration:500 },
+      { type:'arrow',  layer:1, x:147, y:115, ex:215, ey:90, dim:true, delay:600, duration:300 },
+      { type:'label',  layer:1, x:170, y:75,  text:'risk: cautious', dim:true, size:9, delay:750, duration:200 },
+      { type:'arrow',  layer:3, x:344, y:115, ex:415, ey:85, gold:true, delay:700, duration:300 },
+      { type:'label',  layer:3, x:435, y:72,  text:'risk: reckless', gold:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'found money feels less real — so we gamble it', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'mental-accounting': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:80,  y:100, r:32, label:'Holiday\nFund', gold:true, delay:300, duration:350 },
+      { type:'node',   layer:1, x:190, y:100, r:32, label:'Emergency\nFund', delay:350, duration:350 },
+      { type:'node',   layer:1, x:300, y:100, r:32, label:'Bonus\nMoney', delay:400, duration:350 },
+      { type:'node',   layer:1, x:410, y:100, r:32, label:'Savings', dim:true, delay:450, duration:350 },
+      { type:'label',  layer:2, x:245, y:48,  text:'MENTAL ACCOUNTS', size:9, delay:550, duration:200 },
+      { type:'node',   layer:3, x:245, y:185, r:42, label:'$1 = $1', gold:true, delay:650, duration:400 },
+      { type:'label',  layer:3, x:245, y:238, text:'(but treated differently)', dim:true, size:9, delay:850, duration:200 },
+      { type:'arrow',  layer:1, x:80,  y:132, ex:203, ey:168, dim:true, dashed:true, delay:800, duration:300 },
+      { type:'arrow',  layer:1, x:410, y:132, ex:287, ey:168, dim:true, dashed:true, delay:850, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'money is fungible — but we treat it as if it is not', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'end-of-history-illusion': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:60,  y:130, ex:480, ey:130, dim:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:20, label:'', dim:true, delay:400, duration:250 },
+      { type:'label',  layer:1, x:130, y:162, text:'10 yrs ago', dim:true, size:8, delay:500, duration:200 },
+      { type:'node',   layer:2, x:280, y:130, r:30, label:'Now', gold:true, delay:450, duration:350 },
+      { type:'arrow',  layer:1, x:130, y:114, ex:250, ey:100, delay:600, duration:300 },
+      { type:'label',  layer:1, x:190, y:83,  text:'much change\n(acknowledged)', dim:true, size:9, delay:750, duration:200 },
+      { type:'arrow',  layer:2, x:313, y:125, ex:420, ey:110, dim:true, dashed:true, delay:800, duration:300 },
+      { type:'node',   layer:1, x:445, y:105, r:20, label:'', dim:true, delay:900, duration:250 },
+      { type:'label',  layer:1, x:445, y:138, text:'10 yrs future', dim:true, size:8, delay:950, duration:200 },
+      { type:'label',  layer:3, x:390, y:85,  text:'little change\n(predicted)', gold:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'we think we have finally become ourselves', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'contrast-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:105, y:110, r:50, label:'Context\nA', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:3, x:265, y:130, r:36, label:'Object\nX', gold:true, delay:400, duration:400 },
+      { type:'label',  layer:3, x:265, y:178, text:'seems large', gold:true, size:9, delay:600, duration:200 },
+      { type:'node',   layer:1, x:415, y:155, r:68, label:'Context\nB', dim:true, delay:600, duration:400 },
+      { type:'node',   layer:2, x:265, y:130, r:36, label:'Object\nX', delay:800, duration:400 },
+      { type:'label',  layer:2, x:265, y:192, text:'seems small', dim:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'everything is evaluated relative to its surroundings', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'illusion-of-transparency': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:140, y:130, r:48, label:'Inner\nState', gold:true, delay:200, duration:400 },
+      { type:'ring',   layer:2, x:140, y:130, r:65, gold:true, dim:true, delay:350, duration:500 },
+      { type:'arrow',  layer:3, x:208, y:118, ex:300, ey:90, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:3, x:315, y:75,  text:'feels\nobvious', gold:true, size:9, delay:750, duration:200 },
+      { type:'node',   layer:1, x:420, y:130, r:48, label:'Observer\nSees', dim:true, delay:500, duration:400 },
+      { type:'ring',   layer:1, x:420, y:130, r:30, dim:true, delay:700, duration:400 },
+      { type:'label',  layer:1, x:420, y:192, text:'actually little', dim:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'your internal experience is far less visible than it feels', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'bias-blind-spot': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:160, y:130, r:48, label:'Me', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:390, y:130, r:48, label:'Them', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:3, x:210, y:118, ex:340, ey:95, gold:true, delay:500, duration:300 },
+      { type:'label',  layer:3, x:285, y:78,  text:'I see your bias', gold:true, size:9, delay:650, duration:200 },
+      { type:'ring',   layer:1, x:160, y:130, r:62, dim:true, delay:750, duration:500 },
+      { type:'label',  layer:1, x:160, y:192, text:'blind to own bias', dim:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'the meta-bias that makes all others invisible', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+    'third-person-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:280, y:55,  r:32, label:'Media\nMessage', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:265, y:87,  ex:180, ey:118, gold:true, delay:500, duration:300 },
+      { type:'arrow',  layer:1, x:295, y:87,  ex:390, ey:118, dim:true, dashed:true, delay:550, duration:300 },
+      { type:'node',   layer:2, x:150, y:140, r:40, label:'Me', gold:true, delay:650, duration:400 },
+      { type:'label',  layer:2, x:150, y:192, text:'"not affected"', gold:true, size:9, delay:800, duration:200 },
+      { type:'node',   layer:1, x:410, y:140, r:40, label:'Others', dim:true, delay:700, duration:400 },
+      { type:'label',  layer:1, x:410, y:192, text:'"easily swayed"', dim:true, size:9, delay:850, duration:200 },
+      { type:'ring',   layer:2, x:150, y:140, r:55, gold:true, dim:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'everyone believes they are less influenced than others', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'curse-of-knowledge': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:3, x:140, y:130, r:52, label:'Expert', gold:true, delay:200, duration:400 },
+      { type:'ring',   layer:2, x:140, y:130, r:70, gold:true, dim:true, delay:350, duration:500 },
+      { type:'arrow',  layer:2, x:213, y:118, ex:310, ey:90, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:2, x:295, y:72,  text:'"obvious\nto me"', gold:true, size:9, delay:750, duration:200 },
+      { type:'node',   layer:1, x:410, y:130, r:52, label:'Novice', dim:true, delay:400, duration:400 },
+      { type:'label',  layer:1, x:410, y:192, text:'"confused"', dim:true, size:9, delay:800, duration:200 },
+      { type:'arrow',  layer:1, x:194, y:142, ex:358, ey:142, dim:true, dashed:true, delay:850, duration:400 },
+      { type:'label',  layer:1, x:276, y:160, text:'gap of forgotten\nconfusion', dim:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'knowing erases memory of not knowing', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'illusion-of-validity': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:80,  y:75,  w:80, h:130, label:'Felt\nCertainty\n90%', gold:true, delay:300, duration:500 },
+      { type:'bar',    layer:1, x:290, y:115, w:80, h:90,  label:'Actual\nAccuracy\n~55%', dim:true, delay:500, duration:500 },
+      { type:'arrow',  layer:3, x:164, y:125, ex:288, ey:138, gold:true, dashed:true, delay:750, duration:300 },
+      { type:'label',  layer:3, x:228, y:110, text:'validity\ngap', gold:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:1, x:185, y:220, text:'predictions feel solid', dim:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'felt certainty greatly exceeds actual predictive power', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'planning-fallacy': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:80,  y:155, w:70, h:55,  label:'Estimate\n6 mo', gold:true, delay:300, duration:400 },
+      { type:'bar',    layer:1, x:240, y:60,  w:70, h:150, label:'Actual\n16 mo', dim:true, delay:500, duration:500 },
+      { type:'arrow',  layer:3, x:154, y:168, ex:238, ey:130, gold:true, dashed:true, delay:750, duration:300 },
+      { type:'label',  layer:3, x:200, y:145, text:'always\nmore', gold:true, size:9, delay:900, duration:200 },
+      { type:'node',   layer:1, x:420, y:130, r:42, label:'Base\nRate', dim:true, delay:600, duration:400 },
+      { type:'ring',   layer:1, x:420, y:130, r:55, dim:true, delay:700, duration:400 },
+      { type:'label',  layer:1, x:420, y:185, text:'(ignored)', dim:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'we imagine best-case sequences, ignore base rates', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'hard-easy-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:75,  y:75,  w:70, h:130, label:'Conf.\n90%', gold:true, delay:300, duration:400 },
+      { type:'bar',    layer:1, x:165, y:115, w:70, h:90,  label:'Acc.\n70%', dim:true,  delay:400, duration:400 },
+      { type:'label',  layer:3, x:155, y:55,  text:'HARD TASK', gold:true, size:9, delay:600, duration:200 },
+      { type:'label',  layer:3, x:155, y:218, text:'overconfident', gold:true, size:9, delay:650, duration:200 },
+      { type:'bar',    layer:2, x:310, y:105, w:70, h:100, label:'Conf.\n90%', delay:400, duration:400 },
+      { type:'bar',    layer:3, x:400, y:55,  w:70, h:150, label:'Acc.\n96%', gold:true, delay:500, duration:400 },
+      { type:'label',  layer:2, x:390, y:42,  text:'EASY TASK', size:9, delay:700, duration:200 },
+      { type:'label',  layer:2, x:390, y:218, text:'underconfident', size:9, delay:750, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'difficulty inverts calibration', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+
+  // ── MENTAL MODELS ─────────────────────────────────────────────
+
+  'first-principles': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:280, y:55,  r:30, label:'Assumption', dim:true, delay:200, duration:350 },
+      { type:'node',   layer:1, x:160, y:100, r:24, label:'Assume', dim:true, delay:250, duration:300 },
+      { type:'node',   layer:1, x:400, y:100, r:24, label:'Assume', dim:true, delay:300, duration:300 },
+      { type:'arrow',  layer:2, x:280, y:85,  ex:280, ey:148, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:2, x:310, y:120, text:'strip\naway', gold:true, size:9, delay:750, duration:200 },
+      { type:'node',   layer:3, x:280, y:175, r:40, label:'First\nPrinciple', gold:true, delay:850, duration:500 },
+      { type:'ring',   layer:2, x:280, y:175, r:56, gold:true, dim:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:280, y:230, text:'fundamental truth', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'reason from bedrock, not borrowed assumptions', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'second-order-thinking': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:90,  y:130, r:36, label:'Action', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:128, y:118, ex:210, ey:90, gold:true, delay:450, duration:300 },
+      { type:'node',   layer:2, x:255, y:78,  r:32, label:'1st\nEffect', gold:true, delay:600, duration:400 },
+      { type:'arrow',  layer:1, x:285, y:86,  ex:370, ey:90, dim:true, delay:800, duration:300 },
+      { type:'node',   layer:1, x:415, y:80,  r:32, label:'2nd\nEffect', dim:true, delay:950, duration:400 },
+      { type:'arrow',  layer:1, x:128, y:143, ex:210, ey:175, dim:true, dashed:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:255, y:188, r:28, label:'1st\nConseq.', dim:true, delay:650, duration:350 },
+      { type:'arrow',  layer:1, x:281, y:196, ex:365, ey:196, dim:true, dashed:true, delay:850, duration:300 },
+      { type:'node',   layer:1, x:408, y:196, r:28, label:'2nd\nConseq.', dim:true, delay:990, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'and then what? keep asking', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'inversion': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:45, label:'How to\nSucceed?', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:3, x:178, y:118, ex:295, ey:80, gold:true, delay:550, duration:300 },
+      { type:'label',  layer:3, x:258, y:62,  text:'INVERT', gold:true, size:10, delay:700, duration:200 },
+      { type:'node',   layer:3, x:380, y:130, r:45, label:'How to\nFail?', gold:true, delay:800, duration:400 },
+      { type:'arrow',  layer:1, x:380, y:175, ex:285, ey:210, dim:true, delay:1000, duration:300 },
+      { type:'label',  layer:1, x:280, y:228, text:'avoid those things', dim:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'avoid failure rather than pursue success', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'occams-razor': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:100, r:32, label:'Fact', dim:true, delay:200, duration:300 },
+      { type:'node',   layer:1, x:100, y:175, r:32, label:'Fact', dim:true, delay:250, duration:300 },
+      { type:'arrow',  layer:1, x:134, y:95,  ex:220, ey:70, dim:true, delay:450, duration:250 },
+      { type:'arrow',  layer:1, x:134, y:185, ex:220, ey:200, dim:true, delay:500, duration:250 },
+      { type:'node',   layer:1, x:265, y:65,  r:40, label:'Complex\nExplain.', dim:true, delay:550, duration:400 },
+      { type:'node',   layer:3, x:265, y:195, r:40, label:'Simple\nExplain.', gold:true, delay:600, duration:400 },
+      { type:'arrow',  layer:3, x:307, y:195, ex:400, ey:165, gold:true, delay:800, duration:300 },
+      { type:'node',   layer:3, x:435, y:150, r:30, label:'Prefer', gold:true, delay:950, duration:350 },
+      { type:'arrow',  layer:1, x:307, y:65,  ex:400, ey:130, dim:true, dashed:true, delay:850, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'fewest assumptions wins', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'mental-models-map': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:3, x:280, y:130, r:44, label:'Reality', gold:true, delay:200, duration:500 },
+      { type:'ring',   layer:2, x:280, y:130, r:62, gold:true, dim:true, delay:350, duration:500 },
+      { type:'node',   layer:1, x:155, y:72,  r:28, label:'Model\nA', delay:600, duration:350 },
+      { type:'node',   layer:1, x:405, y:72,  r:28, label:'Model\nB', delay:650, duration:350 },
+      { type:'node',   layer:1, x:455, y:158, r:28, label:'Model\nC', delay:700, duration:350 },
+      { type:'node',   layer:1, x:280, y:205, r:28, label:'Model\nD', delay:750, duration:350 },
+      { type:'node',   layer:1, x:105, y:158, r:28, label:'Model\nE', delay:800, duration:350 },
+      { type:'arrow',  layer:1, x:182, y:82,  ex:238, ey:108, dim:true, dashed:true, delay:900, duration:250 },
+      { type:'arrow',  layer:1, x:380, y:84,  ex:322, ey:108, dim:true, dashed:true, delay:930, duration:250 },
+      { type:'arrow',  layer:1, x:430, y:150, ex:342, ey:138, dim:true, dashed:true, delay:960, duration:250 },
+      { type:'label',  layer:3, x:280, y:250, text:'multiple lenses reveal more of reality', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'probabilistic-thinking': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'bar',    layer:1, x:65,  y:155, w:40, h:55,  dim:true, delay:400, duration:300 },
+      { type:'bar',    layer:2, x:125, y:130, w:40, h:80,  delay:450, duration:300 },
+      { type:'bar',    layer:3, x:185, y:90,  w:40, h:120, gold:true, delay:500, duration:350 },
+      { type:'bar',    layer:3, x:245, y:75,  w:40, h:135, gold:true, delay:550, duration:350 },
+      { type:'bar',    layer:3, x:305, y:90,  w:40, h:120, gold:true, delay:600, duration:350 },
+      { type:'bar',    layer:2, x:365, y:130, w:40, h:80,  delay:650, duration:300 },
+      { type:'bar',    layer:1, x:425, y:160, w:40, h:50,  dim:true, delay:700, duration:300 },
+      { type:'node',   layer:3, x:265, y:55,  r:18, label:'most\nlikely', gold:true, delay:850, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'outcomes are distributions, not certainties', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'circle-of-competence': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:3, x:220, y:130, r:88,  gold:true, dim:true, delay:200, duration:500 },
+      { type:'label',  layer:3, x:220, y:42,  text:'CIRCLE OF COMPETENCE', gold:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:3, x:220, y:130, r:55,  label:'Know\nWell', gold:true, delay:350, duration:500 },
+      { type:'node',   layer:1, x:390, y:100, r:28,  label:'Outside', dim:true, delay:600, duration:350 },
+      { type:'node',   layer:1, x:430, y:165, r:28,  label:'Outside', dim:true, delay:650, duration:350 },
+      { type:'ring',   layer:1, x:390, y:130, r:50,  dim:true, delay:700, duration:400 },
+      { type:'label',  layer:1, x:410, y:225, text:'danger zone', dim:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'know the boundaries of what you know', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'feedback-loops': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:155, y:90,  r:36, label:'Action', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:193, y:82,  ex:310, ey:82, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:2, x:360, y:90,  r:36, label:'Result', gold:true, delay:650, duration:400 },
+      { type:'arrow',  layer:3, x:360, y:126, ex:360, ey:175, gold:true, delay:850, duration:250 },
+      { type:'node',   layer:3, x:360, y:195, r:22, label:'Signal', delay:950, duration:300 },
+      { type:'arrow',  layer:3, x:338, y:195, ex:178, ey:195, gold:true, delay:1050, duration:300 },
+      { type:'arrow',  layer:3, x:155, y:173, ex:155, ey:126, gold:true, delay:1150, duration:250 },
+      { type:'label',  layer:3, x:280, y:250, text:'output becomes input — systems self-correct', dim:true, size:9, delay:1250, duration:300 }
+    ]
+  },
+
+  'leverage-points': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:60,  y:170, ex:460, ey:170, dim:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:160, y:170, r:10, label:'', dim:true, delay:450, duration:200 },
+      { type:'node',   layer:1, x:260, y:170, r:10, label:'', dim:true, delay:470, duration:200 },
+      { type:'node',   layer:1, x:360, y:170, r:10, label:'', dim:true, delay:490, duration:200 },
+      { type:'node',   layer:3, x:260, y:170, r:18, label:'', gold:true, delay:600, duration:300 },
+      { type:'arrow',  layer:3, x:260, y:152, ex:260, ey:80, gold:true, delay:750, duration:300 },
+      { type:'node',   layer:3, x:260, y:68,  r:32, label:'Large\nEffect', gold:true, delay:900, duration:400 },
+      { type:'arrow',  layer:1, x:160, y:160, ex:160, ey:128, dim:true, dashed:true, delay:700, duration:250 },
+      { type:'node',   layer:1, x:160, y:115, r:22, label:'Small\nEffect', dim:true, delay:800, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'small interventions at the right point change everything', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'emergence': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:190, r:16, label:'', dim:true, delay:300, duration:250 },
+      { type:'node',   layer:1, x:150, y:195, r:16, label:'', dim:true, delay:320, duration:250 },
+      { type:'node',   layer:1, x:200, y:188, r:16, label:'', dim:true, delay:340, duration:250 },
+      { type:'node',   layer:1, x:250, y:195, r:16, label:'', dim:true, delay:360, duration:250 },
+      { type:'node',   layer:1, x:300, y:188, r:16, label:'', dim:true, delay:380, duration:250 },
+      { type:'node',   layer:1, x:350, y:195, r:16, label:'', dim:true, delay:400, duration:250 },
+      { type:'node',   layer:1, x:400, y:188, r:16, label:'', dim:true, delay:420, duration:250 },
+      { type:'arrow',  layer:2, x:260, y:170, ex:260, ey:112, gold:true, delay:600, duration:300 },
+      { type:'node',   layer:3, x:260, y:90,  r:42, label:'Emergent\nProperty', gold:true, delay:750, duration:500 },
+      { type:'ring',   layer:2, x:260, y:90,  r:58, gold:true, dim:true, delay:850, duration:400 },
+      { type:'label',  layer:3, x:260, y:250, text:'the whole is more than the sum of its parts', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'compounding': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:50,  ey:38, dim:true, delay:200, duration:300 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:300 },
+      { type:'curve',  layer:3, points:[
+          {x:60,y:212},{x:120,y:208},{x:180,y:200},{x:240,y:182},
+          {x:300,y:155},{x:360,y:115},{x:420,y:68},{x:480,y:42}
+        ], gold:true, delay:400, duration:800 },
+      { type:'curve',  layer:1, points:[
+          {x:60,y:212},{x:180,y:205},{x:300,y:198},{x:420,y:190},{x:480,y:188}
+        ], dim:true, delay:500, duration:600 },
+      { type:'label',  layer:3, x:450, y:30,  text:'compound\ngrowth', gold:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:1, x:450, y:178, text:'linear', dim:true, size:9, delay:1050, duration:200 },
+      { type:'label',  layer:1, x:35,  y:130, text:'value', dim:true, size:8, delay:300, duration:200 },
+      { type:'label',  layer:1, x:270, y:235, text:'time →', dim:true, size:8, delay:300, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'small consistent gains produce extraordinary results', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'network-effects': {
+    totalDuration: 1500,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:280, y:130, r:18, label:'1', dim:true, delay:300, duration:250 },
+      { type:'node',   layer:1, x:180, y:80,  r:18, label:'2', dim:true, delay:400, duration:250 },
+      { type:'arrow',  layer:1, x:262, y:118, ex:198, ey:92, dim:true, delay:550, duration:200 },
+      { type:'node',   layer:2, x:380, y:80,  r:18, label:'3', delay:500, duration:250 },
+      { type:'arrow',  layer:2, x:298, y:118, ex:362, ey:92, delay:650, duration:200 },
+      { type:'arrow',  layer:2, x:198, y:80,  ex:362, ey:80, delay:700, duration:200 },
+      { type:'node',   layer:2, x:160, y:185, r:18, label:'4', delay:600, duration:250 },
+      { type:'node',   layer:2, x:390, y:185, r:18, label:'5', delay:650, duration:250 },
+      { type:'arrow',  layer:2, x:268, y:148, ex:178, ey:173, delay:750, duration:200 },
+      { type:'arrow',  layer:2, x:292, y:148, ex:378, ey:173, delay:780, duration:200 },
+      { type:'arrow',  layer:2, x:178, y:185, ex:372, ey:185, delay:810, duration:200 },
+      { type:'node',   layer:3, x:280, y:130, r:22, label:'n²', gold:true, delay:900, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'value grows with the square of users', dim:true, size:9, delay:1300, duration:300 }
+    ]
+  },
+
+  'map-territory': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:55, label:'Territory\n(Reality)', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:3, x:390, y:130, r:55, label:'Map\n(Model)', gold:true, delay:250, duration:400 },
+      { type:'arrow',  layer:2, x:188, y:118, ex:335, ey:118, gold:true, dashed:true, delay:600, duration:400 },
+      { type:'label',  layer:2, x:262, y:100, text:'imperfect\nrepresentation', size:9, delay:800, duration:200 },
+      { type:'ring',   layer:1, x:130, y:130, r:70, dim:true, delay:400, duration:500 },
+      { type:'label',  layer:3, x:280, y:250, text:'the map is not the territory — models are simplifications', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'thought-experiment': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:45, label:'Reality', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:3, x:178, y:118, ex:265, ey:80, gold:true, delay:500, duration:300 },
+      { type:'label',  layer:3, x:248, y:62,  text:'imagine\n"what if"', gold:true, size:9, delay:650, duration:200 },
+      { type:'node',   layer:3, x:380, y:78,  r:50, label:'Mental\nSimulation', gold:true, delay:750, duration:500 },
+      { type:'ring',   layer:2, x:380, y:78,  r:65, gold:true, dim:true, delay:850, duration:400 },
+      { type:'arrow',  layer:1, x:380, y:130, ex:280, ey:185, dim:true, delay:1000, duration:300 },
+      { type:'label',  layer:1, x:310, y:200, text:'insight\nwithout risk', dim:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'reasoning beyond the limits of real experiment', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'opportunity-cost': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:130, r:38, label:'Resource\n(Time/$$)', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:3, x:140, y:118, ex:240, ey:80, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:290, y:68,  r:38, label:'Choice\nA', gold:true, delay:650, duration:400 },
+      { type:'arrow',  layer:1, x:140, y:145, ex:240, ey:188, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:290, y:200, r:38, label:'Choice\nB', dim:true, delay:750, duration:400 },
+      { type:'ring',   layer:1, x:290, y:200, r:50, dim:true, delay:800, duration:400 },
+      { type:'label',  layer:1, x:290, y:250, text:'foregone value', dim:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'every choice costs the best alternative not taken', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'comparative-advantage': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:140, y:100, r:38, label:'Actor\nA', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:140, y:195, r:38, label:'Actor\nB', dim:true, delay:250, duration:400 },
+      { type:'bar',    layer:3, x:230, y:72,  w:50, h:55, label:'Task\n1', gold:true, delay:500, duration:350 },
+      { type:'bar',    layer:1, x:295, y:100, w:50, h:27, label:'Task\n1', dim:true, delay:550, duration:350 },
+      { type:'bar',    layer:1, x:370, y:80,  w:50, h:47, label:'Task\n2', dim:true, delay:600, duration:350 },
+      { type:'bar',    layer:3, x:435, y:115, w:50, h:80, label:'Task\n2', gold:true, delay:650, duration:350 },
+      { type:'arrow',  layer:3, x:190, y:195, ex:420, ey:165, gold:true, dashed:true, delay:850, duration:400 },
+      { type:'label',  layer:3, x:310, y:240, text:'specialize in relative advantage', gold:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'trade on relative, not absolute, advantage', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'game-theory': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:150, y:90,  r:35, label:'Player\nA', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:390, y:90,  r:35, label:'Player\nB', dim:true, delay:250, duration:400 },
+      { type:'bar',    layer:2, x:185, y:155, w:60, h:50, label:'Coop', gold:true, delay:500, duration:350 },
+      { type:'bar',    layer:2, x:185, y:90,  w:60, h:45, label:'Defect', delay:550, duration:350 },
+      { type:'bar',    layer:1, x:295, y:155, w:60, h:50, label:'Coop', dim:true, delay:600, duration:350 },
+      { type:'bar',    layer:1, x:295, y:90,  w:60, h:45, label:'Defect', dim:true, delay:650, duration:350 },
+      { type:'node',   layer:3, x:270, y:178, r:22, label:'3,3', gold:true, delay:800, duration:350 },
+      { type:'node',   layer:1, x:270, y:110, r:22, label:'1,4', dim:true, delay:850, duration:350 },
+      { type:'label',  layer:3, x:270, y:248, text:'mutual cooperation beats mutual defection', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'asymmetric-information': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:3, x:140, y:130, r:48, label:'Informed\nParty', gold:true, delay:200, duration:400 },
+      { type:'ring',   layer:2, x:140, y:130, r:65, gold:true, dim:true, delay:350, duration:500 },
+      { type:'node',   layer:1, x:400, y:130, r:48, label:'Uninformed\nParty', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:1, x:192, y:118, ex:352, ey:118, dim:true, dashed:true, delay:650, duration:400 },
+      { type:'label',  layer:1, x:272, y:100, text:'information\ngap', dim:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:3, x:140, y:192, text:'market power', gold:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'knowledge imbalance creates market distortions', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'regression-to-mean': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:50,  ey:38,  dim:true, delay:200, duration:300 },
+      { type:'curve',  layer:1, points:[{x:60,y:185},{x:130,y:170},{x:200,y:155},{x:280,y:140},{x:360,y:125},{x:440,y:115}], dim:true, delay:400, duration:500 },
+      { type:'label',  layer:1, x:260, y:228, text:'mean →', dim:true, size:8, delay:600, duration:200 },
+      { type:'node',   layer:3, x:140, y:60,  r:22, label:'Peak', gold:true, delay:600, duration:350 },
+      { type:'arrow',  layer:3, x:140, y:82,  ex:200, ey:130, gold:true, dashed:true, delay:750, duration:300 },
+      { type:'node',   layer:1, x:400, y:200, r:22, label:'Trough', dim:true, delay:700, duration:350 },
+      { type:'arrow',  layer:1, x:400, y:178, ex:360, ey:148, dim:true, dashed:true, delay:850, duration:300 },
+      { type:'label',  layer:3, x:250, y:100, text:'pulls back\nto mean', gold:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'extreme results move toward average over time', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'power-laws': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:50,  ey:38,  dim:true, delay:200, duration:300 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'curve',  layer:3, points:[{x:60,y:45},{x:100,y:55},{x:150,y:90},{x:220,y:145},{x:320,y:185},{x:440,y:205},{x:490,y:210}], gold:true, delay:400, duration:700 },
+      { type:'bar',    layer:3, x:60,  y:48,  w:30, h:172, label:'', gold:true, dim:true, delay:800, duration:300 },
+      { type:'label',  layer:3, x:75,  y:35,  text:'top\n20%', gold:true, size:8, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:178, text:'80% of\noutcomes', gold:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:1, x:380, y:195, text:'long tail', dim:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'a small number of causes drive most effects', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'normal-distribution': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'curve',  layer:3, points:[
+          {x:60,y:210},{x:100,y:205},{x:140,y:190},{x:180,y:155},
+          {x:220,y:105},{x:260,y:62},{x:280,y:50},{x:300,y:62},
+          {x:340,y:105},{x:380,y:155},{x:420,y:190},{x:460,y:205},{x:490,y:210}
+        ], gold:true, delay:400, duration:700 },
+      { type:'arrow',  layer:2, x:280, y:52,  ex:280, ey:220, gold:true, dashed:true, delay:900, duration:300 },
+      { type:'label',  layer:2, x:300, y:38,  text:'mean', gold:true, size:9, delay:1000, duration:200 },
+      { type:'bar',    layer:1, x:220, y:210, w:120, h:8, dim:true, delay:800, duration:300 },
+      { type:'label',  layer:1, x:280, y:232, text:'68% within 1σ', dim:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'most phenomena cluster around the average', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'sensitivity-analysis': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:42, label:'Model\nOutput', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:89,  y:115, ex:55,  ey:90,  gold:true, dashed:true, delay:500, duration:250 },
+      { type:'arrow',  layer:2, x:89,  y:130, ex:55,  ey:130, gold:true, dashed:true, delay:530, duration:250 },
+      { type:'arrow',  layer:2, x:89,  y:145, ex:55,  ey:168, gold:true, dashed:true, delay:560, duration:250 },
+      { type:'label',  layer:1, x:40,  y:90,  text:'A', dim:true, size:10, delay:650, duration:200 },
+      { type:'label',  layer:1, x:40,  y:130, text:'B', dim:true, size:10, delay:670, duration:200 },
+      { type:'label',  layer:1, x:40,  y:168, text:'C', dim:true, size:10, delay:690, duration:200 },
+      { type:'bar',    layer:3, x:250, y:80,  w:50, h:100, label:'A\nhigh', gold:true, delay:750, duration:400 },
+      { type:'bar',    layer:1, x:330, y:148, w:50, h:32,  label:'B\nlow',  dim:true,  delay:800, duration:350 },
+      { type:'bar',    layer:1, x:410, y:130, w:50, h:50,  label:'C\nmed',  dim:true,  delay:850, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'which assumptions move the needle most?', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'redundancy': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:100, y:130, r:35, label:'Need', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:137, y:115, ex:210, ey:90, gold:true, delay:500, duration:250 },
+      { type:'arrow',  layer:2, x:137, y:130, ex:210, ey:130, gold:true, delay:530, duration:250 },
+      { type:'arrow',  layer:2, x:137, y:145, ex:210, ey:168, gold:true, delay:560, duration:250 },
+      { type:'node',   layer:2, x:255, y:88,  r:28, label:'Path\nA', gold:true, delay:650, duration:350 },
+      { type:'node',   layer:1, x:255, y:130, r:28, label:'Path\nB', dim:true, delay:700, duration:350 },
+      { type:'node',   layer:1, x:255, y:172, r:28, label:'Path\nC', dim:true, delay:750, duration:350 },
+      { type:'arrow',  layer:1, x:283, y:88,  ex:355, ey:118, dim:true, dashed:true, delay:850, duration:250 },
+      { type:'node',   layer:1, x:390, y:120, r:14, label:'✗', dim:true, delay:920, duration:200 },
+      { type:'arrow',  layer:2, x:283, y:130, ex:395, ey:130, gold:true, delay:900, duration:250 },
+      { type:'node',   layer:3, x:430, y:130, r:28, label:'Still\nWorks', gold:true, delay:980, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'backup systems prevent single points of failure', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'margin-of-safety': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:1, x:80,  y:88,  w:70, h:122, label:'Estimated\nCapacity', dim:true, delay:300, duration:400 },
+      { type:'bar',    layer:3, x:210, y:128, w:70, h:82,  label:'Actual\nUse', gold:true, delay:400, duration:400 },
+      { type:'arrow',  layer:3, x:282, y:140, ex:340, ey:140, gold:true, dashed:true, delay:700, duration:300 },
+      { type:'label',  layer:3, x:365, y:128, text:'margin\nof safety', gold:true, size:9, delay:850, duration:200 },
+      { type:'bar',    layer:1, x:370, y:88,  w:30, h:122, dim:true, delay:600, duration:300 },
+      { type:'label',  layer:1, x:385, y:74,  text:'buffer', dim:true, size:8, delay:750, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'build in a buffer — reality is less predictable than plans', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'via-negativa': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:280, y:130, r:55, label:'Goal', gold:true, delay:200, duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:72, gold:true, dim:true, delay:350, duration:400 },
+      { type:'node',   layer:1, x:120, y:78,  r:25, label:'Remove\nX', dim:true, delay:550, duration:300 },
+      { type:'node',   layer:1, x:120, y:185, r:25, label:'Remove\nY', dim:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:440, y:78,  r:25, label:'Remove\nZ', dim:true, delay:650, duration:300 },
+      { type:'arrow',  layer:1, x:145, y:90,  ex:218, ey:108, dim:true, delay:750, duration:250 },
+      { type:'arrow',  layer:1, x:145, y:175, ex:218, ey:152, dim:true, delay:780, duration:250 },
+      { type:'arrow',  layer:1, x:415, y:90,  ex:342, ey:108, dim:true, delay:810, duration:250 },
+      { type:'node',   layer:3, x:280, y:130, r:38, label:'Better\nCore', gold:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'improvement through removal, not addition', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'antifragility': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:130, r:35, label:'Fragile', dim:true, delay:200, duration:350 },
+      { type:'node',   layer:1, x:270, y:130, r:35, label:'Robust', delay:250, duration:350 },
+      { type:'node',   layer:3, x:430, y:130, r:42, label:'Anti-\nFragile', gold:true, delay:300, duration:400 },
+      { type:'ring',   layer:2, x:430, y:130, r:58, gold:true, dim:true, delay:450, duration:500 },
+      { type:'arrow',  layer:1, x:100, y:95,  ex:100, ey:58, dim:true, delay:600, duration:250 },
+      { type:'label',  layer:1, x:100, y:45,  text:'breaks\nfrom stress', dim:true, size:8, delay:750, duration:200 },
+      { type:'arrow',  layer:1, x:270, y:95,  ex:270, ey:72, dim:true, delay:650, duration:250 },
+      { type:'label',  layer:1, x:270, y:60,  text:'survives\nstress', dim:true, size:8, delay:800, duration:200 },
+      { type:'arrow',  layer:3, x:430, y:88,  ex:430, ey:58, gold:true, delay:700, duration:250 },
+      { type:'label',  layer:3, x:430, y:45,  text:'grows from\nstress', gold:true, size:8, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'some systems benefit from volatility and disorder', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'skin-in-the-game': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:100, r:38, label:'Advisor\nNo Stake', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:3, x:130, y:195, r:38, label:'Actor\nHas Stake', gold:true, delay:250, duration:400 },
+      { type:'arrow',  layer:1, x:170, y:95,  ex:280, ey:75, dim:true, dashed:true, delay:500, duration:300 },
+      { type:'label',  layer:1, x:255, y:60,  text:'advice,\nno risk', dim:true, size:9, delay:650, duration:200 },
+      { type:'arrow',  layer:3, x:170, y:195, ex:280, ey:195, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:3, x:350, y:183, text:'decision\n+ risk', gold:true, size:9, delay:750, duration:200 },
+      { type:'node',   layer:3, x:430, y:130, r:38, label:'Better\nOutcome', gold:true, delay:850, duration:400 },
+      { type:'arrow',  layer:3, x:334, y:195, ex:395, ey:158, gold:true, delay:1000, duration:250 },
+      { type:'label',  layer:3, x:280, y:250, text:'accountability requires shared exposure to consequences', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'via-positiva': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:42, label:'Current\nState', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:174, y:115, ex:265, ey:85, gold:true, delay:500, duration:300 },
+      { type:'arrow',  layer:2, x:174, y:130, ex:265, ey:130, gold:true, delay:530, duration:300 },
+      { type:'arrow',  layer:2, x:174, y:145, ex:265, ey:175, gold:true, delay:560, duration:300 },
+      { type:'node',   layer:2, x:310, y:82,  r:28, label:'Add\nA', gold:true, delay:700, duration:350 },
+      { type:'node',   layer:2, x:310, y:130, r:28, label:'Add\nB', gold:true, delay:750, duration:350 },
+      { type:'node',   layer:2, x:310, y:178, r:28, label:'Add\nC', gold:true, delay:800, duration:350 },
+      { type:'arrow',  layer:3, x:340, y:130, ex:400, ey:130, gold:true, delay:950, duration:250 },
+      { type:'node',   layer:3, x:440, y:130, r:38, label:'Enhanced\nState', gold:true, delay:1000, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'growth through deliberate addition', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'black-swan': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'curve',  layer:1, points:[{x:60,y:200},{x:140,y:190},{x:220,y:178},{x:300,y:172},{x:380,y:168},{x:450,y:165}], dim:true, delay:300, duration:500 },
+      { type:'label',  layer:1, x:350, y:155, text:'expected range', dim:true, size:9, delay:550, duration:200 },
+      { type:'node',   layer:3, x:90,  y:58,  r:30, label:'Black\nSwan', gold:true, delay:700, duration:500 },
+      { type:'ring',   layer:2, x:90,  y:58,  r:46, gold:true, dim:true, delay:800, duration:400 },
+      { type:'arrow',  layer:3, x:90,  y:88,  ex:90, ey:178, gold:true, dashed:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:135, y:130, text:'outside\nall models', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'rare extreme events dominate long-run outcomes', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'fat-tailed-distributions': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'curve',  layer:1, points:[
+          {x:60,y:210},{x:120,y:200},{x:180,y:170},{x:240,y:120},
+          {x:280,y:72},{x:320,y:120},{x:380,y:170},{x:440,y:200},{x:490,y:210}
+        ], dim:true, delay:350, duration:500 },
+      { type:'label',  layer:1, x:280, y:58,  text:'thin tails', dim:true, size:9, delay:600, duration:200 },
+      { type:'curve',  layer:3, points:[
+          {x:60,y:212},{x:100,y:208},{x:150,y:195},{x:200,y:168},
+          {x:260,y:88},{x:280,y:62},{x:300,y:88},{x:360,y:168},
+          {x:420,y:200},{x:480,y:210}
+        ], gold:true, delay:500, duration:600 },
+      { type:'node',   layer:3, x:60,  y:192, r:14, label:'', gold:true, delay:800, duration:250 },
+      { type:'node',   layer:3, x:490, y:192, r:14, label:'', gold:true, delay:830, duration:250 },
+      { type:'label',  layer:3, x:75,  y:175, text:'fat\ntail', gold:true, size:8, delay:900, duration:200 },
+      { type:'label',  layer:3, x:475, y:175, text:'fat\ntail', gold:true, size:8, delay:920, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'extreme events are far more common than models assume', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'bayesian-thinking': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:100, y:130, r:40, label:'Prior\nBelief', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:142, y:118, ex:230, ey:90, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:278, y:78,  r:35, label:'New\nEvidence', dim:true, delay:650, duration:400 },
+      { type:'arrow',  layer:3, x:313, y:82,  ex:390, ey:105, gold:true, delay:850, duration:300 },
+      { type:'node',   layer:3, x:430, y:130, r:40, label:'Updated\nBelief', gold:true, delay:980, duration:400 },
+      { type:'label',  layer:3, x:420, y:182, text:'posterior', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:2, x:100, y:182, text:'prior', gold:true, size:9, delay:600, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'update beliefs proportionally to new evidence', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'decision-trees': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:90,  y:130, r:28, label:'Start', gold:true, delay:200, duration:350 },
+      { type:'arrow',  layer:2, x:120, y:115, ex:200, ey:85, gold:true, delay:450, duration:250 },
+      { type:'arrow',  layer:1, x:120, y:145, ex:200, ey:175, dim:true, delay:480, duration:250 },
+      { type:'node',   layer:2, x:240, y:82,  r:25, label:'A', gold:true, delay:580, duration:300 },
+      { type:'node',   layer:1, x:240, y:178, r:25, label:'B', dim:true, delay:620, duration:300 },
+      { type:'arrow',  layer:2, x:265, y:72,  ex:340, ey:50, gold:true, delay:750, duration:250 },
+      { type:'arrow',  layer:2, x:265, y:90,  ex:340, ey:108, gold:true, delay:780, duration:250 },
+      { type:'arrow',  layer:1, x:265, y:168, ex:340, ey:148, dim:true, delay:800, duration:250 },
+      { type:'arrow',  layer:1, x:265, y:186, ex:340, ey:205, dim:true, delay:830, duration:250 },
+      { type:'node',   layer:3, x:378, y:48,  r:22, label:'A1', gold:true, delay:900, duration:300 },
+      { type:'node',   layer:2, x:378, y:108, r:22, label:'A2', delay:930, duration:300 },
+      { type:'node',   layer:1, x:378, y:148, r:22, label:'B1', dim:true, delay:960, duration:300 },
+      { type:'node',   layer:1, x:378, y:205, r:22, label:'B2', dim:true, delay:990, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'map all branches before committing to a path', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'expected-value': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:42, label:'Decision', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:174, y:112, ex:268, ey:78, gold:true, delay:500, duration:300 },
+      { type:'arrow',  layer:1, x:174, y:148, ex:268, ey:182, dim:true, delay:550, duration:300 },
+      { type:'node',   layer:2, x:312, y:70,  r:30, label:'+$200\n40%', gold:true, delay:650, duration:350 },
+      { type:'node',   layer:1, x:312, y:190, r:30, label:'-$60\n60%', dim:true, delay:700, duration:350 },
+      { type:'arrow',  layer:3, x:344, y:78,  ex:415, ey:105, gold:true, delay:850, duration:250 },
+      { type:'arrow',  layer:3, x:344, y:182, ex:415, ey:155, gold:true, delay:880, duration:250 },
+      { type:'node',   layer:3, x:450, y:130, r:35, label:'EV\n+$44', gold:true, delay:980, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'weight outcomes by their probability', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'variance-and-risk': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:75,  y:100, w:60, h:110, label:'High\nEV', gold:true, delay:300, duration:400 },
+      { type:'bar',    layer:3, x:165, y:100, w:60, h:110, label:'High\nEV', gold:true, delay:350, duration:400 },
+      { type:'label',  layer:2, x:155, y:82,  text:'same expected value', size:9, delay:600, duration:200 },
+      { type:'node',   layer:1, x:105, y:232, r:12, label:'', dim:true, delay:650, duration:200 },
+      { type:'node',   layer:1, x:195, y:232, r:12, label:'', dim:true, delay:670, duration:200 },
+      { type:'label',  layer:1, x:105, y:250, text:'low var.', dim:true, size:8, delay:750, duration:200 },
+      { type:'label',  layer:1, x:195, y:250, text:'high var.', dim:true, size:8, delay:770, duration:200 },
+      { type:'arrow',  layer:1, x:165, y:215, ex:195, ey:225, dim:true, dashed:true, delay:800, duration:200 },
+      { type:'node',   layer:3, x:390, y:130, r:42, label:'Risk\nMatters', gold:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'equal expected value is not equal risk', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'counterfactual-thinking': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:130, r:42, label:'What\nHappened', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:174, y:118, ex:270, ey:80, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:315, y:68,  r:40, label:'What if\nInstead?', gold:true, delay:650, duration:400 },
+      { type:'ring',   layer:2, x:315, y:68,  r:55, gold:true, dim:true, delay:750, duration:400 },
+      { type:'arrow',  layer:1, x:174, y:148, ex:270, ey:190, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:315, y:200, r:40, label:'Alt.\nWorld', dim:true, delay:750, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'comparing to what could have been reveals causation', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'pre-mortem': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:42, label:'Plan\n(Now)', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:3, x:130, y:88,  ex:130, ey:55, gold:true, dashed:true, delay:500, duration:300 },
+      { type:'label',  layer:3, x:175, y:45,  text:'imagine:\nfailed!', gold:true, size:9, delay:650, duration:200 },
+      { type:'node',   layer:3, x:380, y:80,  r:42, label:'Future\nFailure', gold:true, delay:750, duration:400 },
+      { type:'ring',   layer:2, x:380, y:80,  r:55, gold:true, dim:true, delay:850, duration:400 },
+      { type:'arrow',  layer:3, x:338, y:90,  ex:230, ey:118, gold:true, delay:1000, duration:300 },
+      { type:'label',  layer:3, x:278, y:105, text:'why did\nwe fail?', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'assume failure in advance to find hidden risks', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'post-mortem': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:130, r:38, label:'Event\nOccurred', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:140, y:115, ex:228, ey:80, gold:true, delay:500, duration:300 },
+      { type:'arrow',  layer:2, x:140, y:130, ex:228, ey:130, gold:true, delay:530, duration:300 },
+      { type:'arrow',  layer:2, x:140, y:145, ex:228, ey:180, gold:true, delay:560, duration:300 },
+      { type:'node',   layer:2, x:270, y:78,  r:28, label:'Why?', gold:true, delay:700, duration:350 },
+      { type:'node',   layer:2, x:270, y:130, r:28, label:'How?', gold:true, delay:750, duration:350 },
+      { type:'node',   layer:2, x:270, y:182, r:28, label:'What\nNext?', gold:true, delay:800, duration:350 },
+      { type:'arrow',  layer:3, x:300, y:130, ex:380, ey:130, gold:true, delay:950, duration:250 },
+      { type:'node',   layer:3, x:420, y:130, r:38, label:'Better\nSystem', gold:true, delay:1000, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'dissect outcomes to extract reliable lessons', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'abductive-reasoning': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:280, y:195, r:35, label:'Observation', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:268, y:160, ex:200, ey:118, gold:true, delay:500, duration:300 },
+      { type:'arrow',  layer:2, x:280, y:160, ex:280, ey:118, gold:true, delay:530, duration:300 },
+      { type:'arrow',  layer:2, x:292, y:160, ex:360, ey:118, gold:true, delay:560, duration:300 },
+      { type:'node',   layer:1, x:165, y:95,  r:30, label:'Expl.\nA', dim:true, delay:700, duration:350 },
+      { type:'node',   layer:2, x:280, y:85,  r:30, label:'Expl.\nB', delay:750, duration:350 },
+      { type:'node',   layer:1, x:395, y:95,  r:30, label:'Expl.\nC', dim:true, delay:800, duration:350 },
+      { type:'node',   layer:3, x:280, y:85,  r:18, label:'', gold:true, delay:950, duration:300 },
+      { type:'label',  layer:3, x:280, y:48,  text:'best\nexplanation', gold:true, size:9, delay:1050, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'infer the best explanation from available evidence', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'deductive-reasoning': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:280, y:62,  r:40, label:'Premise\n1', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:280, y:145, r:40, label:'Premise\n2', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:2, x:280, y:102, ex:280, ey:105, gold:true, delay:550, duration:200 },
+      { type:'arrow',  layer:2, x:280, y:185, ex:280, ey:212, gold:true, delay:700, duration:200 },
+      { type:'node',   layer:3, x:280, y:220, r:28, label:'∴ Conclusion', gold:true, delay:850, duration:400 },
+      { type:'ring',   layer:2, x:280, y:220, r:40, gold:true, dim:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:280, y:258, text:'certain if premises are true', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'valid structure guarantees the conclusion', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'inductive-reasoning': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:80,  r:20, label:'Obs.1', dim:true, delay:300, duration:250 },
+      { type:'node',   layer:1, x:170, y:95,  r:20, label:'Obs.2', dim:true, delay:330, duration:250 },
+      { type:'node',   layer:1, x:240, y:80,  r:20, label:'Obs.3', dim:true, delay:360, duration:250 },
+      { type:'node',   layer:1, x:310, y:95,  r:20, label:'Obs.4', dim:true, delay:390, duration:250 },
+      { type:'node',   layer:1, x:380, y:80,  r:20, label:'Obs.5', dim:true, delay:420, duration:250 },
+      { type:'arrow',  layer:2, x:250, y:118, ex:280, ey:158, gold:true, delay:650, duration:300 },
+      { type:'label',  layer:2, x:315, y:145, text:'pattern\ninferred', gold:true, size:9, delay:800, duration:200 },
+      { type:'node',   layer:3, x:280, y:198, r:40, label:'General\nRule', gold:true, delay:900, duration:400 },
+      { type:'label',  layer:1, x:280, y:250, text:'probable, not certain — more data strengthens', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'falsification': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:110, r:42, label:'Theory', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:174, y:100, ex:270, ey:75, gold:true, delay:500, duration:300 },
+      { type:'label',  layer:2, x:248, y:58,  text:'test:\ncan it fail?', gold:true, size:9, delay:650, duration:200 },
+      { type:'node',   layer:3, x:390, y:80,  r:38, label:'Falsifiable\n✓', gold:true, delay:750, duration:400 },
+      { type:'arrow',  layer:1, x:174, y:120, ex:270, ey:168, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:390, y:178, r:38, label:'Not\nFalsifiable ✗', dim:true, delay:850, duration:400 },
+      { type:'ring',   layer:1, x:390, y:178, r:50, dim:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'a theory that cannot be tested cannot be trusted', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'hanlon-razor': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:40, label:'Bad\nOutcome', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:172, y:112, ex:265, ey:78, dim:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:310, y:65,  r:38, label:'Malice', dim:true, delay:650, duration:400 },
+      { type:'ring',   layer:1, x:310, y:65,  r:50, dim:true, delay:700, duration:400 },
+      { type:'arrow',  layer:3, x:172, y:148, ex:265, ey:192, gold:true, delay:600, duration:300 },
+      { type:'node',   layer:3, x:310, y:200, r:38, label:'Stupidity\n/ Error', gold:true, delay:750, duration:400 },
+      { type:'label',  layer:3, x:310, y:250, text:'prefer this\nexplanation', gold:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'never attribute to malice what is explained by error', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'hitchens-razor': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:40, label:'Claim', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:172, y:115, ex:280, ey:90, gold:true, delay:500, duration:300 },
+      { type:'label',  layer:2, x:248, y:72,  text:'evidence?', gold:true, size:9, delay:650, duration:200 },
+      { type:'node',   layer:3, x:360, y:78,  r:38, label:'Evidence\nPresented', gold:true, delay:750, duration:400 },
+      { type:'node',   layer:1, x:360, y:195, r:38, label:'No\nEvidence', dim:true, delay:800, duration:400 },
+      { type:'arrow',  layer:1, x:172, y:148, ex:280, ey:185, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'label',  layer:1, x:360, y:250, text:'dismissed\nwithout evidence', dim:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'what is asserted without evidence can be dismissed likewise', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'chestertons-fence': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:38, label:'Fence\n(exists)', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:170, y:118, ex:255, ey:80, dim:true, dashed:true, delay:500, duration:300 },
+      { type:'label',  layer:1, x:245, y:62,  text:'"remove it"\n(naive)', dim:true, size:9, delay:650, duration:200 },
+      { type:'arrow',  layer:3, x:170, y:142, ex:255, ey:178, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:3, x:252, y:195, text:'"why is\nit here?"', gold:true, size:9, delay:750, duration:200 },
+      { type:'node',   layer:3, x:390, y:180, r:42, label:'Original\nReason', gold:true, delay:850, duration:400 },
+      { type:'ring',   layer:2, x:390, y:180, r:55, gold:true, dim:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'understand why something exists before removing it', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'steel-manning': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:110, y:130, r:38, label:'Their\nArgument', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:150, y:115, ex:245, ey:80, dim:true, dashed:true, delay:500, duration:300 },
+      { type:'label',  layer:1, x:225, y:62,  text:'strawman\n(weak)', dim:true, size:9, delay:650, duration:200 },
+      { type:'arrow',  layer:3, x:150, y:148, ex:245, ey:188, gold:true, delay:600, duration:300 },
+      { type:'node',   layer:3, x:295, y:198, r:42, label:'Strongest\nVersion', gold:true, delay:750, duration:400 },
+      { type:'ring',   layer:2, x:295, y:198, r:55, gold:true, dim:true, delay:850, duration:400 },
+      { type:'arrow',  layer:3, x:338, y:185, ex:420, ey:165, gold:true, delay:1000, duration:250 },
+      { type:'node',   layer:3, x:450, y:148, r:30, label:'Engage\nHonestly', gold:true, delay:1050, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'engage with the best version of the opposing view', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'socratic-method': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:100, y:130, r:35, label:'Belief', dim:true, delay:200, duration:350 },
+      { type:'arrow',  layer:2, x:137, y:118, ex:215, ey:90, gold:true, delay:450, duration:250 },
+      { type:'label',  layer:2, x:200, y:72,  text:'Why?', gold:true, size:10, delay:600, duration:200 },
+      { type:'node',   layer:2, x:265, y:80,  r:30, label:'Reason\nA', gold:true, delay:700, duration:350 },
+      { type:'arrow',  layer:2, x:295, y:72,  ex:368, ey:58, gold:true, delay:850, duration:250 },
+      { type:'label',  layer:2, x:358, y:42,  text:'Why?', gold:true, size:10, delay:950, duration:200 },
+      { type:'node',   layer:3, x:410, y:68,  r:28, label:'Root\nAssump.', gold:true, delay:1000, duration:350 },
+      { type:'ring',   layer:2, x:410, y:68,  r:42, gold:true, dim:true, delay:1050, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'relentless questioning reveals hidden assumptions', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'narrative-fallacy': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:80,  y:130, r:22, label:'', dim:true, delay:300, duration:250 },
+      { type:'node',   layer:1, x:150, y:115, r:22, label:'', dim:true, delay:320, duration:250 },
+      { type:'node',   layer:1, x:220, y:145, r:22, label:'', dim:true, delay:340, duration:250 },
+      { type:'node',   layer:1, x:290, y:125, r:22, label:'', dim:true, delay:360, duration:250 },
+      { type:'node',   layer:1, x:360, y:140, r:22, label:'', dim:true, delay:380, duration:250 },
+      { type:'node',   layer:1, x:430, y:118, r:22, label:'', dim:true, delay:400, duration:250 },
+      { type:'curve',  layer:3, points:[{x:80,y:130},{x:150,y:115},{x:220,y:145},{x:290,y:125},{x:360,y:140},{x:430,y:118}], gold:true, delay:600, duration:500 },
+      { type:'label',  layer:3, x:260, y:80,  text:'"inevitable\npath"', gold:true, size:9, delay:900, duration:200 },
+      { type:'arrow',  layer:3, x:255, y:98,  ex:255, ey:118, gold:true, dashed:true, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'we impose stories on random sequences of events', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'signal-vs-noise': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'curve',  layer:1, points:[
+          {x:60,y:130},{x:90,y:108},{x:120,y:155},{x:150,y:100},{x:180,y:145},
+          {x:210,y:110},{x:240,y:150},{x:270,y:105},{x:300,y:148},{x:330,y:102},
+          {x:360,y:145},{x:390,y:108},{x:420,y:142},{x:460,y:110}
+        ], dim:true, delay:300, duration:700 },
+      { type:'curve',  layer:3, points:[{x:60,y:175},{x:160,y:160},{x:260,y:130},{x:360,y:100},{x:460,y:75}], gold:true, delay:600, duration:500 },
+      { type:'label',  layer:1, x:350, y:142, text:'noise', dim:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:3, x:430, y:62,  text:'signal', gold:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'the trend is hidden inside the variance', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'pareto-principle': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:75,  y:55,  w:90, h:145, label:'20%\nCauses', gold:true, delay:300, duration:500 },
+      { type:'bar',    layer:1, x:280, y:155, w:200, h:45,  label:'80% Causes', dim:true, delay:400, duration:400 },
+      { type:'label',  layer:3, x:120, y:42,  text:'80%\nof effects', gold:true, size:9, delay:650, duration:200 },
+      { type:'label',  layer:1, x:380, y:140, text:'20%\nof effects', dim:true, size:9, delay:700, duration:200 },
+      { type:'arrow',  layer:3, x:170, y:128, ex:278, ey:128, gold:true, dashed:true, delay:850, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'find the vital few among the trivial many', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'systems-thinking': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:155, y:80,  r:32, label:'Input', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:189, y:72,  ex:268, ey:72, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:315, y:80,  r:40, label:'System', gold:true, delay:650, duration:450 },
+      { type:'ring',   layer:2, x:315, y:80,  r:56, gold:true, dim:true, delay:750, duration:400 },
+      { type:'arrow',  layer:2, x:357, y:72,  ex:430, ey:72, gold:true, delay:880, duration:300 },
+      { type:'node',   layer:2, x:462, y:80,  r:28, label:'Output', gold:true, delay:1000, duration:350 },
+      { type:'arrow',  layer:1, x:462, y:108, ex:315, ey:155, dim:true, dashed:true, delay:1050, duration:350 },
+      { type:'node',   layer:1, x:315, y:175, r:28, label:'Feedback', dim:true, delay:1150, duration:350 },
+      { type:'arrow',  layer:1, x:283, y:175, ex:165, ey:112, dim:true, dashed:true, delay:1200, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'outputs become inputs — nothing is isolated', dim:true, size:9, delay:1300, duration:300 }
+    ]
+  },
+
+  'incentive-structures': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:42, label:'Actor', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:3, x:174, y:115, ex:280, ey:78, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:325, y:65,  r:40, label:'Incentive\nA', gold:true, delay:650, duration:400 },
+      { type:'arrow',  layer:3, x:365, y:72,  ex:430, ey:90, gold:true, delay:850, duration:250 },
+      { type:'node',   layer:3, x:450, y:110, r:28, label:'Behavior\nA', gold:true, delay:950, duration:350 },
+      { type:'arrow',  layer:1, x:174, y:148, ex:280, ey:192, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:325, y:200, r:40, label:'Incentive\nB', dim:true, delay:750, duration:400 },
+      { type:'arrow',  layer:1, x:365, y:200, ex:430, ey:188, dim:true, delay:900, duration:250 },
+      { type:'node',   layer:1, x:450, y:178, r:28, label:'Behavior\nB', dim:true, delay:1000, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'show me the incentive and I will predict the behaviour', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'principal-agent-problem': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:135, y:110, r:42, label:'Principal\n(Owner)', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:400, y:110, r:42, label:'Agent\n(Manager)', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:2, x:179, y:105, ex:358, ey:105, gold:true, dashed:true, delay:600, duration:400 },
+      { type:'label',  layer:2, x:268, y:88,  text:'delegates task', gold:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:3, x:268, y:170, text:'interests\ndiverge', gold:true, size:9, delay:900, duration:200 },
+      { type:'arrow',  layer:3, x:135, y:155, ex:268, ey:175, gold:true, delay:950, duration:250 },
+      { type:'arrow',  layer:3, x:400, y:155, ex:290, ey:175, gold:true, delay:980, duration:250 },
+      { type:'label',  layer:3, x:280, y:250, text:'agents pursue self-interest, not principal interest', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'activation-energy': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:50,  ey:38,  dim:true, delay:200, duration:300 },
+      { type:'curve',  layer:2, points:[{x:60,y:180},{x:130,y:178},{x:200,y:175},{x:240,y:80},{x:280,y:65},{x:310,y:80},{x:370,y:178},{x:460,y:175}], delay:400, duration:600 },
+      { type:'node',   layer:3, x:280, y:62,  r:22, label:'Peak\nBarrier', gold:true, delay:800, duration:350 },
+      { type:'arrow',  layer:3, x:280, y:84,  ex:280, ey:178, gold:true, dashed:true, delay:900, duration:300 },
+      { type:'label',  layer:3, x:320, y:145, text:'activation\nenergy', gold:true, size:9, delay:1000, duration:200 },
+      { type:'node',   layer:1, x:410, y:173, r:22, label:'New\nState', dim:true, delay:900, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'lower the barrier and change becomes effortless', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'friction': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:100, y:130, r:35, label:'Desired\nAction', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:137, y:118, ex:235, ey:90, dim:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:278, y:78,  r:32, label:'Friction', dim:true, delay:650, duration:350 },
+      { type:'ring',   layer:1, x:278, y:78,  r:46, dim:true, delay:700, duration:400 },
+      { type:'arrow',  layer:3, x:137, y:145, ex:235, ey:185, gold:true, delay:600, duration:300 },
+      { type:'label',  layer:3, x:215, y:202, text:'remove\nfriction', gold:true, size:9, delay:750, duration:200 },
+      { type:'node',   layer:3, x:420, y:130, r:38, label:'More\nAction', gold:true, delay:850, duration:400 },
+      { type:'arrow',  layer:3, x:275, y:185, ex:382, ey:148, gold:true, delay:1000, duration:250 },
+      { type:'label',  layer:3, x:280, y:250, text:'the path of least resistance determines behaviour', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'bottleneck': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:1, x:60,  y:80,  w:60, h:130, dim:true, delay:300, duration:350 },
+      { type:'bar',    layer:1, x:150, y:88,  w:60, h:114, dim:true, delay:350, duration:350 },
+      { type:'bar',    layer:3, x:240, y:148, w:60, h:54,  gold:true, delay:400, duration:400 },
+      { type:'bar',    layer:1, x:330, y:80,  w:60, h:130, dim:true, delay:450, duration:350 },
+      { type:'bar',    layer:1, x:420, y:88,  w:60, h:114, dim:true, delay:500, duration:350 },
+      { type:'ring',   layer:3, x:270, y:175, r:42, gold:true, dim:true, delay:650, duration:500 },
+      { type:'arrow',  layer:3, x:270, y:133, ex:270, ey:78, gold:true, delay:850, duration:300 },
+      { type:'label',  layer:3, x:310, y:65,  text:'system\nspeed', gold:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'the slowest step controls the whole system', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'forcing-function': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:165, r:38, label:'Desired\nBehavior', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:3, x:130, y:85,  r:38, label:'Forcing\nFunction', gold:true, delay:250, duration:400 },
+      { type:'ring',   layer:2, x:130, y:85,  r:52, gold:true, dim:true, delay:400, duration:500 },
+      { type:'arrow',  layer:3, x:130, y:123, ex:130, ey:127, gold:true, delay:700, duration:150 },
+      { type:'arrow',  layer:2, x:170, y:145, ex:280, ey:145, gold:true, delay:800, duration:300 },
+      { type:'node',   layer:3, x:350, y:145, r:42, label:'Outcome\nLocked In', gold:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'constrain future choices to enforce good behaviour now', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'default-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:3, x:160, y:120, r:52, label:'Default\nOption', gold:true, delay:200, duration:400 },
+      { type:'ring',   layer:2, x:160, y:120, r:68, gold:true, dim:true, delay:350, duration:500 },
+      { type:'node',   layer:1, x:380, y:120, r:38, label:'Better\nOption', dim:true, delay:300, duration:400 },
+      { type:'arrow',  layer:1, x:380, y:88,  ex:280, ey:68, dim:true, dashed:true, delay:700, duration:300 },
+      { type:'label',  layer:1, x:248, y:55,  text:'requires\nactive effort', dim:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:160, y:190, text:'chosen by inertia', gold:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'the option requiring no action captures most decisions', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'commitment-devices': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:120, y:90,  r:38, label:'Future\nSelf', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:120, y:185, r:38, label:'Temptation', dim:true, delay:250, duration:400 },
+      { type:'arrow',  layer:1, x:120, y:147, ex:120, ey:123, dim:true, dashed:true, delay:600, duration:200 },
+      { type:'node',   layer:3, x:330, y:130, r:45, label:'Pre-\nCommitment', gold:true, delay:400, duration:400 },
+      { type:'ring',   layer:2, x:330, y:130, r:60, gold:true, dim:true, delay:550, duration:500 },
+      { type:'arrow',  layer:3, x:288, y:118, ex:160, ey:90, gold:true, delay:800, duration:400 },
+      { type:'label',  layer:3, x:228, y:80,  text:'binds\nfuture self', gold:true, size:9, delay:1000, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'today\'s self constrains tomorrow\'s self deliberately', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'loss-framing': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:140, y:130, r:45, label:'Same\nFact', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:187, y:112, ex:280, ey:78, gold:true, delay:500, duration:300 },
+      { type:'arrow',  layer:1, x:187, y:148, ex:280, ey:185, dim:true, delay:550, duration:300 },
+      { type:'node',   layer:3, x:325, y:65,  r:42, label:'"Save\n$100"', gold:true, delay:650, duration:400 },
+      { type:'node',   layer:1, x:325, y:198, r:42, label:'"Lose\n$100"', delay:700, duration:400 },
+      { type:'label',  layer:3, x:435, y:65,  text:'motivates\nmore', gold:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:1, x:435, y:198, text:'motivates\nless', dim:true, size:9, delay:920, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'framing as a loss is more motivating than a gain', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'choice-architecture': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:110, y:130, r:38, label:'Decision\nMaker', dim:true, delay:200, duration:400 },
+      { type:'node',   layer:3, x:340, y:90,  r:40, label:'Option\nA ✓', gold:true, delay:350, duration:400 },
+      { type:'node',   layer:1, x:340, y:180, r:32, label:'Option\nB', dim:true, delay:400, duration:400 },
+      { type:'node',   layer:1, x:430, y:130, r:32, label:'Option\nC', dim:true, delay:450, duration:400 },
+      { type:'arrow',  layer:3, x:150, y:115, ex:300, ey:92, gold:true, delay:650, duration:350 },
+      { type:'arrow',  layer:1, x:150, y:148, ex:310, ey:178, dim:true, dashed:true, delay:700, duration:350 },
+      { type:'label',  layer:3, x:260, y:68,  text:'architect\nfavored path', gold:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'how options are arranged changes what people choose', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'narrative-identity': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:80,  y:160, r:18, label:'', dim:true, delay:300, duration:250 },
+      { type:'node',   layer:1, x:140, y:145, r:18, label:'', dim:true, delay:330, duration:250 },
+      { type:'node',   layer:1, x:200, y:155, r:18, label:'', dim:true, delay:360, duration:250 },
+      { type:'node',   layer:1, x:260, y:138, r:18, label:'', dim:true, delay:390, duration:250 },
+      { type:'node',   layer:1, x:320, y:148, r:18, label:'', dim:true, delay:420, duration:250 },
+      { type:'node',   layer:1, x:380, y:132, r:18, label:'', dim:true, delay:450, duration:250 },
+      { type:'curve',  layer:3, points:[{x:80,y:160},{x:140,y:145},{x:200,y:155},{x:260,y:138},{x:320,y:148},{x:380,y:132},{x:440,y:120}], gold:true, delay:650, duration:500 },
+      { type:'label',  layer:3, x:440, y:105, text:'"My\nStory"', gold:true, size:9, delay:900, duration:200 },
+      { type:'node',   layer:3, x:440, y:118, r:16, label:'', gold:true, delay:850, duration:250 },
+      { type:'label',  layer:3, x:280, y:250, text:'we are the stories we tell about ourselves', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'ikigai': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:220, y:110, r:70,  dim:true, delay:200, duration:500 },
+      { type:'ring',   layer:1, x:320, y:110, r:70,  dim:true, delay:250, duration:500 },
+      { type:'ring',   layer:1, x:220, y:180, r:70,  dim:true, delay:300, duration:500 },
+      { type:'ring',   layer:1, x:320, y:180, r:70,  dim:true, delay:350, duration:500 },
+      { type:'label',  layer:1, x:165, y:78,  text:'Love', dim:true, size:9, delay:700, duration:200 },
+      { type:'label',  layer:1, x:375, y:78,  text:'Good At', dim:true, size:9, delay:720, duration:200 },
+      { type:'label',  layer:1, x:160, y:210, text:'World\nNeeds', dim:true, size:9, delay:740, duration:200 },
+      { type:'label',  layer:1, x:368, y:210, text:'Paid\nFor', dim:true, size:9, delay:760, duration:200 },
+      { type:'node',   layer:3, x:270, y:145, r:30,  label:'Ikigai', gold:true, delay:900, duration:500 },
+      { type:'ring',   layer:2, x:270, y:145, r:42,  gold:true, dim:true, delay:1000, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'the intersection of passion, skill, need and reward', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'memento-mori': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:100, dim:true, delay:200, duration:500 },
+      { type:'ring',   layer:1, x:280, y:130, r:68,  dim:true, delay:300, duration:500 },
+      { type:'node',   layer:3, x:280, y:130, r:44,  label:'Life\nFinite', gold:true, delay:400, duration:500 },
+      { type:'arrow',  layer:3, x:280, y:86,  ex:280, ey:48, gold:true, delay:700, duration:300 },
+      { type:'label',  layer:3, x:330, y:38,  text:'what\nmatters most?', gold:true, size:9, delay:850, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'awareness of death clarifies what matters in life', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'stoic-dichotomy': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:105, dim:true, delay:200, duration:500 },
+      { type:'node',   layer:3, x:170, y:130, r:55,  label:'In My\nControl', gold:true, delay:350, duration:500 },
+      { type:'node',   layer:1, x:390, y:130, r:55,  label:'Not In My\nControl', dim:true, delay:400, duration:500 },
+      { type:'ring',   layer:1, x:390, y:130, r:68,  dim:true, delay:500, duration:400 },
+      { type:'label',  layer:3, x:170, y:198, text:'focus here', gold:true, size:9, delay:800, duration:200 },
+      { type:'label',  layer:1, x:390, y:198, text:'accept this', dim:true, size:9, delay:820, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'peace comes from controlling only what is controllable', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'amor-fati': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:130, r:42, label:'Obstacle\n/ Setback', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:174, y:115, ex:265, ey:80, dim:true, dashed:true, delay:500, duration:300 },
+      { type:'label',  layer:1, x:250, y:62,  text:'resist / regret', dim:true, size:9, delay:650, duration:200 },
+      { type:'arrow',  layer:3, x:174, y:148, ex:265, ey:188, gold:true, delay:600, duration:300 },
+      { type:'node',   layer:3, x:310, y:198, r:42, label:'Love of\nFate', gold:true, delay:750, duration:400 },
+      { type:'ring',   layer:2, x:310, y:198, r:55, gold:true, dim:true, delay:850, duration:400 },
+      { type:'arrow',  layer:3, x:310, y:143, ex:310, ey:105, gold:true, delay:1000, duration:250 },
+      { type:'label',  layer:3, x:355, y:92,  text:'fuel for\ngrowth', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'embrace everything that happens as necessary and good', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'ego-depletion': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'bar',    layer:3, x:75,  y:68,  w:70, h:142, label:'Full\nWillpower', gold:true, delay:300, duration:400 },
+      { type:'bar',    layer:2, x:195, y:118, w:70, h:92,  label:'Decision\nFatigue',  delay:400, duration:400 },
+      { type:'bar',    layer:1, x:315, y:158, w:70, h:52,  label:'Depleted', dim:true,  delay:500, duration:400 },
+      { type:'bar',    layer:1, x:435, y:190, w:70, h:20,  label:'Empty',    dim:true,  delay:600, duration:400 },
+      { type:'arrow',  layer:3, x:150, y:200, ex:195, ey:200, gold:true, dashed:true, delay:750, duration:200 },
+      { type:'label',  layer:3, x:250, y:255, text:'decision quality falls as willpower depletes', gold:true, size:9, delay:900, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'willpower is a limited resource that exhausts', dim:true, size:9, delay:1050, duration:300 }
+    ]
+  },
+
+  'deliberate-practice': {
+    totalDuration: 1400,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:280, y:130, r:105, dim:true, delay:200, duration:400 },
+      { type:'ring',   layer:2, x:280, y:130, r:72,  delay:300, duration:400 },
+      { type:'node',   layer:3, x:280, y:130, r:44,  label:'Skill', gold:true, delay:400, duration:400 },
+      { type:'label',  layer:1, x:280, y:38,  text:'comfort zone', dim:true, size:9, delay:600, duration:200 },
+      { type:'label',  layer:2, x:280, y:62,  text:'learning zone', size:9, delay:700, duration:200 },
+      { type:'label',  layer:3, x:280, y:88,  text:'mastery zone', gold:true, size:9, delay:800, duration:200 },
+      { type:'arrow',  layer:3, x:340, y:130, ex:395, ey:130, gold:true, dashed:true, delay:900, duration:300 },
+      { type:'label',  layer:3, x:435, y:118, text:'feedback\nloop', gold:true, size:9, delay:1050, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'growth requires working just beyond current ability', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'mental-simulation': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:120, y:130, r:40, label:'Current\nState', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:162, y:115, ex:255, ey:75, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:300, y:62,  r:42, label:'Simulated\nFuture', gold:true, delay:650, duration:400 },
+      { type:'ring',   layer:2, x:300, y:62,  r:56, gold:true, dim:true, delay:750, duration:400 },
+      { type:'arrow',  layer:1, x:162, y:148, ex:255, ey:195, dim:true, dashed:true, delay:600, duration:300 },
+      { type:'node',   layer:1, x:300, y:205, r:38, label:'Alt.\nScenario', dim:true, delay:750, duration:400 },
+      { type:'arrow',  layer:3, x:342, y:72,  ex:430, ey:100, gold:true, delay:950, duration:300 },
+      { type:'label',  layer:3, x:455, y:90,  text:'refine\nplan', gold:true, size:9, delay:1050, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'run the future in your head before running it in reality', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'chunking': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:80,  y:80,  r:12, label:'', dim:true, delay:300, duration:200 },
+      { type:'node',   layer:1, x:115, y:80,  r:12, label:'', dim:true, delay:320, duration:200 },
+      { type:'node',   layer:1, x:150, y:80,  r:12, label:'', dim:true, delay:340, duration:200 },
+      { type:'node',   layer:1, x:185, y:80,  r:12, label:'', dim:true, delay:360, duration:200 },
+      { type:'node',   layer:1, x:220, y:80,  r:12, label:'', dim:true, delay:380, duration:200 },
+      { type:'node',   layer:1, x:255, y:80,  r:12, label:'', dim:true, delay:400, duration:200 },
+      { type:'node',   layer:1, x:290, y:80,  r:12, label:'', dim:true, delay:420, duration:200 },
+      { type:'node',   layer:1, x:325, y:80,  r:12, label:'', dim:true, delay:440, duration:200 },
+      { type:'node',   layer:1, x:360, y:80,  r:12, label:'', dim:true, delay:460, duration:200 },
+      { type:'arrow',  layer:2, x:220, y:105, ex:220, ey:145, gold:true, delay:620, duration:250 },
+      { type:'node',   layer:3, x:120, y:178, r:32, label:'Chunk\nABC', gold:true, delay:750, duration:350 },
+      { type:'node',   layer:3, x:220, y:178, r:32, label:'Chunk\nDEF', gold:true, delay:800, duration:350 },
+      { type:'node',   layer:3, x:320, y:178, r:32, label:'Chunk\nGHI', gold:true, delay:850, duration:350 },
+      { type:'label',  layer:3, x:280, y:250, text:'expertise compresses information into reusable units', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'working-memory': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:2, x:280, y:130, r:80,  gold:true, dim:true, delay:200, duration:400 },
+      { type:'label',  layer:2, x:280, y:42,  text:'WORKING MEMORY (~4 slots)', gold:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:3, x:230, y:100, r:28, label:'Item\n1', gold:true, delay:500, duration:300 },
+      { type:'node',   layer:3, x:330, y:100, r:28, label:'Item\n2', gold:true, delay:540, duration:300 },
+      { type:'node',   layer:3, x:230, y:162, r:28, label:'Item\n3', gold:true, delay:580, duration:300 },
+      { type:'node',   layer:3, x:330, y:162, r:28, label:'Item\n4', gold:true, delay:620, duration:300 },
+      { type:'node',   layer:1, x:450, y:90,  r:22, label:'5th?', dim:true, delay:750, duration:300 },
+      { type:'arrow',  layer:1, x:428, y:98,  ex:362, ey:107, dim:true, dashed:true, delay:850, duration:250 },
+      { type:'label',  layer:1, x:450, y:118, text:'displaced', dim:true, size:9, delay:950, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'cognitive load limits what we can hold in mind at once', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'distributed-cognition': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:280, y:130, r:40, label:'Mind', gold:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:135, y:80,  r:28, label:'Notes', dim:true, delay:400, duration:300 },
+      { type:'node',   layer:1, x:425, y:80,  r:28, label:'Tools', dim:true, delay:450, duration:300 },
+      { type:'node',   layer:1, x:135, y:185, r:28, label:'Others', dim:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:425, y:185, r:28, label:'Environment', dim:true, delay:550, duration:300 },
+      { type:'arrow',  layer:1, x:240, y:112, ex:162, ey:92,  dim:true, dashed:true, delay:700, duration:250 },
+      { type:'arrow',  layer:1, x:320, y:112, ex:398, ey:92,  dim:true, dashed:true, delay:730, duration:250 },
+      { type:'arrow',  layer:1, x:240, y:148, ex:162, ey:173, dim:true, dashed:true, delay:760, duration:250 },
+      { type:'arrow',  layer:1, x:320, y:148, ex:398, ey:173, dim:true, dashed:true, delay:790, duration:250 },
+      { type:'label',  layer:3, x:280, y:250, text:'cognition extends beyond the brain into the environment', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'cognitive-load': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:1, x:200, y:130, r:95, dim:true, delay:200, duration:400 },
+      { type:'label',  layer:1, x:200, y:42,  text:'COGNITIVE CAPACITY', dim:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:2, x:175, y:108, r:28, label:'Task\nA', delay:500, duration:300 },
+      { type:'node',   layer:2, x:225, y:108, r:28, label:'Task\nB', delay:540, duration:300 },
+      { type:'node',   layer:2, x:175, y:155, r:28, label:'Task\nC', delay:580, duration:300 },
+      { type:'node',   layer:3, x:225, y:155, r:28, label:'Task\nD', gold:true, delay:620, duration:300 },
+      { type:'ring',   layer:3, x:225, y:155, r:38, gold:true, dim:true, delay:700, duration:400 },
+      { type:'label',  layer:3, x:225, y:202, text:'overload', gold:true, size:9, delay:850, duration:200 },
+      { type:'node',   layer:3, x:400, y:130, r:42, label:'Performance\nDeclines', gold:true, delay:950, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'too many tasks splits attention and degrades all of them', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'street-light-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'ring',   layer:3, x:175, y:130, r:80,  gold:true, dim:true, delay:200, duration:500 },
+      { type:'label',  layer:3, x:175, y:42,  text:'EASY TO MEASURE', gold:true, size:9, delay:400, duration:200 },
+      { type:'node',   layer:3, x:175, y:130, r:45,  label:'Where\nWe Look', gold:true, delay:350, duration:450 },
+      { type:'ring',   layer:1, x:395, y:130, r:80,  dim:true, delay:700, duration:500 },
+      { type:'label',  layer:1, x:395, y:42,  text:'WHERE ANSWER IS', dim:true, size:9, delay:800, duration:200 },
+      { type:'node',   layer:1, x:395, y:130, r:45,  label:'Where\nIt Is', dim:true, delay:750, duration:450 },
+      { type:'label',  layer:3, x:280, y:250, text:'we research where data is easy, not where truth lives', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'goodharts-law': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:2, x:130, y:80,  r:38, label:'True\nGoal', gold:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:170, y:72,  ex:255, ey:72, gold:true, dashed:true, delay:500, duration:300 },
+      { type:'node',   layer:1, x:298, y:80,  r:38, label:'Metric\n(proxy)', dim:true, delay:650, duration:400 },
+      { type:'arrow',  layer:1, x:338, y:80,  ex:418, ey:80, dim:true, delay:800, duration:250 },
+      { type:'node',   layer:3, x:450, y:80,  r:28, label:'Metric\nGamed', gold:true, delay:900, duration:350 },
+      { type:'ring',   layer:3, x:450, y:80,  r:42, gold:true, dim:true, delay:950, duration:400 },
+      { type:'arrow',  layer:3, x:450, y:122, ex:320, ey:188, gold:true, delay:1050, duration:300 },
+      { type:'label',  layer:3, x:350, y:205, text:'true goal\nabandoned', gold:true, size:9, delay:1100, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'when a measure becomes a target, it ceases to be a good measure', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'cobra-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:110, y:130, r:38, label:'Problem', dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:2, x:150, y:118, ex:240, ey:90, gold:true, delay:500, duration:300 },
+      { type:'node',   layer:2, x:285, y:78,  r:38, label:'Well-\nIntended Fix', gold:true, delay:650, duration:400 },
+      { type:'arrow',  layer:3, x:325, y:82,  ex:410, ey:95, gold:true, delay:850, duration:300 },
+      { type:'node',   layer:3, x:445, y:110, r:35, label:'Worse\nProblem', gold:true, delay:1000, duration:400 },
+      { type:'arrow',  layer:1, x:445, y:145, ex:155, ey:165, dim:true, dashed:true, delay:1050, duration:400 },
+      { type:'label',  layer:1, x:300, y:185, text:'unintended\nconsequence', dim:true, size:9, delay:1150, duration:200 },
+      { type:'label',  layer:3, x:280, y:250, text:'interventions create incentives that backfire', dim:true, size:9, delay:1200, duration:300 }
+    ]
+  },
+
+  'lindy-effect': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'node',   layer:1, x:130, y:180, r:20, label:'New', dim:true, delay:400, duration:250 },
+      { type:'label',  layer:1, x:130, y:210, text:'uncertain life', dim:true, size:8, delay:550, duration:200 },
+      { type:'node',   layer:2, x:270, y:155, r:28, label:'10yr\nOld', delay:450, duration:300 },
+      { type:'label',  layer:2, x:270, y:195, text:'likely 10 more', size:8, delay:650, duration:200 },
+      { type:'node',   layer:3, x:430, y:110, r:40, label:'100yr\nOld', gold:true, delay:550, duration:400 },
+      { type:'label',  layer:3, x:430, y:165, text:'likely 100 more', gold:true, size:8, delay:750, duration:200 },
+      { type:'arrow',  layer:3, x:170, y:200, ex:410, ey:200, gold:true, dashed:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'survival predicts future survival — age implies longevity', dim:true, size:9, delay:1100, duration:300 }
+    ]
+  },
+
+  'mean-reversion': {
+    totalDuration: 1300,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:500, ey:220, dim:true, delay:200, duration:400 },
+      { type:'arrow',  layer:1, x:50,  y:220, ex:50,  ey:38,  dim:true, delay:200, duration:300 },
+      { type:'arrow',  layer:1, x:60,  y:140, ex:480, ey:140, dim:true, dashed:true, delay:400, duration:400 },
+      { type:'label',  layer:1, x:460, y:128, text:'mean', dim:true, size:8, delay:600, duration:200 },
+      { type:'curve',  layer:2, points:[{x:65,y:60},{x:130,y:55},{x:180,y:75},{x:220,y:140},{x:260,y:195},{x:310,y:185},{x:360,y:142},{x:410,y:108},{x:460,y:100}], delay:500, duration:600 },
+      { type:'node',   layer:3, x:130, y:52,  r:18, label:'↑', gold:true, delay:800, duration:250 },
+      { type:'node',   layer:3, x:260, y:198, r:18, label:'↓', gold:true, delay:850, duration:250 },
+      { type:'arrow',  layer:3, x:148, y:58,  ex:218, ey:130, gold:true, dashed:true, delay:950, duration:300 },
+      { type:'arrow',  layer:3, x:278, y:190, ex:355, ey:148, gold:true, dashed:true, delay:1000, duration:300 },
+      { type:'label',  layer:3, x:280, y:250, text:'extremes are temporary — regression is inevitable', dim:true, size:9, delay:1150, duration:300 }
+    ]
+  },
+
+  'complex-adaptive-systems': {
+    totalDuration: 1500,
+    elements: [
+      { type:'plane',  layer:0, x:20,  y:20,  w:520, h:240, delay:0,   duration:400 },
+      { type:'node',   layer:1, x:130, y:80,  r:18, label:'', dim:true, delay:300, duration:200 },
+      { type:'node',   layer:1, x:200, y:100, r:18, label:'', dim:true, delay:320, duration:200 },
+      { type:'node',   layer:1, x:155, y:155, r:18, label:'', dim:true, delay:340, duration:200 },
+      { type:'node',   layer:1, x:255, y:145, r:18, label:'', dim:true, delay:360, duration:200 },
+      { type:'node',   layer:1, x:300, y:80,  r:18, label:'', dim:true, delay:380, duration:200 },
+      { type:'node',   layer:1, x:360, y:165, r:18, label:'', dim:true, delay:400, duration:200 },
+      { type:'node',   layer:1, x:420, y:100, r:18, label:'', dim:true, delay:420, duration:200 },
+      { type:'arrow',  layer:1, x:148, y:83,  ex:182, ey:96,  dim:true, delay:550, duration:200 },
+      { type:'arrow',  layer:1, x:218, y:102, ex:237, ey:143, dim:true, delay:570, duration:200 },
+      { type:'arrow',  layer:1, x:272, y:142, ex:300, ey:98,  dim:true, delay:590, duration:200 },
+      { type:'arrow',  layer:1, x:318, y:84,  ex:402, ey:100, dim:true, delay:610, duration:200 },
+      { type:'arrow',  layer:1, x:378, y:158, ex:418, ey:118, dim:true, delay:630, duration:200 },
+      { type:'node',   layer:3, x:280, y:200, r:38, label:'Emergent\nBehavior', gold:true, delay:800, duration:500 },
+      { type:'ring',   layer:2, x:280, y:200, r:52, gold:true, dim:true, delay:900, duration:400 },
+      { type:'label',  layer:3, x:280, y:250, text:'simple rules generate unpredictable complex behaviour', dim:true, size:9, delay:1300, duration:300 }
+    ]
+  }
+
+};
+
+
+  
+  
 
 
 
