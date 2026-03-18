@@ -1,83 +1,464 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 — Wisdom Lost</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <title>404 — Wisdom Lost | WisdomInBites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
             --obsidian: #060810;
+            --obsidian-mid: #0c1120;
             --gold: #c9a84c;
+            --gold-bright: #e8c97a;
+            --gold-dim: #7a6230;
             --cream: #f5efe0;
             --cream-dim: #b8ad96;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(201, 168, 76, 0.15);
         }
 
-        body {
-            background-color: var(--obsidian);
-            color: var(--cream);
-            font-family: 'Playfair Display', serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-            overflow: hidden;
-        }
+```
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-        .error-num {
-            font-size: 8rem;
-            font-weight: 900;
-            font-style: italic;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--gold);
-            margin-bottom: 0;
-            line-height: 1;
-        }
+    body {
+        background-color: var(--obsidian);
+        color: var(--cream);
+        font-family: 'Playfair Display', serif;
+        min-height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
 
-        h1 {
-            font-size: 2rem;
-            margin-top: 0;
-            color: var(--cream);
-        }
+    /* ── BACKGROUND LAYERS ── */
+    .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+    }
 
-        p {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--cream-dim);
-            max-width: 400px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-        }
+    /* Radial glow — deep amber like the landing hero */
+    .bg-glow {
+        background:
+            radial-gradient(ellipse 70% 50% at 50% 60%, rgba(201, 168, 76, 0.07) 0%, transparent 70%),
+            radial-gradient(ellipse 40% 40% at 20% 20%, rgba(201, 168, 76, 0.04) 0%, transparent 60%),
+            radial-gradient(ellipse 30% 30% at 80% 80%, rgba(100, 80, 20, 0.05) 0%, transparent 60%);
+    }
 
-        .btn-home {
-            font-family: 'DM Mono', monospace;
-            text-decoration: none;
-            color: var(--obsidian);
-            background: var(--gold);
-            padding: 12px 30px;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
+    /* Fine grain texture */
+    .bg-grain {
+        opacity: 0.35;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 200px 200px;
+    }
 
-        .btn-home:hover {
-            background: #e8c97a;
-            transform: translateY(-3px);
-        }
-    </style>
+    /* Horizontal rule lines — architectural feel */
+    .bg-lines {
+        background-image:
+            linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+        background-size: 100% 80px;
+    }
+
+    /* ── NAV ── */
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 48px;
+        border-bottom: 1px solid var(--glass-border);
+        background: rgba(6, 8, 16, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        animation: fadeDown 0.8s ease both;
+    }
+
+    .nav-logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+        text-decoration: none;
+    }
+
+    .nav-tag {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+        position: relative;
+        z-index: 10;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 24px 60px;
+        text-align: center;
+    }
+
+    /* ── GLASS CARD ── */
+    .glass-card {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        padding: 60px 56px 52px;
+        max-width: 620px;
+        width: 100%;
+        position: relative;
+        animation: riseUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    /* Corner accents — matches landing page's geometric style */
+    .glass-card::before,
+    .glass-card::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-color: var(--gold);
+        border-style: solid;
+    }
+    .glass-card::before {
+        top: -1px; left: -1px;
+        border-width: 1px 0 0 1px;
+    }
+    .glass-card::after {
+        bottom: -1px; right: -1px;
+        border-width: 0 1px 1px 0;
+    }
+
+    /* ── EYEBROW LABEL ── */
+    .eyebrow {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        animation: fadeIn 0.8s ease 0.5s both;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 32px;
+        background: var(--gold-dim);
+    }
+
+    /* ── 404 NUMBER ── */
+    .error-num {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(5rem, 18vw, 9rem);
+        font-weight: 700;
+        font-style: italic;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--gold);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-bottom: 4px;
+        animation: fadeIn 0.9s ease 0.3s both;
+        /* Subtle shimmer on the stroke */
+        filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.25));
+    }
+
+    /* ── HEADLINE ── */
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        font-weight: 700;
+        color: var(--cream);
+        margin-bottom: 20px;
+        line-height: 1.2;
+        animation: fadeIn 0.8s ease 0.6s both;
+    }
+
+    h1 em {
+        font-style: italic;
+        color: var(--gold);
+    }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--cream-dim);
+        max-width: 380px;
+        margin: 0 auto 36px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        line-height: 1.9;
+        animation: fadeIn 0.8s ease 0.75s both;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+        width: 48px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+        margin: 0 auto 32px;
+        animation: fadeIn 0.8s ease 0.8s both;
+    }
+
+    /* ── MENTAL MODEL HINT ── */
+    .model-hint {
+        background: rgba(201, 168, 76, 0.05);
+        border: 1px solid rgba(201, 168, 76, 0.12);
+        padding: 20px 28px;
+        margin-bottom: 40px;
+        animation: fadeIn 0.8s ease 0.9s both;
+    }
+
+    .model-hint .model-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 8px;
+    }
+
+    .model-hint .model-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 0.95rem;
+        font-style: italic;
+        color: var(--cream-dim);
+        line-height: 1.6;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-group {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeIn 0.8s ease 1s both;
+    }
+
+    .btn-primary {
+        font-family: 'DM Mono', monospace;
+        text-decoration: none;
+        color: var(--obsidian);
+        background: var(--gold);
+        padding: 13px 32px;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        display: inline-block;
+    }
+
+    .btn-primary:hover {
+        background: var(--gold-bright);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(201, 168, 76, 0.2);
+    }
+
+    .btn-secondary {
+        font-family: 'DM Mono', monospace;
+        text-decoration: none;
+        color: var(--gold);
+        border: 1px solid var(--gold-dim);
+        padding: 13px 32px;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        background: transparent;
+        display: inline-block;
+    }
+
+    .btn-secondary:hover {
+        border-color: var(--gold);
+        color: var(--gold-bright);
+        transform: translateY(-3px);
+    }
+
+    /* ── FOOTER STRIP ── */
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 18px 48px;
+        border-top: 1px solid var(--glass-border);
+        background: rgba(6, 8, 16, 0.5);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        animation: fadeUp 0.8s ease 1.1s both;
+    }
+
+    footer span {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+        opacity: 0.5;
+    }
+
+    /* ── FLOATING PARTICLES ── */
+    .particles {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .particle {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        background: var(--gold);
+        border-radius: 50%;
+        opacity: 0;
+        animation: drift linear infinite;
+    }
+
+    .particle:nth-child(1)  { left: 10%; animation-duration: 14s; animation-delay: 0s;    width: 1px; height: 1px; }
+    .particle:nth-child(2)  { left: 25%; animation-duration: 18s; animation-delay: 2s;    width: 2px; height: 2px; opacity: 0; }
+    .particle:nth-child(3)  { left: 40%; animation-duration: 12s; animation-delay: 1s; }
+    .particle:nth-child(4)  { left: 60%; animation-duration: 20s; animation-delay: 3s;    width: 2px; height: 2px; }
+    .particle:nth-child(5)  { left: 75%; animation-duration: 16s; animation-delay: 0.5s; }
+    .particle:nth-child(6)  { left: 88%; animation-duration: 22s; animation-delay: 4s;    width: 2px; height: 2px; }
+    .particle:nth-child(7)  { left: 50%; animation-duration: 11s; animation-delay: 6s; }
+    .particle:nth-child(8)  { left: 33%; animation-duration: 17s; animation-delay: 1.5s;  width: 2px; height: 2px; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-12px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes riseUp {
+        from { opacity: 0; transform: translateY(40px) scale(0.97); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes drift {
+        0%   { bottom: -10px; opacity: 0; }
+        10%  { opacity: 0.4; }
+        90%  { opacity: 0.15; }
+        100% { bottom: 105vh; opacity: 0; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+        nav { padding: 20px 24px; }
+        .nav-tag { display: none; }
+        .glass-card { padding: 44px 28px 40px; }
+        footer { padding: 14px 24px; }
+    }
+</style>
+```
+
 </head>
 <body>
 
-    <div class="error-num">404</div>
-    <h1>Wisdom Lost.</h1>
-    <p>Even the most logical minds take a wrong turn sometimes. This page doesn't exist.</p>
-    
-    <a href="index.html" class="btn-home">Return to Wisdom</a>
+```
+<!-- Background -->
+<div class="bg-layer bg-lines"></div>
+<div class="bg-layer bg-glow"></div>
+<div class="bg-layer bg-grain"></div>
+
+<!-- Floating particles -->
+<div class="particles" aria-hidden="true">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Nav -->
+<nav>
+    <a href="index.html" class="nav-logo">WisdomInBites</a>
+    <span class="nav-tag">Error — 404</span>
+</nav>
+
+<!-- Main -->
+<main>
+    <div class="glass-card">
+
+        <div class="eyebrow">Navigation Error</div>
+
+        <div class="error-num">404</div>
+
+        <h1>Wisdom <em>Lost.</em></h1>
+
+        <div class="divider"></div>
+
+        <p class="body-text">
+            Even the most logical minds take a wrong turn sometimes.<br>
+            This page doesn't exist — but your thinking can still improve.
+        </p>
+
+        <!-- Inline mental model nudge — branded to the site -->
+        <div class="model-hint">
+            <div class="model-label">Mental Model — Inversion</div>
+            <div class="model-text">
+                "Instead of asking how to find the page, ask: how did I end up here?"
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="index.html" class="btn-primary">Return to Wisdom</a>
+            <a href="library.html" class="btn-secondary">Browse the Library</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <span>© 2026 WisdomInBites</span>
+    <span>All Rights Reserved</span>
+</footer>
+```
 
 </body>
 </html>
