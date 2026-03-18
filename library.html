@@ -985,5 +985,255 @@ const lessonData = {
   ],
 
 
+// ─── ALL LESSONS flat list for overlay navigation ─────────────
+const allLessons = [
+  ...lessonData.biases.map(l=>({...l,type:'bias'})),
+  ...lessonData.models.map(l=>({...l,type:'model'}))
+];
+
+// ─── STATE ────────────────────────────────────────────────────
+let currentFilter = 'all';
+let currentSearch = '';
+let currentLessonIndex = -1;
+let visibleLessons = allLessons;
+let speechUtterance = null;
+let isSpeaking = false;
+let speechRate = 1;
+
+// ─── PERSISTENT STORAGE + STREAK ──────────────────────────────
+const readLessons = new Set();
+const STORAGE_KEY = 'wib-progress-v2';
+const streakState = { count: 0, lastDate: null };
+
+async function loadProgress() {
+  if (window.storage) {
+    try {
+      const result = await window.storage.get(STORAGE_KEY);
+      if (result && result.value) {
+        const data = JSON.parse(result.value);
+        if (data.read) data.read.forEach(id => readLessons.add(id));
+        if (data.streak) {
+          streakState.count = data.streak.count || 0;
+          streakState.lastDate = data.streak.lastDate || null;
+        }
+        return;
+      }
+    } catch(e) { console.warn('window.storage load failed:', e); }
+  }
+  try {
+    const old = localStorage.getItem('wib_read');
+    if (old) {
+      JSON.parse(old).forEach(id => readLessons.add(id));
+      await saveProgress();
+    }
+  } catch(e) {}
+}
+
+async function saveProgress() {
+  const data = {
+    read: [...readLessons],
+    streak: { count: streakState.count, lastDate: streakState.lastDate },
+    lastVisit: new Date().toDateString(),
+    version: 2
+  };
+  const json = JSON.stringify(data);
+  if (window.storage) {
+    try { await window.storage.set(STORAGE_KEY, json); return; }
+    catch(e) { console.warn('window.storage save failed:', e); }
+  }
+  try { localStorage.setItem('wib_read', JSON.stringify([...readLessons])); } catch(e) {}
+}
+
+function touchStreak() {
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  if (streakState.lastDate === today) return;
+  if (streakState.lastDate === yesterday) {
+    streakState.count = (streakState.count || 0) + 1;
+  } else {
+    streakState.count = 1;
+  }
+  streakState.lastDate = today;
+  updateStreakDisplay();
+  saveProgress();
+}
+
+function updateStreakDisplay() {
+  const el = document.getElementById('streakDisplay');
+  if (!el) return;
+  if (streakState.count >= 2) {
+    el.textContent = `${streakState.count}d 🔥`;
+    el.title = `${streakState.count}-day streak!`;
+  } else if (streakState.count === 1) {
+    el.textContent = `1d ✦`;
+    el.title = 'Come back tomorrow to build a streak!';
+  } else {
+    el.textContent = '';
+  }
+}
+
+function updateProgressBar() {
+  const total = allLessons.length;
+  const done = readLessons.size;
+  const pct = total > 0 ? ((done / total) * 100).toFixed(1) : 0;
+  const bar = document.getElementById('progressBar');
+  const label = document.getElementById('progressLabel');
+  const count = document.getElementById('completedCount');
+  const navDone = document.getElementById('navDoneDisplay');
+  if (bar) bar.style.width = pct + '%';
+  if (label) label.textContent = `${done} / ${total} complete`;
+  if (count) count.textContent = done;
+  if (navDone) navDone.textContent = done > 0 ? `${done} done` : '';
+}
+
+function updateAllUI() {
+  updateProgressBar();
+  updateStreakDisplay();
+}
+
+function renderTodayStudy() {
+  const container = document.getElementById('todayCards');
+  if (!container) return;
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth()+1) * 100 + today.getDate();
+  const biasIdx = seed % lessonData.biases.length;
+  const modelIdx = (seed * 7919) % lessonData.models.length;
+  const picks = [
+    { ...lessonData.biases[biasIdx], type:'bias' },
+    { ...lessonData.models[modelIdx], type:'model' }
+  ];
+  container.innerHTML = picks.map(l => `
+    <div class="today-card${readLessons.has(l.id)?' already-read':''}" onclick="openLesson('${l.id}')">
+      <span class="today-card-icon">${l.icon}</span>
+      <div class="today-card-info">
+        <div class="today-card-title">${l.title}</div>
+        <span class="today-card-tag">${l.type==='bias'?'⚡ Bias':'🔭 Model'} · ${l.difficulty}</span>
+      </div>
+      <span class="today-card-arrow">→</span>
+    </div>
+  `).join('');
+}
+
+// ─── CURSOR ───────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animC(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  cursor.style.cssText=`left:${mx}px;top:${my}px`;
+  ring.style.cssText=`left:${rx}px;top:${ry}px`;
+  requestAnimationFrame(animC);
+})();
+
+// ─── STARFIELD CANVAS ─────────────────────────────────────────
+const starCanvas = document.getElementById('starfield');
+const ctx = starCanvas.getContext('2d');
+let W,H,mousePos={x:0,y:0},t=0;
+let deepStars=[],midStars=[],fgStars=[],nebulae=[],shooters=[],ripples=[];
+
+function resizeCanvas(){W=starCanvas.width=window.innerWidth;H=starCanvas.height=window.innerHeight;}
+
+function initScene(){
+  deepStars=[];midStars=[];fgStars=[];nebulae=[];shooters=[];
+  for(let i=0;i<300;i++) deepStars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*.5+.1,alpha:Math.random()*.3+.05,vx:(Math.random()-.5)*.015,vy:(Math.random()-.5)*.015,pulse:Math.random()*Math.PI*2,ps:Math.random()*.003+.001});
+  for(let i=0;i<150;i++) midStars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*.9+.2,alpha:Math.random()*.5+.1,vx:(Math.random()-.5)*.04,vy:(Math.random()-.5)*.04,pulse:Math.random()*Math.PI*2,ps:Math.random()*.006+.003});
+  for(let i=0;i<50;i++) fgStars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.6,alpha:Math.random()*.7+.2,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08,pulse:Math.random()*Math.PI*2,ps:Math.random()*.01+.005,glowing:Math.random()>.6});
+  for(let i=0;i<5;i++) nebulae.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*200+120,alpha:Math.random()*.04+.015,vx:(Math.random()-.5)*.06,vy:(Math.random()-.5)*.04,hue:Math.random()>.5?'201,168,76':'74,158,186',pulse:Math.random()*Math.PI*2,ps:.002});
+}
+
+function spawnShooter(){
+  const side=Math.random();
+  let sx,sy,angle;
+  if(side<.5){sx=Math.random()*W;sy=0;angle=Math.PI/4+Math.random()*.4;}
+  else{sx=0;sy=Math.random()*H*.5;angle=Math.random()*.3-.1;}
+  shooters.push({x:sx,y:sy,vx:Math.cos(angle)*12,vy:Math.sin(angle)*10,len:Math.random()*80+60,alpha:1,trail:[]});
+}
+
+function drawLayer(stars,mouseParallax){
+  if(mouseParallax===.4){
+    for(let i=0;i<stars.length;i++){
+      for(let j=i+1;j<stars.length;j++){
+        const dx=stars[i].x-stars[j].x,dy=stars[i].y-stars[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<90){ctx.beginPath();ctx.moveTo(stars[i].x,stars[i].y);ctx.lineTo(stars[j].x,stars[j].y);ctx.strokeStyle=`rgba(201,168,76,${0.018*(1-d/90)})`;ctx.lineWidth=.4;ctx.stroke();}
+      }
+    }
+  }
+  stars.forEach(s=>{
+    s.pulse+=s.ps;
+    const a=s.alpha*(.65+.35*Math.sin(s.pulse));
+    s.x+=s.vx+(mousePos.x/W-.5)*mouseParallax;
+    s.y+=s.vy+(mousePos.y/H-.5)*mouseParallax*.6;
+    if(s.x<-2)s.x=W+2;if(s.x>W+2)s.x=-2;if(s.y<-2)s.y=H+2;if(s.y>H+2)s.y=-2;
+    if(s.glowing){
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r*2.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(201,168,76,${a*.12})`;ctx.fill();
+    }
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(201,168,76,${a})`;ctx.fill();
+  });
+}
+
+function drawNebulae(){
+  nebulae.forEach(n=>{
+    n.pulse+=n.ps;
+    const a=n.alpha*(.8+.2*Math.sin(n.pulse));
+    n.x+=n.vx+(mousePos.x/W-.5)*.15;
+    n.y+=n.vy+(mousePos.y/H-.5)*.1;
+    if(n.x<-n.r)n.x=W+n.r;if(n.x>W+n.r)n.x=-n.r;if(n.y<-n.r)n.y=H+n.r;if(n.y>H+n.r)n.y=-n.r;
+    const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);
+    g.addColorStop(0,`rgba(${n.hue},${a})`);
+    g.addColorStop(.5,`rgba(${n.hue},${a*.3})`);
+    g.addColorStop(1,`rgba(${n.hue},0)`);
+    ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle=g;ctx.fill();
+  });
+}
+
+function drawShooters(){
+  shooters=shooters.filter(s=>s.alpha>.01);
+  shooters.forEach(s=>{
+    s.trail.push({x:s.x,y:s.y});
+    if(s.trail.length>20)s.trail.shift();
+    s.x+=s.vx;s.y+=s.vy;s.alpha-=.025;
+    for(let i=1;i<s.trail.length;i++){
+      const prog=i/s.trail.length;
+      ctx.beginPath();ctx.moveTo(s.trail[i-1].x,s.trail[i-1].y);ctx.lineTo(s.trail[i].x,s.trail[i].y);
+      ctx.strokeStyle=`rgba(232,201,122,${prog*s.alpha*.8})`;ctx.lineWidth=prog*1.5;ctx.stroke();
+    }
+    const hg=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,4);
+    hg.addColorStop(0,`rgba(255,240,180,${s.alpha})`);hg.addColorStop(1,'rgba(255,240,180,0)');
+    ctx.beginPath();ctx.arc(s.x,s.y,4,0,Math.PI*2);ctx.fillStyle=hg;ctx.fill();
+  });
+  if(Math.random()<.004) spawnShooter();
+}
+
+function drawRipples(){
+  ripples=ripples.filter(r=>r.alpha>.005);
+  ripples.forEach(r=>{
+    r.radius+=2.5;r.alpha*=.93;
+    ctx.beginPath();ctx.arc(r.x,r.y,r.radius,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(201,168,76,${r.alpha})`;ctx.lineWidth=1;ctx.stroke();
+  });
+}
+
+function drawBg(){
+  ctx.fillStyle='rgba(6,8,16,0.18)';ctx.fillRect(0,0,W,H);
+  drawNebulae();
+  drawLayer(deepStars,.08);
+  drawLayer(midStars,.4);
+  drawLayer(fgStars,.9);
+  drawShooters();
+  drawRipples();
+  t++;
+  requestAnimationFrame(drawBg);
+}
+
+starCanvas.addEventListener('click',e=>{
+  for(let i=0;i<3;i++) ripples.push({x:e.clientX,y:e.clientY,radius:0,alpha:.5});
+});
+document.addEventListener('mousemove',e=>{mousePos.x=e.clientX;mousePos.y=e.clientY;});
+window.addEventListener('resize',()=>{resizeCanvas();initScene();});
+resizeCanvas();initScene();drawBg();
 
 
